@@ -1,0 +1,16 @@
+{
+  "name": "caminio-lineup",
+  "description": "lineup / programme gear for caminio cms allowing to add activities / events and organize them",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "caminio": "~1.1.0",
+    "grunt": "~0.4.2"
+  },
+  "devDependencies": {
+    "caminio-fixtures": "git://github.com/caminio/caminio-fixtures#master",
+    "grunt-mocha-test": "~0.9.4"
+  },
+  "main": "index.js",
+  "license": "MIT"
+}

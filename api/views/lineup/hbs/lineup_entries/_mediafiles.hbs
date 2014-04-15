@@ -1,0 +1,32 @@
+<h4 class="mini-title">{{model.mediafiles.length}} {{t 'item.mediafiles'}}</h4>
+<div class="mediafiles-list row">
+  {{#each mediafiles itemController='shop_item_mediafile'}}
+    <div class="col-xs-6 col-md-3">
+      <a href="#" class="thumbnail">
+        <img {{bind-attr src='url'}} {{bind-attr alt='name'}}>
+        <span {{action 'removeMediafile'}} class="remove"
+                {{translateAttr title='file.delete'}}>
+          <i class="fa fa-times"></i>
+        </span>
+      </a>
+    </div>
+  {{/each}}
+  <div class="col-xs-6 col-md-3">
+    <div class="thumbnail thumbnail-upload">
+      
+      <div class="progress progress-striped" id="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+          <span class="sr-only"><span class="perc-text">60%</span> {{t 'perc_completed'}}</span>
+        </div>
+      </div>
+
+      <div class="title">
+        <i class="fa fa-upload"></i><br>
+        {{t 'drop_files_here'}}
+      </div>
+
+      <input id="fileupload" type="file" name="files[]" multiple>
+
+    </div>
+  </div>
+</div>

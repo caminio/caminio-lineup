@@ -1,0 +1,51 @@
+<div class="box fill-box">
+
+  <div class="box-header">
+
+    <button class="close btn" 
+            {{translateAttr title='close'}}
+            {{action 'closeDetails'}}>
+      <i class="fa fa-times"></i>
+    </button>
+
+    <button class="btn icon-text highlight-danger"
+            {{action 'removeItem'}}>
+      <i class="fa fa-trash-o"></i>
+      {{t 'delete'}}
+    </button>
+    
+    <button {{bind-attr class='model.isDirty:primary :btn :icon-text'}}
+            {{action 'saveDetails'}}>
+      <i class="fa fa-save"></i>
+      {{t 'save'}}
+    </button>
+
+    <div class="box-title">
+      {{t 'item.nr'}}
+      {{model.itemNum}}
+      :
+      {{model.name}}
+    </div>
+  </div>
+
+
+  <form class="caminio form-horizontal">
+    <div class="box-body">
+      {{partial 'lineup_entries/form'}}
+
+      <div class="preview-files">
+        {{partial 'lineup_entries/mediafiles'}}
+      </div>
+    </div>
+
+    <div class="default-padding align-right">
+      <button {{bind-attr class='model.isDirty:primary :btn :icon-text'}}
+              {{action 'saveDetails'}}
+              type='submit'>
+        <i class="fa fa-save"></i>
+        {{t 'save'}}
+      </button>
+    </div>
+  </form>
+
+</div>

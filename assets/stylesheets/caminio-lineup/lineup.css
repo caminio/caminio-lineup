@@ -1,0 +1,52 @@
+.search-box{
+  margin-left: 20px;
+}
+
+.entries-table .order-num,
+.entries-table .item-num{
+  width: 70px;
+}
+
+.entries-table .check{
+  width: 50px;  
+}
+
+.entries-table .short-info{
+  display: none;
+}
+.col-md-4 .entries-table .short-info{
+  display: block;
+}
+
+.col-md-4 .entries-table th:not(.short-info),
+.col-md-4 .entries-table td:not(.short-info){
+  display: none;
+}
+
+
+.mediafiles-list .thumbnail{
+  position: relative;
+  min-height: 100px;
+}
+.mediafiles-list .remove{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 25%;
+  border: none;
+  text-align: center;
+}
+
+.mediafiles-list .remove .fa{
+  font-size: 3em;
+  line-height: 1em;
+  padding: 20px;
+  color: #d00;
+  background: rgba(255,255,255,0.5);
+  display: none;
+}
+
+.mediafiles-list .thumbnail:hover .fa{
+  display: block;
+}

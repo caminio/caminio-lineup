@@ -1,0 +1,33 @@
+ <table class="caminio">
+  <thead>
+    <tr>
+      <th>{{t item.name}}</th>
+      <th>{{t item.price}}</th>
+      <th>{{t item.in_stock}}</th>
+      <th>{{t item.published}}</th>
+      <th>{{t item.categories}}</th>
+      <th class="actions align-right"></th>
+    </tr>
+  </thead>
+
+  {{#each controller}}
+    <tr>
+      <td {{action goToShopItem this on='doubleClick'}}>{{name}}</td>
+      <td {{action goToShopItem this on='doubleClick'}}>{{price}}</td>
+      <td {{action goToShopItem this on='doubleClick'}}>{{in_stock}}</td>
+      <td {{action goToShopItem this on='doubleClick'}}>{{published}}</td>
+      <td {{action goToShopItem this on='doubleClick'}}>{{categories}}</td>
+      <td class="actions align-right">
+        <div class="btn-group">
+          <a class="btn small" {{action goToShopItem this}} {{translateAttr title='edit'}}>
+            <i class="fa fa-pencil"></i>
+          </a>
+          <a class="btn small" {{action remove this}} {{translateAttr title='remove'}}>
+            <i class="fa fa-trash-o"></i>
+          </a>
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+
+</table>

@@ -1,0 +1,20 @@
+<div class="box fill-box search-box">
+
+  <div class="form-group search-group">
+    <input type="text" class="form-control no-border" id="quick-search"
+          {{translateAttr placeholder='entries.search.quick'}} />
+
+    <button class="search-btn transparent" 
+            id="search-btn"
+            {{translateAttr title="entries.search"}}
+            {{action search true}}>
+            <i class="fa fa-search"></i>
+    </button>
+    <button class="adv-search-btn transparent" 
+            {{translateAttr title='entries.search.advanced'}}
+            {{action toggleAdvSearch}}>
+            <i class="fa fa-gears"></i>
+    </button>
+  </div>
+  
+</div>

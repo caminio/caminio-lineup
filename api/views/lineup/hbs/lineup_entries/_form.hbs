@@ -1,0 +1,87 @@
+<div class="form-item-container" {{bind-attr data-id='model.id'}}>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label required">{{t 'item.nr'}}</label>
+    <div class="col-md-4">
+      {{input valueBinding='model.itemNum' class='form-control'}}
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label required">{{t 'item.name'}}</label>
+    <div {{bind-attr class=":col-md-10 nameError:field-with-error"}}>
+      {{input valueBinding='model.name' class='form-control'}}
+      {{#if nameError}}<span class="help-block">{{errors.name}}</span>{{/if}}
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'item.description'}}</label>
+    <div class="col-md-10">
+      {{textarea valueBinding='model.description' class='form-control'}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'item.price'}}</label>
+    <div class="col-md-2">
+      {{input valueBinding='model.priceExcl' class='form-control number-picker'}}
+      <div class="help-block">{{t 'item.price_excl'}}</div>
+    </div>
+    <div class="col-md-2">
+      {{input valueBinding='model.currency' class='form-control'}}
+      <div class="help-block">{{t 'item.currency'}}</div>
+    </div>
+
+    <div class="col-md-2">
+      {{input valueBinding='model.vat' class='form-control number-picker'}}
+      <div class="help-block">{{t 'item.vat'}}</div>
+    </div>
+
+    <div class="col-md-2">
+      {{input valueBinding='model.priceIncl' class='form-control number-picker'}}
+      <div class="help-block">{{t 'item.price_incl'}}</div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'item.in_stock'}}</label>
+    <div class="col-md-2">
+      {{input valueBinding='model.in_stock' class='form-control'}}
+      <div class="help-block">{{t 'item.in_stock_desc'}}</div>
+    </div>
+
+    <div class="col-md-8 control-label">
+      {{input type='checkbox' checked=model.unlimited}}
+      <label>{{t 'item.unlimited'}}</label>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'item.categories'}}</label>
+    <div class="col-md-10">
+      {{view App.Select2TagView
+            valueBinding='model.categories'
+            tagsBinding='shopCategories'}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+    <div class="required-exp col-md-12 align-right">
+      <span style="color: #d00">*</span>{{t required_fields}}
+    </div>
+  </div>
+
+</div>
