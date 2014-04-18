@@ -1,41 +1,57 @@
-<div class="box fill-box">
+<section class="plain-wrapper">
 
-  <div class="box-header">
+  <header>
 
-    <button class="close btn" 
-            {{translateAttr title='close'}}
-            {{action 'closeDetails'}}>
-      <i class="fa fa-times"></i>
-    </button>
-    
-    <button {{bind-attr class='model.isDirty:primary :btn :icon-text'}}
-            {{action 'saveDetails'}}>
-      <i class="fa fa-save"></i>
-      {{t 'create'}}
-    </button>
+    <div class="title-box">
+      <div class="main-ctrl">
 
-    <div class="box-title">
-      {{t 'item.nr'}}
-      {{model.entryId}}
-      :
-      {{model.curTranslation.title}}
+        <button class="btn icon-text"
+                {{action 'cancelNewEntry'}}>
+          <i class="fa fa-times"></i>
+          {{t 'cancel'}}
+        </button>
+        
+        <button {{bind-attr class='isDirty:primary :btn :icon-text'}}
+                {{action 'save'}}>
+          <i class="fa fa-save"></i>
+          {{t 'save'}}
+        </button>
+
+      </div>
+
+      <h1>
+        <span class="desc">{{t 'entry.title'}}</span><br>
+        {{#if curTranslation.title}}
+          {{curTranslation.title}}
+        {{else}}
+          I
+        {{/if}}
+      </h1>
+
     </div>
+
+  </header>
+
+  <div class="row span-row">
+
+    <div class="col-md-8">
+      <div class="box fill-box default-padding">
+        {{partial 'lineup_entries/form'}}
+      </div>
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="box fill-box">
+        <h1>Events</h1>
+      </div>
+
+      <div class="box fill-box">
+        <h1>Photos</h1>
+      </div>
+
+    </div>
+
   </div>
 
-
-  <form class="caminio form-horizontal">
-    <div class="box-body">
-      {{partial 'lineup_entries/form'}}
-    </div>
-
-    <div class="default-padding align-right">
-      <button {{bind-attr class='model.isDirty:primary :btn :icon-text'}}
-              {{action 'saveDetails'}}
-              type='submit'>
-        <i class="fa fa-save"></i>
-        {{t 'save'}}
-      </button>
-    </div>
-  </form>
-
-</div>
+</section>

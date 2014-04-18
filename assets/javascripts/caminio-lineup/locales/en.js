@@ -20,6 +20,10 @@
     'entry.date': 'Date',
     'entry.venues': 'Venue(s)',
     'entry.create': 'Create new line up entry',
+    'entry.description': 'Description',
+    'entry.meta_keywords': 'Keywords',
+    'entry.author': 'Author',
+    'entry.director': 'Director',
 
     'entries.search': 'Search',
     'entries.search.quick': 'Quick search',

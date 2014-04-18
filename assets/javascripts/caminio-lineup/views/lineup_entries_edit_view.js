@@ -6,10 +6,6 @@
 
     didInsertElement: function(){
 
-      $('#search-entries').hide();
-      $('#entries-table').addClass('col-md-4').removeClass('col-md-8');
-      $('#entry-details').delay(500).fadeIn();
-
       var controller = this.get('controller');
 
       $('#fileupload').fileupload({
