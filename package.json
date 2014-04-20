@@ -5,6 +5,8 @@
   "private": false,
   "dependencies": {
     "caminio": "~1.1.0",
+    "caminio-media": "~0.0.1",
+    "caminio-rocksol": "~0.0.1",
     "grunt": "~0.4.2"
   },
   "devDependencies": {
