@@ -4,7 +4,7 @@
 
     <label class="col-md-2 control-label required">{{t 'entry.title'}}</label>
     <div {{bind-attr class=":col-md-10 titleError:field-with-error"}}>
-      {{input valueBinding='curTranslation.title' class='form-control'}}
+      {{input valueBinding='curTranslation.title' class='form-control' id="entry-title"}}
       {{#if titleError}}<span class="help-block">{{errors.title}}</span>{{/if}}
     </div>
 
@@ -23,7 +23,6 @@
 
     <label class="col-md-2 control-label">{{t 'entry.description'}}</label>
     <div class="col-md-10 inline-editor">
-
       {{view App.CodeMirrorView
             valueBinding='curTranslation.content'}}
     </div>

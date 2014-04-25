@@ -33,22 +33,48 @@
     <div class="input-group video">
       {{input valueBinding='videoId' 
               class='form-control' 
-              placeholderTranslation='entry.linked_media_placeholder'
-              titleTranslation='entry.linked_media_desc'}}
+              placeholderTranslation='entry.linked_media_placeholder'}}
       <span {{bind-attr class=":input-group-addon isVimeo::active"}}
-            {{translateAttr title="entry.youtube"}}
-            {{action 'toggleVideoProvider'}}>
+            {{action 'toggleVideoProvider'}}
+            data-toggle="popover"
+            id="youtube-link">
         <i class="fa fa-youtube-play"></i>
       </span>
       <span {{bind-attr class=":input-group-addon isVimeo:active"}}
-            {{translateAttr title="entry.vimeo"}}
-            {{action 'toggleVideoProvider'}}>
+            {{action 'toggleVideoProvider'}}
+            data-toggle="popover"
+            id="vimeo-link">
         <i class="fa fa-vimeo-square"></i>
       </span>
     </div>
     <div class="help-block desc align-right">{{t 'entry.video_switch'}}</div>
-    
+
   </div>
 
+  <div id="youtube-link-content" class="hide">
+    {{#unless isVimeo}}
+      {{#if videoId}}
+        <iframe width="320" height="240" 
+                {{bind-attr src='youtubeVideoURL'}}
+                frameborder="0" allowfullscreen></iframe>
+      {{else}}
+        <p>{{t 'entry.youtube_desc'}}</p>
+      {{/if}}
+    {{/unless}}
+  </div>
+
+  <div id="vimeo-link-content" class="hide">
+    {{#if isVimeo}}
+      {{#if videoId}}
+
+        <iframe {{bind-attr src='vimeoVideoURL'}}
+                width="320" height="180" 
+                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+      {{else}}
+        <p>{{t 'entry.vimeo_desc'}}</p>
+      {{/if}}
+    {{/if}}
+  </div>
 
 </form>

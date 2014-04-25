@@ -63,3 +63,7 @@
 .input-group.video .input-group-addon{
   cursor: pointer;
 }
+
+.input-group.video .popover{
+  max-width: 350px;
+}

@@ -1,45 +1,61 @@
-<div class="box fill-box">
+<section class="plain-wrapper">
 
-  <div class="box-header">
+  <header>
 
-    <button class="btn icon-text highlight-danger"
-            {{action 'removeItem'}}>
-      <i class="fa fa-trash-o"></i>
-      {{t 'delete'}}
-    </button>
-    
-    <button {{bind-attr class='model.isDirty:primary :btn :icon-text'}}
-            {{action 'saveDetails'}}>
-      <i class="fa fa-save"></i>
-      {{t 'save'}}
-    </button>
+    <div class="title-box">
+      <div class="main-ctrl">
 
-    <div class="box-title">
-      {{t 'item.nr'}}
-      {{model.itemNum}}
-      :
-      {{model.name}}
+        <button class="btn icon-text"
+                {{action 'goToEntries'}}>
+          <i class="fa fa-arrow-left"></i>
+          {{t 'back'}}
+        </button>
+        
+        <button {{bind-attr class='isDirty:primary curTranslation.isDirty:primary :btn :icon-text'}}
+                {{action 'save'}}>
+          <i class="fa fa-save"></i>
+          {{t 'save'}}
+        </button>
+
+      </div>
+
+      <h1>
+        <span class="desc">{{t 'entry.title'}}</span><br>
+        {{#if curTranslation.title}}
+          {{curTranslation.title}}
+        {{else}}
+          I
+        {{/if}}
+      </h1>
+
     </div>
-  </div>
 
+  </header>
 
-  <form class="caminio form-horizontal">
-    <div class="box-body">
-      {{partial 'lineup_entries/form'}}
+  <div class="row span-row">
 
-      <div class="preview-files">
-        {{partial 'lineup_entries/mediafiles'}}
+    <div class="col-md-8">
+      <div class="box fill-box default-padding">
+        {{partial 'lineup_entries/form'}}
       </div>
     </div>
 
-    <div class="default-padding align-right">
-      <button {{bind-attr class='model.isDirty:primary :btn :icon-text'}}
-              {{action 'saveDetails'}}
-              type='submit'>
-        <i class="fa fa-save"></i>
-        {{t 'save'}}
-      </button>
-    </div>
-  </form>
+    <div class="col-md-4">
 
-</div>
+      <div class="box fill-box">
+        {{view 'lineup_media'}}
+      </div>
+
+      <div class="box fill-box margin-top">
+        {{view 'lineup_events_list'}}
+      </div>
+
+      <div class="box fill-box margin-top">
+        {{partial 'lineup_entries/links'}}
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

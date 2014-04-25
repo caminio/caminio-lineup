@@ -4,6 +4,8 @@
 
   App.LineupEntriesController = Ember.Controller.extend({
     
+    curLang: currentDomain.lang,
+    
     actions: {
 
       newItem: function(){

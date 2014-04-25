@@ -28,6 +28,7 @@
     'entry.author': 'Author',
     'entry.director': 'Director',
     'entry.keywords': 'Keywords',
+    'entry.save_before_content': 'Save your content first before starting to upload images',
 
     'entry.marketing': 'Marketing',
     'entry.orig_project_url': 'Original project URL',
@@ -35,7 +36,8 @@
     'entry.vimeo': 'Vimeo (http://vimeo.com)',
     'entry.youtube': 'Youtube (http://youtube.com)',
     'entry.linked_media_placeholder': 'e.g.: 6ddpV1GvF7E',
-    'entry.linked_media_desc': 'The ID will be linked with the full url e.g.: http://www.youtube.com/watch?v=6ddpV1GvF7E',
+    'entry.youtube_desc': 'Just copy and paste the ID part of the youtube video you wish to use here. if your video link is: http://www.youtube.com/watch?v=6ddpV1GvF7E the 66dpV1GvF7E part is the ID of your video',
+    'entry.vimeo_desc': 'Just copy and paste the ID part of the vimeo video you wish to use here. if your video link is: http://vimeo.com/92688138 the 92688138 part is the ID of your video',
     'entry.video_switch': 'Click the icon of your video provider to switch',
 
     'entry.premiere': 'Premiere',
@@ -53,11 +55,18 @@
     'entry.from_age_of': 'From',
     'entry.years': 'years',
 
+    'entry.media': 'Media',
+
+    'error.missing_title': 'Title must be filled in before you can continue',
+    'entry.saved': 'Entry {{name}} has been saved',
+
     'entry.ensembles': 'Ensembles',
 
     'entries.search': 'Search',
     'entries.search.quick': 'Quick search',
     'entries.search.advanced': 'Advanced search',
+
+    'events': 'Events'
     
   };
 

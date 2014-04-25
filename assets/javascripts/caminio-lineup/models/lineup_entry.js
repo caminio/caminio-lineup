@@ -8,18 +8,19 @@
     requestReviewBy: DS.belongsTo('user'),
     requestReviewMsg: DS.attr(),
     status: DS.attr('string', { defaultValue: 'draft'}),
-    translations: DS.hasMany( 'translation' ),
+    translations: DS.hasMany( 'translation', { embedded: 'always' } ),
     
     recommendedAge: DS.attr('number'),
     durationMin: DS.attr('number'),
     numBreaks: DS.attr('number'),
 
-    premiere: DS.attr('boolean', { defualtValue: false }),
-    derniere: DS.attr('boolean', { defualtValue: false }),
-    canceled: DS.attr('boolean', { defualtValue: false }),
+    premiere: DS.attr('boolean', { defaultValue: false }),
+    derniere: DS.attr('boolean', { defaultValue: false }),
+    canceled: DS.attr('boolean', { defaultValue: false }),
 
     age: DS.attr('number'),
 
+    events: DS.hasMany('lineup_event', { embedded: 'always' }),
     ensembles: DS.hasMany('lineup_org'),
     organizers: DS.hasMany('lineup_org'),
     venues: DS.hasMany('lineup_org'),
@@ -56,6 +57,7 @@
     isDraft: function(){
       return this.get('status') === 'draft';
     }.property('status')
+
   });
 
   Ember.Inflector.inflector.irregular('lineupEntry', 'lineup_entries');

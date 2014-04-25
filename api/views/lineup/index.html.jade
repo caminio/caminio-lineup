@@ -3,11 +3,14 @@ extends ../../../../caminio-ui/api/views/layouts/application
 append head
   if env === 'production'
     link( rel='stylesheet', href='/stylesheets/caminio-lineup.min.css' )
+    link( rel='stylesheet', href='/stylesheets/caminio-media.min.css' )
     link( rel='stylesheet', href='/stylesheets/markdown.min.css' )
   else
     link( rel='stylesheet', href='/stylesheets/caminio-lineup/lineup.css' )
     link( rel='stylesheet', href='/stylesheets/markdown/ghostdown.css' )
     link( rel='stylesheet', href='/stylesheets/markdown/github-styles.css' )
+    link( rel='stylesheet', href='/stylesheets/caminio-media/media_manager.css' )
+    link( rel='stylesheet', href='/stylesheets/caminio-media/3rdparty/jcrop.min.css' )
 
 append foot
   if env === 'production'
@@ -29,7 +32,6 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-media/3rdparty/jquery.iframe-transport.js')
     script(type='text/javascript', src='/javascripts/caminio-media/3rdparty/jquery.fileupload.js')
     script(type='text/javascript', src='/javascripts/caminio-media/locales/#{currentLang}.js')
-    script(type='text/javascript', src='/javascripts/caminio-media/models/mediafile.js')
     script(type='text/javascript', src='/javascripts/caminio-media/controllers/mediafile_controller.js')
 
     // overview
@@ -49,6 +51,8 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_price.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_entries_edit_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_entries_table_view.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_media_view.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_events_list_view.js')
 
 
 block content
@@ -77,11 +81,17 @@ block content
   script(type="text/x-handlebars", data-template-name="lineup_entries/form")
     include hbs/lineup_entries/_form.hbs
 
-  script(type="text/x-handlebars", data-template-name="lineup_entries/mediafiles")
-    include hbs/lineup_entries/_mediafiles.hbs
-
   script(type="text/x-handlebars", data-template-name="lineup_entries/table")
     include hbs/lineup_entries/_table.hbs
 
   script(type="text/x-handlebars", data-template-name="lineup_entries/links")
     include hbs/lineup_entries/_links.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup/media")
+    include hbs/lineup/media_view.hbs
+  
+  script(type="text/x-handlebars", data-template-name="lineup_events/list")
+    include hbs/lineup_events/list.hbs
+
+  script(type="text/x-handlebars" data-template-name="media_manager/file")
+    include ../../../../caminio-media/api/views/media_manager/hbs/file.hbs

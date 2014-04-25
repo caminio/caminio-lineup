@@ -23,9 +23,9 @@ module.exports = function LineupEntry( caminio, mongoose ){
     requestReviewMsg: { type: String, public: true },
     requestReviewBy: { type: ObjectId, ref: 'User', public: true },
 
-    translations: [ TranslationSchema ],
-    mediafiles: [ MediafileSchema ],
-    lineupEvents: [ LineupEventSchema ],
+    translations: { type: [ TranslationSchema ], public: true },
+    mediafiles: { type: [ MediafileSchema ], public: true },
+    lineupEvents: { type: [ LineupEventSchema ], public: true },
 
     recommendedAge: { type: Number, public: true, index: true },
     durationMin: { type: Number, public: true },

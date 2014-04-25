@@ -4,23 +4,24 @@
 
   App.LineupEntryController = Ember.Controller.extend({
 
-    shopCategories: function(){
-      return [];
-    }.property('curItem'),
+    curTranslation: function(){
+      return this.get('content.translations').findBy('locale', App._curLang);
+    }.property('App._curLang'),
+
+    period: function(){
+      var first, last;
+      this.get('content.events').forEach(function(e){
+        if( !first || e.get('starts') <= first )
+          first = e.get('starts');
+        if( !last || e.get('starts') >= last )
+          last = e.get('starts');
+      });
+      if( first && last )
+        return moment(first).format('DD.MMM.') + ' &ndash; ' + moment(last).format('DD.MMM.');
+      return '';
+    }.property('events.@each'),
 
     actions: {
-      'closeDetails': function(){
-        $('#item-details').hide();
-        $('#items-table').addClass('col-md-8').removeClass('col-md-4');
-        $('#search-items').delay(500).fadeIn();
-        Ember.View.views[$('#item-details .ember-view').attr('id')].destroy();
-      },
-      'saveDetails': function(){
-        var item = this.get('model');
-        item.save().then(function(){
-          notify('info', Em.I18n.t('item.saved', { itemNum: item.get('itemNum'), name: item.get('name') }));
-        });
-      },
       'removeItem': function(){
         var item = this.get('model');
         bootbox.confirm(Em.I18n.t('item.really_delete', {itemNum: item.get('itemNum'), name: item.get('name')}), function(result){
@@ -34,8 +35,8 @@
           Ember.View.views[$('.form-item-container:visible').closest('.ember-view').attr('id')].destroy();
         });
       },
-      'showItem': function(){
-        this.transitionToRoute('shop_items.edit', this.get('content.id'));
+      'editItem': function( item ){
+        this.transitionToRoute('lineup_entries.edit', item.get('id'));
       }
     }
 

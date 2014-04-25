@@ -6,26 +6,19 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
   return {
 
     _before: {
-      // set up your before filters here
-      // typical before filters are policies.ensureLogin or 
-      // policies.requireAdmin
-      //
-      // e.g.: '*': policies.ensureLogin,
-      //       'index,show': [ policies.requireAdmin, myCustomCheck ]
-      //
-    },
+      '*': policies.ensureLogin,
+      'create,update': repairTrIds 
+    }
 
-    /**
-     * @method index
-     */
-    'index': [
-      function( req, res ){
-        // this tries to find a template file in any of api/views directory
-        // named [controller_namespace]/<controller_name>/<action_name>
-        // here this would be lineup_entries_controller/index
-        res.caminio.render();
-      }
-    ]
+  }
+
+  function repairTrIds( req, res, next ){
+    if( req.body.lineup_entry && req.body.lineup_entry.translations && req.body.lineup_entry.translations.length > 0 )
+      req.body.lineup_entry.translations.forEach(function(translation){
+        if( '_id' in translation && translation._id === null )
+          delete translation._id;
+      });
+    next();
 
   }
 

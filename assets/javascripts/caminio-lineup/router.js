@@ -19,9 +19,6 @@
   App.LineupEntriesRoute = Ember.Route.extend({
     
     setupController: function(controller, model){
-      // var setting = this.store.find('lineup_setting');
-      // this.set('shop_setting', setting);
-
       c = this.controllerFor('lineup_entries_table');
       c.set('model', this.store.find('lineup_entry'));
     },
@@ -59,9 +56,17 @@
     },
 
     setupController: function( controller, model ){
+      this.store.find('mediafile', { parent: model.get('id')}).then(function(mediafiles){
+        controller.set('mediafiles',mediafiles);
+      });
       controller.set('model',model);
     }
 
+  });
+
+  App._curLang = currentDomain.lang;
+
+  App.ApplicationRoute = Ember.Route.extend({
   });
 
 
