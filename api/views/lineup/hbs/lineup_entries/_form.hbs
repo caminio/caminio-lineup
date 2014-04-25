@@ -1,4 +1,4 @@
-<form class="caminio form-horizontal">
+<form class="caminio form-horizontal" {{action 'save' on='submit'}}>
 
   <div class="form-group">
 
@@ -12,18 +12,36 @@
 
   <div class="form-group">
 
-    <label class="col-md-2 control-label">{{t 'entry.description'}}</label>
+    <label class="col-md-2 control-label">{{t 'entry.subtitle'}}</label>
     <div class="col-md-10">
-      {{textarea valueBinding='curTranslation.content' class='form-control'}}
+      {{input valueBinding='curTranslation.subtitle' class='form-control'}}
     </div>
     
   </div>
 
   <div class="form-group">
 
-    <label class="col-md-2 control-label">{{t 'entry.meta_keywords'}}</label>
+    <label class="col-md-2 control-label">{{t 'entry.description'}}</label>
+    <div class="col-md-10 inline-editor">
+
+      {{view App.CodeMirrorView
+            valueBinding='curTranslation.content'}}
+    </div>
+    
+  </div>
+
+  <hr>
+  
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'entry.ensembles'}}</label>
     <div class="col-md-10">
-      {{input valueBinding='curTranslation.metaKeywords' class='form-control'}}
+      {{view App.Select2SelectView
+              class='fill-width'
+              contentBinding='availableEnsembles'
+              optionValuePath='content.id'
+              optionLabelPath='content.name'
+              selectionBinding='addEnsembleId'}}
     </div>
     
   </div>
@@ -52,54 +70,87 @@
 
   <div class="form-group">
 
-    <label class="col-md-2 control-label">{{t 'entry.price'}}</label>
-    <div class="col-md-2">
-      {{input valueBinding='model.priceExcl' class='form-control number-picker'}}
-      <div class="help-block">{{t 'entry.price_excl'}}</div>
+    <label class="control-label col-md-2">{{t 'entry.category'}}</label>
+
+    <div class="col-md-3">
+
+      <div class="checkbox">
+        {{input type='checkbox' checkedBinding='typeTTP'}}
+        <label class="control-label">{{t 'entry.ttp'}}</label>
+      </div>
+
     </div>
     <div class="col-md-2">
-      {{input valueBinding='model.currency' class='form-control'}}
-      <div class="help-block">{{t 'entry.currency'}}</div>
-    </div>
 
+      <div class="checkbox">
+        {{input type='checkbox' checkedBinding='typeCab'}}
+        <label class="control-label">{{t 'entry.cab'}}</label>
+      </div>
+
+    </div>
     <div class="col-md-2">
-      {{input valueBinding='model.vat' class='form-control number-picker'}}
-      <div class="help-block">{{t 'entry.vat'}}</div>
-    </div>
 
+      <div class="checkbox">
+        {{input type='checkbox' checkedBinding='typeYouth'}}
+        <label class="control-label">{{t 'entry.youth'}}</label>
+      </div>
+
+    </div>
     <div class="col-md-2">
-      {{input valueBinding='model.priceIncl' class='form-control number-picker'}}
-      <div class="help-block">{{t 'entry.price_incl'}}</div>
-    </div>
 
-  </div>
+      <div class="checkbox">
+        {{input type='checkbox' checkedBinding='typeFes'}}
+        <label class="control-label">{{t 'entry.fes'}}</label>
+      </div>
 
-  <div class="form-group">
-
-    <label class="col-md-2 control-label">{{t 'entry.in_stock'}}</label>
-    <div class="col-md-2">
-      {{input valueBinding='model.in_stock' class='form-control'}}
-      <div class="help-block">{{t 'entry.in_stock_desc'}}</div>
-    </div>
-
-    <div class="col-md-8 control-label">
-      {{input type='checkbox' checked=model.unlimited}}
-      <label>{{t 'entry.unlimited'}}</label>
-    </div>
-
-  </div>
-
-  <div class="form-group">
-
-    <label class="col-md-2 control-label">{{t 'entry.categories'}}</label>
-    <div class="col-md-10">
-      {{view App.Select2TagView
-            valueBinding='model.categories'
-            tagsBinding='shopCategories'}}
     </div>
     
   </div>
 
+  <hr>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'entry.duration'}}</label>
+    <div class="col-md-3">
+      <div class="input-group">
+        {{input valueBinding='durationMin' class='form-control align-right'}}
+        <span class="input-group-addon">
+          <i class="fa fa-clock-o"></i>
+          min
+        </span>
+      </div>
+    </div>
+    
+    <label class="col-md-2 col-md-offset-2 control-label">{{t 'entry.breaks'}}</label>
+    <div class="col-md-3">
+
+      <div class="input-group">
+        {{input valueBinding='numBreaks' class='form-control align-right'}}
+        <span class="input-group-addon">
+          <i class="fa fa-male"></i>
+          <i class="fa fa-female"></i>
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'entry.from_age_of'}}</label>
+    <div class="col-md-3">
+      <div class="input-group">
+        {{input valueBinding='age' class='form-control align-right'}}
+        <span class="input-group-addon">
+          {{t 'entry.years'}}
+        </span>
+      </div>
+    </div>
+    
+  </div>
   <div class="form-group">
     <div class="required-exp col-md-12 align-right">
       <span style="color: #d00">*</span>{{t required_fields}}

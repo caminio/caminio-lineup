@@ -1,0 +1,54 @@
+<div class="box-header">
+  <div class="box-title">
+    {{t 'entry.marketing'}}
+  </div>
+</div>
+
+<form class="box-body default-padding caminio" {{action 'save' on='submit'}}>
+
+  <div class="form-group">
+
+    <label class=" control-label">{{t 'entry.keywords'}}</label>
+    <div>
+      {{view App.Select2TagView
+            valueBinding='curTranslation.metaKeywords'
+            tagsBinding='knownKeywords'}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+
+    <label class=" control-label">{{t 'entry.orig_project_url'}}</label>
+    <div>
+      {{input valueBinding='origProjectUrl' class="form-control"
+              placeholderTranslation='entry.orig_project_url_desc'}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+
+    <label class="control-label">{{t 'entry.video_id'}}</label>
+    <div class="input-group video">
+      {{input valueBinding='videoId' 
+              class='form-control' 
+              placeholderTranslation='entry.linked_media_placeholder'
+              titleTranslation='entry.linked_media_desc'}}
+      <span {{bind-attr class=":input-group-addon isVimeo::active"}}
+            {{translateAttr title="entry.youtube"}}
+            {{action 'toggleVideoProvider'}}>
+        <i class="fa fa-youtube-play"></i>
+      </span>
+      <span {{bind-attr class=":input-group-addon isVimeo:active"}}
+            {{translateAttr title="entry.vimeo"}}
+            {{action 'toggleVideoProvider'}}>
+        <i class="fa fa-vimeo-square"></i>
+      </span>
+    </div>
+    <div class="help-block desc align-right">{{t 'entry.video_switch'}}</div>
+    
+  </div>
+
+
+</form>

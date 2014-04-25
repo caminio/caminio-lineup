@@ -3,17 +3,26 @@ extends ../../../../caminio-ui/api/views/layouts/application
 append head
   if env === 'production'
     link( rel='stylesheet', href='/stylesheets/caminio-lineup.min.css' )
+    link( rel='stylesheet', href='/stylesheets/markdown.min.css' )
   else
     link( rel='stylesheet', href='/stylesheets/caminio-lineup/lineup.css' )
+    link( rel='stylesheet', href='/stylesheets/markdown/ghostdown.css' )
+    link( rel='stylesheet', href='/stylesheets/markdown/github-styles.css' )
 
 append foot
   if env === 'production'
     script(type='text/javascript', src='/javascripts/caminio-media.min.js')
     script(type='text/javascript', src='/javascripts/caminio-rocksol-translation.min.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup.min.js')
+    script(type='text/javascript', src='/javascripts/markdown.min.js')
   else
     // translations
     script(type='text/javascript', src='/javascripts/caminio-rocksol/models/translation.js')
+
+    script(type='text/javascript', src='/javascripts/markdown/codemirror.js')
+    script(type='text/javascript', src='/javascripts/markdown/marked.js')
+    script(type='text/javascript', src='/javascripts/markdown/highlight.pack.js')
+    script(type='text/javascript', src='/javascripts/markdown/jquery.ghostdown.js')
 
     // mediafiles
     script(type='text/javascript', src='/javascripts/caminio-media/3rdparty/jcrop.min.js')
@@ -73,3 +82,6 @@ block content
 
   script(type="text/x-handlebars", data-template-name="lineup_entries/table")
     include hbs/lineup_entries/_table.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_entries/links")
+    include hbs/lineup_entries/_links.hbs

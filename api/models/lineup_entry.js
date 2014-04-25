@@ -31,7 +31,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
     durationMin: { type: Number, public: true },
     numBreaks: { type: Number, public: true },
 
-    tags: { type: [String], public: true },
+    age: { type: Number, public: true },
 
     ensembles: { type: [ObjectId], ref: 'LineupOrg', index: true },
     organizers: { type: [ObjectId], ref: 'LineupOrg', index: true },
@@ -42,9 +42,13 @@ module.exports = function LineupEntry( caminio, mongoose ){
     extRefNote: { type: String, public: true },
     extRefSyncAt: { type: String, public: true },
 
-    extUrl: { type: String, public: true },
-    videoUrl: { type: String, public: true },
-    videoType: { type: String, public: true },
+    origProjectUrl: { type: String, public: true },
+    videoId: { type: String, public: true },
+    videoProvider: { type: String, public: true },
+
+    premiere: { type: Boolean, default: false, public: true },
+    derniere: { type: Boolean, default: false, public: true },
+    canceled: { type: Boolean, default: false, public: true },
 
     othersWrite: { type: String, public: true },
     notifyMeOnWrite: { type: Boolean, default: true, public: true },

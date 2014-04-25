@@ -14,7 +14,11 @@
     durationMin: DS.attr('number'),
     numBreaks: DS.attr('number'),
 
-    tags: DS.attr('array'),
+    premiere: DS.attr('boolean', { defualtValue: false }),
+    derniere: DS.attr('boolean', { defualtValue: false }),
+    canceled: DS.attr('boolean', { defualtValue: false }),
+
+    age: DS.attr('number'),
 
     ensembles: DS.hasMany('lineup_org'),
     organizers: DS.hasMany('lineup_org'),
@@ -25,9 +29,9 @@
     extRefNote: DS.attr('string'),
     extRefSyncAt: DS.attr('date'),
 
-    extUrl: DS.attr('string'),
-    videoUrl: DS.attr('string'),
-    videoUrlType: DS.attr('string'), // youtube, vimeo
+    origProjectUrl: DS.attr('string'),
+    videoId: DS.attr('string'),
+    videoProvider: DS.attr('string', {defaultValue: 'youtube'}), // youtube, vimeo
 
     createdBy: DS.belongsTo('user'),
     createdAt: DS.attr('date'),

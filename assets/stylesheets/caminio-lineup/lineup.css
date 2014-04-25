@@ -50,3 +50,16 @@
 .mediafiles-list .thumbnail:hover .fa{
   display: block;
 }
+
+.input-group.video .fa{
+  font-size: 20px;
+  opacity: 0.25;
+}
+
+.input-group.video .active .fa{
+  opacity: 1;
+}
+
+.input-group.video .input-group-addon{
+  cursor: pointer;
+}
