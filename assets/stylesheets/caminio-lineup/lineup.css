@@ -67,3 +67,7 @@
 .input-group.video .popover{
   max-width: 350px;
 }
+
+.media-items.lineup-media .media-item{
+  width: 46%;
+}

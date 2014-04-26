@@ -32,7 +32,9 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-media/3rdparty/jquery.iframe-transport.js')
     script(type='text/javascript', src='/javascripts/caminio-media/3rdparty/jquery.fileupload.js')
     script(type='text/javascript', src='/javascripts/caminio-media/locales/#{currentLang}.js')
-    script(type='text/javascript', src='/javascripts/caminio-media/controllers/mediafile_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-media/controllers/mediafile_editor_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-media/controllers/mediafile_thumb_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-media/views/mediafile_editor_view.js')
 
     // overview
     script(type='text/javascript', src='/javascripts/caminio-lineup/locales/#{currentLang}.js')
@@ -53,7 +55,6 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_entries_table_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_media_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_events_list_view.js')
-
 
 block content
 
@@ -95,3 +96,7 @@ block content
 
   script(type="text/x-handlebars" data-template-name="media_manager/file")
     include ../../../../caminio-media/api/views/media_manager/hbs/file.hbs
+
+  script(type="text/x-handlebars" data-template-name="mediafile_editor")
+    include ../../../../caminio-media/api/views/media_manager/hbs/mediafile_editor.hbs
+

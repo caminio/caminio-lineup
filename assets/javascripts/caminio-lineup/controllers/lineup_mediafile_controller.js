@@ -3,7 +3,13 @@
   'use strict';
 
   App.LineupMediafileController = Ember.ObjectController.extend({
+
+    isCurrent: function(){
+      return this.get('content.id') === this.get('parentController.curFile.id');
+    }.property('parentController.curFile'),
+
     actions: {
+
       'removeMediafile': function(){
         var file = this.get('content');
         var controller = this.get('parentController');
@@ -16,7 +22,12 @@
             controller.set('mediafiles', App.Mediafile.store.all('mediafile', {parent: controller.get('model.id')}));
           });
         });
+      },
+
+      showFileDetails: function( mediafile ){
+        this.get('parentController').send('editMediafileModal', mediafile);
       }
+
     }
   });
 

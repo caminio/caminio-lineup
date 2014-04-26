@@ -60,6 +60,27 @@
         controller.set('mediafiles',mediafiles);
       });
       controller.set('model',model);
+    },
+
+    actions: { 
+
+      editMediafileModal: function( mediafile ){
+        var c = this.controllerFor('mediafile_editor');
+        c.set('model', mediafile);
+        c.set('curRoute', this);
+        this.render('mediafile_editor', {
+          into: 'lineup_entries.edit',
+          outlet: 'modal'
+        });
+      },
+
+      closeModal: function(){
+        this.disconnectOutlet({
+          outlet: 'modal',
+          parentView: 'lineup_entries.edit'
+        });
+      }
+
     }
 
   });

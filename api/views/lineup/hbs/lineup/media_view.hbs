@@ -8,8 +8,8 @@
   {{#if model.isNew}}
     {{t 'entry.save_before_content'}}
   {{else}}
-    <div class="media-items clearfix">
-      {{#each content in mediafiles itemController='mediafile'}}
+    <div class="media-items lineup-media clearfix">
+      {{#each mediafiles itemController='lineup_mediafile'}}
         {{partial 'media_manager/file'}}
       {{/each}}
 

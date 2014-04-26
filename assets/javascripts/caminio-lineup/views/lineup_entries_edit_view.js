@@ -6,6 +6,7 @@
 
 
     didInsertElement: function(){
+
       this.$('[data-toggle=popover]').popover({
         html: true,
         trigger: 'hover',
@@ -15,6 +16,7 @@
           return $('#'+$(this).attr('id')+'-content').html();
         },
       });
+
     }
 
   });
