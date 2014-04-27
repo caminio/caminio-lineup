@@ -84,9 +84,8 @@ module.exports = function(grunt) {
       },
       combine: {
         files: {
-          'build/stylesheets/<%= gearName %>.min.css': [ 'assets/stylesheets/<%= gearName %>-static/*.css', 
-                                                    'assets/stylesheets/<%= gearName %>/*.css' ],
-          'build/stylesheets/caminio-auth.min.css': [ 'assets/stylesheets/<%= gearName %>/authorization.css' ]
+          'build/stylesheets/<%= gearName %>.min.css': [  
+                                                    'assets/stylesheets/<%= gearName %>/*.css' ]
         }
       }
     },

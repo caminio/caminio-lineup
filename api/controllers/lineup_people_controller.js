@@ -27,6 +27,6 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
       }
     ]
 
-  }
+  };
 
-}
+};

@@ -27,6 +27,6 @@ module.exports = function LineupEventController( caminio, policies, middleware )
       }
     ]
 
-  }
+  };
 
-}
+};

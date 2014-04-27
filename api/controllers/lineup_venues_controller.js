@@ -27,6 +27,6 @@ module.exports = function LineupVenuesController( caminio, policies, middleware 
       }
     ]
 
-  }
+  };
 
-}
+};

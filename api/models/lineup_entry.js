@@ -63,4 +63,4 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   return schema;
 
-}
+};

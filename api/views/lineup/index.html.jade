@@ -3,8 +3,8 @@ extends ../../../../caminio-ui/api/views/layouts/application
 append head
   if env === 'production'
     link( rel='stylesheet', href='/stylesheets/caminio-lineup.min.css' )
-    link( rel='stylesheet', href='/stylesheets/caminio-media.min.css' )
     link( rel='stylesheet', href='/stylesheets/markdown.min.css' )
+    link( rel='stylesheet', href='/stylesheets/caminio-media.min.css' )
   else
     link( rel='stylesheet', href='/stylesheets/caminio-lineup/lineup.css' )
     link( rel='stylesheet', href='/stylesheets/markdown/ghostdown.css' )
@@ -17,7 +17,7 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-media.min.js')
     script(type='text/javascript', src='/javascripts/caminio-rocksol-translation.min.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup.min.js')
-    script(type='text/javascript', src='/javascripts/markdown.min.js')
+    script(type='text/javascript', src='/javascripts/caminio-markdown.min.js')
   else
     // translations
     script(type='text/javascript', src='/javascripts/caminio-rocksol/models/translation.js')

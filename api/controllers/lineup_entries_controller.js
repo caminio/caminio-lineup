@@ -10,7 +10,7 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
       'create,update': repairTrIds 
     }
 
-  }
+  };
 
   function repairTrIds( req, res, next ){
     if( req.body.lineup_entry && req.body.lineup_entry.translations && req.body.lineup_entry.translations.length > 0 )
@@ -22,4 +22,4 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
 
   }
 
-}
+};
