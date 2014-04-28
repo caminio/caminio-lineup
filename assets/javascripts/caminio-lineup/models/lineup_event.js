@@ -5,7 +5,7 @@
   App.LineupEvent = DS.Model.extend({
 
     starts: DS.attr('date'),
-    venue: DS.belongsTo('lineup_venue'),
+    venue: DS.belongsTo('lineup_org'),
     festival: DS.belongsTo('lineup_entry'),
     prices: DS.hasMany('lineup_price')
 

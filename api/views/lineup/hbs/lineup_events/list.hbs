@@ -1,7 +1,29 @@
 <div class="box-header">
   <div class="box-title">
+
+    <div class="ctrl">
+      <button class="btn"
+            {{action 'addEvent'}}>
+        <i class="fa fa-plus-square"></i>
+        {{t 'events.add'}}
+      </button>
+    </div>
+  
     {{t 'events'}}
+
   </div>
 </div>
 
+<div class="box-body default-padding">
 
+  <ul class="events-list">
+    {{#each events itemController='lineup_event'}}
+      {{partial 'lineup_events/item'}}
+    {{else}}
+      <li class="lineup-event">
+        <div class="venue">{{t 'event.no_yet'}}</div>
+      </li>
+    {{/each}}
+  </ul>
+
+</div>

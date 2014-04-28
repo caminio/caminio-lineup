@@ -45,8 +45,17 @@
           .save()
           .then(function(){
             notify('info', Em.I18n.t('entry.saved', {name: self.get('curTranslation.title')}));
-            self.transitionToRoute('lineup_entries');
+            self.transitionToRoute('lineup_entries.edit', self.get('content.id'));
           });
+      },
+
+      addEvent: function(){
+        var evnt = this.store.createRecord('lineup_event', getLineupEventDefaults(this.get('model')));
+        this.get('events').pushObject(evnt);
+        evnt.set('editMode',true);
+        if( this.get('curEvent') )
+          this.get('curEvent').set('editMode',false);
+        this.get('curEvent',evnt);
       }
 
     }
@@ -54,6 +63,18 @@
   });
 
   App.LineupEntriesNewController = App.LineupEntriesEditController.extend();
+
+
+  function getLineupEventDefaults(lineupEntry){
+    if( lineupEntry.get('events.length') > 0 ){
+      evnt = lineupEntry.get('events.firstObject');
+      return {
+        prices: evnt.get('prices'),
+        venue: evnt.get('venue')
+      }
+    }
+    return {};
+  }
 
 
 }).call();

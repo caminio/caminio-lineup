@@ -71,3 +71,36 @@
 .media-items.lineup-media .media-item{
   width: 46%;
 }
+
+.events-list{
+  list-style: none;
+  padding: 0;
+}
+
+.events-list .lineup-event{
+  padding: 5px;
+}
+
+.events-list .venue{
+  font-weight: 600;
+}
+
+.events-list input[type=text]{
+  font-size: 0.9em;
+}
+
+.events-list .time-prices{
+  padding-left: 0;
+}
+
+.events-list .date{
+  padding-right: 0;
+}
+
+.events-list .edit-prices{
+  margin: 4px 15px 0 0;
+}
+
+.events-list .row{
+  margin-bottom: 5px;
+}

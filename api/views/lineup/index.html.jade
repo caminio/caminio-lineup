@@ -46,6 +46,8 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_entry_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_entries_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_entries_edit_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_event_controller.js')
+
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_entry.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_org.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_person.js')
@@ -55,6 +57,7 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_entries_table_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_media_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_events_list_view.js')
+
 
 block content
 
@@ -93,6 +96,9 @@ block content
   
   script(type="text/x-handlebars", data-template-name="lineup_events/list")
     include hbs/lineup_events/list.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_events/item")
+    include hbs/lineup_events/item.hbs
 
   script(type="text/x-handlebars" data-template-name="media_manager/file")
     include ../../../../caminio-media/api/views/media_manager/hbs/file.hbs

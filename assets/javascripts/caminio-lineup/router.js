@@ -74,7 +74,9 @@
         });
       },
 
-      closeModal: function(){
+      closeModal: function( deletedMediafile ){
+        if( deletedMediafile )
+          this.get('controller.mediafiles').removeObject(deletedMediafile);
         this.disconnectOutlet({
           outlet: 'modal',
           parentView: 'lineup_entries.edit'

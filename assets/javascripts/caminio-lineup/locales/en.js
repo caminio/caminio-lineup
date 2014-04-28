@@ -66,7 +66,14 @@
     'entries.search.quick': 'Quick search',
     'entries.search.advanced': 'Advanced search',
 
-    'events': 'Events'
+    'events': 'Events',
+    'events.add': 'Add event',
+    'event.no_yet': 'No event yet',
+    'event.starts_placeholder': 'YYYY-MM-DD',
+    'event.starts_time_placeholder': 'HH:MM',
+    'event.select_venue': 'Select a venue',
+    'event.edit_prices': 'Edit prices',
+    'event.nothing_found_create_new': 'No results. Press Enter to create venue'
     
   };
 
