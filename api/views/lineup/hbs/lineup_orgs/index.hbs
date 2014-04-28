@@ -1,0 +1,29 @@
+<section class="plain-wrapper">
+
+  <header>
+    <div class="box title-box website">
+      <div class="main-ctrl">
+        {{#link-to 'lineup_orgs.new' class="btn icon-text"}}
+          <i class="fa fa-plus-square"></i>
+          {{t 'venue.create'}}
+        {{/link-to}}
+      </div>
+      <h1>{{t 'venues.title'}}</h1>
+
+    </div>
+
+  </header>
+
+  <div class="row span-row">
+
+    <div class="col-md-8" id="entries-table">
+      {{outlet 'table'}}
+    </div>
+
+    <div class="col-md-4" id="search-entries">
+      {{partial 'lineup_orgs/search'}}
+    </div>
+
+  </div>
+
+</section>

@@ -36,7 +36,8 @@
           .then(function(){
             notify('info', Em.I18n.t('event.saved', { starts: moment(content.get('starts')).format('LLLL') }));
             if( !content.get('id') )
-              self.get('parentController.content.lineup_events').removeObject(content);
+              return self.get('parentController.content.lineup_events').removeObject(content);
+            content.set('editMode',false);
           });
       },
 

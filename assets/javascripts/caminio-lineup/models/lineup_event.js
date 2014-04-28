@@ -14,7 +14,6 @@
       if(arguments.length === 2){
         if( val.match(/(\d\d\d\d)-(\d\d)-(\d\d)/) )
           this.set('starts', moment(val+' '+curTime.format('HH:mm')).toDate());
-        console.log('now', curTime.format('HH:mm'), this.get('starts'));
       }
       return moment(this.get('starts')).format('YYYY-MM-DD');
     }.property('starts'),

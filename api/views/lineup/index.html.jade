@@ -7,6 +7,7 @@ append head
     link( rel='stylesheet', href='/stylesheets/caminio-media.min.css' )
   else
     link( rel='stylesheet', href='/stylesheets/caminio-lineup/lineup.css' )
+    link( rel='stylesheet', href='/stylesheets/3rdparty/ui-datepicker.css' )
     link( rel='stylesheet', href='/stylesheets/markdown/ghostdown.css' )
     link( rel='stylesheet', href='/stylesheets/markdown/github-styles.css' )
     link( rel='stylesheet', href='/stylesheets/caminio-media/media_manager.css' )
@@ -47,6 +48,10 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_entries_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_entries_edit_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_event_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_table_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_org_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_edit_controller.js')
 
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_entry.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_org.js')
@@ -105,4 +110,27 @@ block content
 
   script(type="text/x-handlebars" data-template-name="mediafile_editor")
     include ../../../../caminio-media/api/views/media_manager/hbs/mediafile_editor.hbs
+
+
+  // orgs / venues
+  script(type="text/x-handlebars", data-template-name="lineup_orgs")
+    include hbs/lineup_orgs/index.hbs
+  
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/edit")
+    include hbs/lineup_orgs/edit.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/new")
+    include hbs/lineup_orgs/new.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/search")
+    include hbs/lineup_orgs/_search.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/form")
+    include hbs/lineup_orgs/_form.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/table")
+    include hbs/lineup_orgs/_table.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/links")
+    include hbs/lineup_orgs/_links.hbs
 

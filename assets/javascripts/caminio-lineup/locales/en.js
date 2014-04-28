@@ -8,7 +8,7 @@
 
     'nav.overview': 'Overview',
     'nav.entries': 'Entries',
-    'nav.venues': 'Venues',
+    'nav.organizations': 'Venues / Ensembles',
     'nav.people': 'People',
     'nav.settings': 'Settings',
 
@@ -77,6 +77,15 @@
     'event.saved': 'Event {{starts}} has been saved',
 
     'venue.created': 'Venue {{name}} has been created',
+
+    'venues.title': 'Venues',
+    'venue.create': 'Create a new venue',
+    'venue.name': 'Name',
+    'venue.country': 'Country',
+    'venue.city': 'City',
+    'venue.address': 'Address',
+    'venue.saved': 'Organization {{name}} has been saved',
+    'venue.orig_org_url': 'Link to website'
 
   };
 

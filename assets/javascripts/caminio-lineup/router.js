@@ -2,9 +2,11 @@
 
   App.Router.map( function(){
     this.resource('lineup_entries');
-    this.resource('lineup_entries.edit', { path: '/edit/:id' });
-    this.resource('lineup_entries.new', { path: '/new' });
-    this.resource('lineup_venues');
+    this.resource('lineup_entries.edit', { path: '/lineup_entries/edit/:id' });
+    this.resource('lineup_entries.new', { path: '/lineup_entries/new' });
+    this.resource('lineup_orgs');
+    this.resource('lineup_orgs.edit', { path: '/lineup_orgs/edit/:id' });
+    this.resource('lineup_orgs.new', { path: '/lineup_orgs/new' });
     this.resource('lineup_people');
   });
 
@@ -94,10 +96,84 @@
 
   });
 
-  App._curLang = currentDomain.lang;
+  // orgs
 
-  App.ApplicationRoute = Ember.Route.extend({
+  App.LineupOrgsRoute = Ember.Route.extend({
+
+    setupController: function(controller, model){
+      c = this.controllerFor('lineup_orgs_table');
+      c.set('model', this.store.find('lineup_org'));
+    },
+
+    renderTemplate: function(){
+      this.render();
+      this.render( 'lineup_orgs.table', { into: 'lineup_orgs', outlet: 'table', controller: 'lineup_orgs_table' });
+    }
+
   });
+
+  /**
+   * LineupEntries.New
+   */
+  App.LineupOrgsNewRoute = Ember.Route.extend({
+
+    model: function( prefix, options ){
+      return this.store.createRecord('lineup_org');
+    },
+
+    setupController: function( controller, model ){
+      controller.set('model',model);
+      controller._createTr( model );
+    }
+
+  });
+
+  /**
+   * LineupEntries.Edit
+   */
+  App.LineupOrgsEditRoute = Ember.Route.extend({
+
+    beforeModel: function(){
+      return this.store.find('lineup_org')
+    },
+
+    model: function( prefix, options ){
+      return this.store.find('lineup_org', options.params.id);
+    },
+
+    setupController: function( controller, model ){
+      this.store.find('mediafile', { parent: model.get('id')}).then(function(mediafiles){
+        controller.set('mediafiles',mediafiles);
+      });
+      controller.set('model',model);
+    },
+
+    actions: { 
+
+      editMediafileModal: function( mediafile ){
+        var c = this.controllerFor('mediafile_editor');
+        c.set('model', mediafile);
+        c.set('curRoute', this);
+        this.render('mediafile_editor', {
+          into: 'lineup_entries.edit',
+          outlet: 'modal'
+        });
+      },
+
+      closeModal: function( deletedMediafile ){
+        if( deletedMediafile )
+          this.get('controller.mediafiles').removeObject(deletedMediafile);
+        this.disconnectOutlet({
+          outlet: 'modal',
+          parentView: 'lineup_entries.edit'
+        });
+      }
+
+    }
+
+  });
+
+  App._curLang = currentDomain.lang;
 
 
 })(App);
