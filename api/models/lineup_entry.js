@@ -59,7 +59,12 @@ module.exports = function LineupEntry( caminio, mongoose ){
     updatedAt: { type: Date, default: Date.now, public: true },
     updatedBy: { type: ObjectId, ref: 'User', public: true }
 
+
   });
+
+  schema.virtual( 'curTranslation' )
+    .get( function(){ return this._curTranslation; } )
+    .set( function( value ){  this._curTranslation = value; } );
 
   return schema;
 
