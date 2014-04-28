@@ -10,7 +10,7 @@
 
     period: function(){
       var first, last;
-      this.get('content.events').forEach(function(e){
+      this.get('content.lineup_events').forEach(function(e){
         if( !first || e.get('starts') <= first )
           first = e.get('starts');
         if( !last || e.get('starts') >= last )
@@ -19,7 +19,7 @@
       if( first && last )
         return moment(first).format('DD.MMM.') + ' &ndash; ' + moment(last).format('DD.MMM.');
       return '';
-    }.property('events.@each'),
+    }.property('lineup_events.@each'),
 
     actions: {
       'removeItem': function(){

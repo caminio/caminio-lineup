@@ -4,10 +4,29 @@
 
   App.LineupEvent = DS.Model.extend({
 
-    starts: DS.attr('date'),
+    starts: DS.attr('date', {defaultValue: moment().hour(20).minutes(0).seconds(0).toDate()}),
     venue: DS.belongsTo('lineup_org'),
     festival: DS.belongsTo('lineup_entry'),
-    prices: DS.hasMany('lineup_price')
+    prices: DS.hasMany('lineup_price'),
+
+    startsDate: function( key, val ){
+      var curTime = moment(this.get('starts'));
+      if(arguments.length === 2){
+        if( val.match(/(\d\d\d\d)-(\d\d)-(\d\d)/) )
+          this.set('starts', moment(val+' '+curTime.format('HH:mm')).toDate());
+        console.log('now', curTime.format('HH:mm'), this.get('starts'));
+      }
+      return moment(this.get('starts')).format('YYYY-MM-DD');
+    }.property('starts'),
+
+    startsTime: function( key, val ){
+      var curDate = moment(this.get('starts'));
+      if(arguments.length === 2){
+        if( val.match(/(\d\d):(\d\d)/) )
+          this.set('starts', moment(curDate.format('YYYY-MM-DD') + ' '+val).toDate());
+      }
+      return moment(this.get('starts')).format('HH:mm');
+    }.property('starts')
 
   });
 

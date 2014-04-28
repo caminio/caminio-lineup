@@ -4,6 +4,8 @@
 
   App.LineupEntriesEditController = Ember.ObjectController.extend({
 
+    availableVenues: Em.A(),
+
     curTranslation: function(){
       return this.get('translations').findBy('locale', App._curLang);
     }.property('App._curLang'),
@@ -51,7 +53,7 @@
 
       addEvent: function(){
         var evnt = this.store.createRecord('lineup_event', getLineupEventDefaults(this.get('model')));
-        this.get('events').pushObject(evnt);
+        this.get('lineup_events').pushObject(evnt);
         evnt.set('editMode',true);
         if( this.get('curEvent') )
           this.get('curEvent').set('editMode',false);
@@ -66,8 +68,8 @@
 
 
   function getLineupEventDefaults(lineupEntry){
-    if( lineupEntry.get('events.length') > 0 ){
-      evnt = lineupEntry.get('events.firstObject');
+    if( lineupEntry.get('lineup_events.length') > 0 ){
+      var evnt = lineupEntry.get('lineup_events.firstObject');
       return {
         prices: evnt.get('prices'),
         venue: evnt.get('venue')

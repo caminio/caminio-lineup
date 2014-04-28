@@ -51,6 +51,10 @@
    */
   App.LineupEntriesEditRoute = Ember.Route.extend({
 
+    beforeModel: function(){
+      return this.store.find('lineup_org')
+    },
+
     model: function( prefix, options ){
       return this.store.find('lineup_entry', options.params.id);
     },
@@ -58,6 +62,9 @@
     setupController: function( controller, model ){
       this.store.find('mediafile', { parent: model.get('id')}).then(function(mediafiles){
         controller.set('mediafiles',mediafiles);
+      });
+      this.store.all('lineup_org', { type: 'venue' }).forEach(function(venue){
+        controller.get('availableVenues').pushObject(venue);
       });
       controller.set('model',model);
     },

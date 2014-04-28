@@ -20,7 +20,7 @@
 
     age: DS.attr('number'),
 
-    events: DS.hasMany('lineup_event', { embedded: 'always' }),
+    lineup_events: DS.hasMany('lineup_event', { embedded: 'always' }),
     ensembles: DS.hasMany('lineup_org'),
     organizers: DS.hasMany('lineup_org'),
     venues: DS.hasMany('lineup_org'),

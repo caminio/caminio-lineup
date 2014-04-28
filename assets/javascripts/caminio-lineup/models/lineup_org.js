@@ -6,7 +6,11 @@
 
     type: DS.attr('string', { defaultValue: 'ensemble' }),
     status: DS.attr('string', { defaultValue: 'draft'}),
-    translations: DS.hasMany( 'translation' ),
+    translations: DS.hasMany( 'translation', { embedded: 'always' } ),
+
+    curTranslation: function(){
+      return this.get('translations').findBy('locale', App._curLang);
+    }.property('translations.@each'),
 
     tags: DS.attr('array'),
 

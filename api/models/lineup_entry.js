@@ -25,7 +25,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
     translations: { type: [ TranslationSchema ], public: true },
     mediafiles: { type: [ MediafileSchema ], public: true },
-    lineupEvents: { type: [ LineupEventSchema ], public: true },
+    lineup_events: { type: [ LineupEventSchema ], public: true },
 
     recommendedAge: { type: Number, public: true, index: true },
     durationMin: { type: Number, public: true },

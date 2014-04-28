@@ -7,6 +7,7 @@
     templateName: 'lineup_events/list',
 
     didInsertElement: function(){
+      console.log('here');
     }
 
   });

@@ -71,10 +71,13 @@
     'event.no_yet': 'No event yet',
     'event.starts_placeholder': 'YYYY-MM-DD',
     'event.starts_time_placeholder': 'HH:MM',
-    'event.select_venue': 'Select a venue',
+    'event.select_venue': 'Select a venue or enter new name',
     'event.edit_prices': 'Edit prices',
-    'event.nothing_found_create_new': 'No results. Press Enter to create venue'
-    
+    'event.nothing_found_create_new': 'No results. Press Enter to create venue',
+    'event.saved': 'Event {{starts}} has been saved',
+
+    'venue.created': 'Venue {{name}} has been created',
+
   };
 
   for( var i in translations )
