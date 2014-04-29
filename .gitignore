@@ -8,3 +8,4 @@ doc
 test.log
 build
 assets/javascripts/components
+test/support/content/test_com/public

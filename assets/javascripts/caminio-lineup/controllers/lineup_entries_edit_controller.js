@@ -50,6 +50,17 @@
           });
       },
 
+      'remove': function( content ){
+        content.deleteRecord();
+        var self = this;
+        content
+          .save()
+          .then(function(){
+            notify('info', Em.I18n.t('entry.deleted', { name: content.get('curTranslation.title') }));
+            self.transitionToRoute('lineup_entries');
+          });
+      },
+
       'save': function(){
         var self = this;
         if( !this.get('curTranslation.title') ){

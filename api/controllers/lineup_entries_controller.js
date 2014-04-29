@@ -3,7 +3,7 @@
  */
 module.exports = function LineupEntriesController( caminio, policies, middleware ){
 
-  var SiteGen        = require('caminio-rocksol/site_gen')( caminio );
+  var SiteGen        = require('caminio-rocksol/generator');
 
   var LineupEntry = caminio.models.LineupEntry;
 
@@ -20,8 +20,15 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
   }
 
   function compilePages( req, res, next ){
-    // TODO;
-    next();
+    gen = new SiteGen( caminio, res.locals.currentDomain.getContentPath(), 'projects' );
+    gen.compileObject( 
+            req.lineup_entry,
+            { locals: res.locals,
+              layout: {
+                name: 'projects'
+              },
+              isPublished: (req.lineup_entry.status === 'published') },
+            next);
   }
 
 };
