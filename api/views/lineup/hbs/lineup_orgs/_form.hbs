@@ -1,0 +1,75 @@
+<form class="caminio form-horizontal" {{action 'save' on='submit'}}>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label required">{{t 'venue.name'}}</label>
+    <div {{bind-attr class=":col-md-10 nameError:field-with-error"}}>
+      {{input valueBinding='curTranslation.title' class='form-control' id="entry-title"}}
+      {{#if nameError}}<span class="help-block">{{errors.title}}</span>{{/if}}
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'entry.description'}}</label>
+    <div class="col-md-10 inline-editor">
+      {{view App.CodeMirrorView
+            valueBinding='curTranslation.content'}}
+    </div>
+    
+  </div>
+
+  <hr>
+
+  <h4 class="mini-title">{{t 'venue.address'}}</h4>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'street'}}</label>
+    <div class="col-md-10">
+      {{input valueBinding='street' class='form-control'}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'city'}}</label>
+    <div class="col-md-2">
+      {{input valueBinding='zip' class='form-control' placeholderTranslation='zip'}}
+    </div>
+    
+    <div class="col-md-8">
+      {{input valueBinding='city' class='form-control'}}
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'state'}}</label>
+    <div class="col-md-10">
+      {{input valueBinding='state' class='form-control'}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label">{{t 'country'}}</label>
+    <div class="col-md-10">
+      {{view App.Select2CountryView
+        selectionBinding="country"
+        class="fill-width"}}
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <div class="required-exp col-md-offset-2 col-md-4">
+      <span style="color: #d00">*</span>{{t required_fields}}
+    </div>
+  </div>
+
+</form>

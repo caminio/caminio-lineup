@@ -48,10 +48,22 @@
     }.property('status'),
     isDraft: function(){
       return this.get('status') === 'draft';
-    }.property('status')
+    }.property('status'),
+
+    name: function(){
+      var name = '';
+      if( this.get('firstname') && this.get('firstname').length > 0 )
+        name += this.get('firstname');
+      if( name.length > 0 && this.get('lastname') && this.get('lastname').length > 0 )
+        name += ' ';
+      if( this.get('lastname') && this.get('lastname').length > 0 )
+        name += this.get('lastname');
+      return name;
+    }.property('firstname', 'lastname')
 
   });
 
   Ember.Inflector.inflector.irregular('lineupPerson', 'lineup_people');
+  Ember.Inflector.inflector.irregular('lineup_person', 'lineupPeople');
 
 })( App );

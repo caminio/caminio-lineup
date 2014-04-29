@@ -1,0 +1,48 @@
+<li class="job">
+  {{#if editMode}}
+    <form class="caminio" {{action 'save' on='submit'}}>
+
+      <div class="row">
+        <div class="col-md-12">
+          {{view App.Select2SelectView
+                  class='fill-width'
+                  promptTranslation='person.select_or_create'
+                  createTranslation='person.nothing_found_create_new'
+                  createAction='createPerson'
+                  contentBinding='parentController.availablePeople'
+                  optionValuePath='content.id'
+                  optionLabelPath='content.name'
+                  selectionBinding='lineup_person'}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          {{input valueBinding='name' class="form-control" placeholderTranslation='job.description'}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn icon-text pull-right">
+            <i class="fa fa-save"></i>
+            {{t 'save'}}
+          </button>
+          <button class="btn icon-text pull-right" {{action 'remove' this}} {{translateAttr title='delete'}}>
+            <i class="fa fa-trash-o"></i>
+          </button>
+          <a href="#" class="cancel pull-right" {{action 'toggleEditMode'}}>
+            {{t 'cancel'}}
+          </a>
+        </div>
+
+    </form>
+
+  {{else}}
+    <button class="btn pull-right" {{action 'toggleEditMode'}}>
+      <i class="fa fa-pencil"></i>
+    </button>
+    <div class="job-name">{{name}}</div>
+    <div class="person-name">{{lineup_person.name}}</div>
+  {{/if}}
+</li>

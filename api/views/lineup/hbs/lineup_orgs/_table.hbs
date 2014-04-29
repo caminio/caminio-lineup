@@ -1,0 +1,22 @@
+<table class="caminio entries-table box fill-box">
+  <thead>
+    <tr>
+      <th>{{t 'venue.name'}}</th>
+      <th>{{t 'venue.country'}}</th>
+      <th>{{t 'venue.city'}}</th>
+      <th>{{t 'updated_at'}}</th>
+      <th>{{t 'updated_by'}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model itemController='lineup_org'}}
+      <tr {{action 'editItem' content}}>
+        <td>{{curTranslation.title}}</td>
+        <td>{{country}}</td>
+        <td>{{city}}</td>
+        <td>{{formatDate updatedAt format='LLLL'}}</td>
+        <td>{{updatedBy.name}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

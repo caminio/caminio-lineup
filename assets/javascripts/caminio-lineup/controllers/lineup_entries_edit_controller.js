@@ -5,10 +5,7 @@
   App.LineupEntriesEditController = Ember.ObjectController.extend({
 
     availableVenues: Em.A(),
-
-    curTranslation: function(){
-      return this.get('translations').findBy('locale', App._curLang);
-    }.property('App._curLang'),
+    availablePeople: Em.A(),
 
     youtubeVideoURL: function(){
       return '//www.youtube-nocookie.com/embed/'+this.get('videoId');
@@ -30,10 +27,27 @@
 
     actions: {
 
+      'goToEntries': function(){
+        this.transitionToRoute('lineup_entries')
+      },
+
       'toggleVideoProvider': function(){
         if( this.get('videoProvider') === 'youtube' )
           return this.set('videoProvider', 'vimeo');
         return this.set('videoProvider', 'youtube');
+      },
+
+      'togglePublished': function(){
+        var content = this.get('content');
+        content.set('status', content.get('status') === 'draft' ? 'published' : 'published' );
+        content
+          .save()
+          .then(function(){
+            if( content.get('status') === 'draft' )
+              notify('info', Em.I18n.t('entry.marked_draft', { name: content.get('curTranslation.title') }));
+            else
+              notify('info', Em.I18n.t('entry.marked_published', { name: content.get('curTranslation.title') }));
+          });
       },
 
       'save': function(){
@@ -58,7 +72,17 @@
         if( this.get('curEvent') )
           this.get('curEvent').set('editMode',false);
         this.get('curEvent',evnt);
+      },
+
+      addJob: function(){
+        var evnt = this.store.createRecord('lineup_job');
+        this.get('lineup_jobs').pushObject(evnt);
+        evnt.set('editMode',true);
+        if( this.get('curJob') )
+          this.get('curJob').set('editMode',false);
+        this.get('curJob',evnt);
       }
+
 
     }
 

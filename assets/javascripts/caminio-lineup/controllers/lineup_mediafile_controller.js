@@ -19,7 +19,7 @@
           file.deleteRecord();
           file.save().then(function(){
             notify('info', Em.I18n.t('file.deleted', { name: file.get('name') }));
-            controller.set('mediafiles', App.Mediafile.store.all('mediafile', {parent: controller.get('model.id')}));
+            controller.set('mediafiles', App.Mediafile.store.find('mediafile', {parent: controller.get('model.id')}));
           });
         });
       },

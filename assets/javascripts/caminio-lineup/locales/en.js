@@ -8,7 +8,7 @@
 
     'nav.overview': 'Overview',
     'nav.entries': 'Entries',
-    'nav.venues': 'Venues',
+    'nav.organizations': 'Venues / Ensembles',
     'nav.people': 'People',
     'nav.settings': 'Settings',
 
@@ -44,6 +44,11 @@
     'entry.derniere': 'Derniere',
     'entry.canceled': 'Cancelled',
 
+    'entry.draft': 'Draft',
+    'entry.published': 'Published',
+    'entry.marked_published': '{{name}} is now published',
+    'entry.marked_draft': '{{name}} is no longer published and marked as draft',
+
     'entry.ttp': 'Theatre / Dance / Performance',
     'entry.youth': 'Young audience',
     'entry.cab': 'Cabaret',
@@ -77,6 +82,25 @@
     'event.saved': 'Event {{starts}} has been saved',
 
     'venue.created': 'Venue {{name}} has been created',
+
+    'venues.title': 'Venues',
+    'venue.create': 'Create a new venue',
+    'venue.name': 'Name',
+    'venue.country': 'Country',
+    'venue.city': 'City',
+    'venue.address': 'Address',
+    'venue.saved': 'Organization {{name}} has been saved',
+    'venue.orig_org_url': 'Link to website',
+
+    'person.select_or_create': 'Select or create person',
+    'person.nothing_found_create_new': 'No person matched your search. Enter to create',
+    'person.created': 'Person {{name}} has been created',
+
+    'jobs': 'Team / Jobs',
+    'jobs.add': 'Add a job',
+    'jobs.no_yet': 'There is no job yet',
+    'job.description': 'Job description',
+    'job.saved': 'Job for {{name}} has been saved'
 
   };
 

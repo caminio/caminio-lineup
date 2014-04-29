@@ -7,6 +7,7 @@ append head
     link( rel='stylesheet', href='/stylesheets/caminio-media.min.css' )
   else
     link( rel='stylesheet', href='/stylesheets/caminio-lineup/lineup.css' )
+    link( rel='stylesheet', href='/stylesheets/3rdparty/ui-datepicker.css' )
     link( rel='stylesheet', href='/stylesheets/markdown/ghostdown.css' )
     link( rel='stylesheet', href='/stylesheets/markdown/github-styles.css' )
     link( rel='stylesheet', href='/stylesheets/caminio-media/media_manager.css' )
@@ -47,9 +48,15 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_entries_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_entries_edit_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_event_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_table_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_org_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_edit_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_job_controller.js')
 
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_entry.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_org.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_job.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_person.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_event.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_price.js')
@@ -57,6 +64,7 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_entries_table_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_media_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_events_list_view.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_jobs_list_view.js')
 
 
 block content
@@ -100,9 +108,38 @@ block content
   script(type="text/x-handlebars", data-template-name="lineup_events/item")
     include hbs/lineup_events/item.hbs
 
+  script(type="text/x-handlebars", data-template-name="lineup_jobs/list")
+    include hbs/lineup_jobs/list.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_jobs/item")
+    include hbs/lineup_jobs/item.hbs
+
   script(type="text/x-handlebars" data-template-name="media_manager/file")
     include ../../../../caminio-media/api/views/media_manager/hbs/file.hbs
 
   script(type="text/x-handlebars" data-template-name="mediafile_editor")
     include ../../../../caminio-media/api/views/media_manager/hbs/mediafile_editor.hbs
+
+
+  // orgs / venues
+  script(type="text/x-handlebars", data-template-name="lineup_orgs")
+    include hbs/lineup_orgs/index.hbs
+  
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/edit")
+    include hbs/lineup_orgs/edit.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/new")
+    include hbs/lineup_orgs/new.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/search")
+    include hbs/lineup_orgs/_search.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/form")
+    include hbs/lineup_orgs/_form.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/table")
+    include hbs/lineup_orgs/_table.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_orgs/links")
+    include hbs/lineup_orgs/_links.hbs
 
