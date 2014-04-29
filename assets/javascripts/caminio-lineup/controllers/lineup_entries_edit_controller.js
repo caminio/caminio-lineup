@@ -5,6 +5,7 @@
   App.LineupEntriesEditController = Ember.ObjectController.extend({
 
     availableVenues: Em.A(),
+    availablePeople: Em.A(),
 
     curTranslation: function(){
       return this.get('translations').findBy('locale', App._curLang);
@@ -58,7 +59,17 @@
         if( this.get('curEvent') )
           this.get('curEvent').set('editMode',false);
         this.get('curEvent',evnt);
+      },
+
+      addJob: function(){
+        var evnt = this.store.createRecord('lineup_job');
+        this.get('lineup_jobs').pushObject(evnt);
+        evnt.set('editMode',true);
+        if( this.get('curJob') )
+          this.get('curJob').set('editMode',false);
+        this.get('curJob',evnt);
       }
+
 
     }
 

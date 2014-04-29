@@ -1,0 +1,29 @@
+<div class="box-header">
+  <div class="box-title">
+
+    <div class="ctrl">
+      <button class="btn"
+            {{action 'addJob'}}>
+        <i class="fa fa-plus-square"></i>
+        {{t 'jobs.add'}}
+      </button>
+    </div>
+  
+    {{t 'jobs'}}
+
+  </div>
+</div>
+
+<div class="box-body default-padding">
+
+  <ul class="jobs-list">
+    {{#each lineup_jobs itemController='lineup_job'}}
+      {{partial 'lineup_jobs/item'}}
+    {{else}}
+      <li class="job">
+        <div class="job-name">{{t 'jobs.no_yet'}}</div>
+      </li>
+    {{/each}}
+  </ul>
+
+</div>

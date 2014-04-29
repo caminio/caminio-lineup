@@ -3,6 +3,8 @@
  * @class LineupEntry
  *
  */
+
+var normalizeFilename = require('caminio/util').normalizeFilename;
  
 module.exports = function LineupEntry( caminio, mongoose ){
 
@@ -14,9 +16,11 @@ module.exports = function LineupEntry( caminio, mongoose ){
   var MediafileSchema = require('caminio-media/mediafile_schema')( caminio, mongoose );
 
   var LineupEventSchema = require( __dirname+'/_sub/lineup_event' )( caminio, mongoose );
+  var LineupJobSchema = require( __dirname+'/_sub/lineup_job' )( caminio, mongoose );
 
   var schema = new mongoose.Schema({
 
+    filename: { type: String, public: true },
     type: { type: String, public: true, index: true },
     status: { type: String, public: true, default: 'draft' },
 
@@ -30,6 +34,8 @@ module.exports = function LineupEntry( caminio, mongoose ){
     recommendedAge: { type: Number, public: true, index: true },
     durationMin: { type: Number, public: true },
     numBreaks: { type: Number, public: true },
+
+    lineup_jobs: { type: [ LineupJobSchema ], public: true },
 
     age: { type: Number, public: true },
 
@@ -65,6 +71,13 @@ module.exports = function LineupEntry( caminio, mongoose ){
   schema.virtual( 'curTranslation' )
     .get( function(){ return this._curTranslation; } )
     .set( function( value ){  this._curTranslation = value; } );
+
+  schema.pre('save', function(next){
+    if( !this.isNew )
+      return next();
+    this.filename = normalizeFilename( this.translations[0].title );
+    next();
+  });
 
   return schema;
 

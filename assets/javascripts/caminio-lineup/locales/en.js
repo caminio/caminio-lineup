@@ -85,7 +85,17 @@
     'venue.city': 'City',
     'venue.address': 'Address',
     'venue.saved': 'Organization {{name}} has been saved',
-    'venue.orig_org_url': 'Link to website'
+    'venue.orig_org_url': 'Link to website',
+
+    'person.select_or_create': 'Select or create person',
+    'person.nothing_found_create_new': 'No person matched your search. Enter to create',
+    'person.created': 'Person {{name}} has been created',
+
+    'jobs': 'Team / Jobs',
+    'jobs.add': 'Add a job',
+    'jobs.no_yet': 'There is no job yet',
+    'job.description': 'Job description',
+    'job.saved': 'Job for {{name}} has been saved'
 
   };
 

@@ -52,9 +52,11 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_table_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_org_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_edit_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_job_controller.js')
 
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_entry.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_org.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_job.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_person.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_event.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_price.js')
@@ -62,6 +64,7 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_entries_table_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_media_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_events_list_view.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_jobs_list_view.js')
 
 
 block content
@@ -104,6 +107,12 @@ block content
 
   script(type="text/x-handlebars", data-template-name="lineup_events/item")
     include hbs/lineup_events/item.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_jobs/list")
+    include hbs/lineup_jobs/list.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_jobs/item")
+    include hbs/lineup_jobs/item.hbs
 
   script(type="text/x-handlebars" data-template-name="media_manager/file")
     include ../../../../caminio-media/api/views/media_manager/hbs/file.hbs

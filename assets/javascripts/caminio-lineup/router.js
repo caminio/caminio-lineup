@@ -5,8 +5,8 @@
     this.resource('lineup_entries.edit', { path: '/lineup_entries/edit/:id' });
     this.resource('lineup_entries.new', { path: '/lineup_entries/new' });
     this.resource('lineup_orgs');
-    this.resource('lineup_orgs.edit', { path: '/lineup_orgs/edit/:id' });
-    this.resource('lineup_orgs.new', { path: '/lineup_orgs/new' });
+    this.resource('lineup_orgs.edit', { path: '/lineup_org/edit/:id' });
+    this.resource('lineup_orgs.new', { path: '/lineup_org/new' });
     this.resource('lineup_people');
   });
 
@@ -54,7 +54,17 @@
   App.LineupEntriesEditRoute = Ember.Route.extend({
 
     beforeModel: function(){
-      return this.store.find('lineup_org')
+      var self = this;
+      var promise = new Ember.RSVP.Promise( processRequirements );
+      return promise;
+
+      function processRequirements( resolve, reject ){
+        self.store.find('lineup_org').then(function(){
+          self.store.find('lineup_person').then(function(){
+            resolve();
+          });
+        });
+      }
     },
 
     model: function( prefix, options ){
@@ -67,6 +77,9 @@
       });
       this.store.all('lineup_org', { type: 'venue' }).forEach(function(venue){
         controller.get('availableVenues').pushObject(venue);
+      });
+      this.store.all('lineup_person').forEach(function(person){
+        controller.get('availablePeople').pushObject(person);
       });
       controller.set('model',model);
     },

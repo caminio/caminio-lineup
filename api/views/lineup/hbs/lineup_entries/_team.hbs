@@ -1,0 +1,27 @@
+<div class="box-header">
+  <div class="box-title">
+    {{t 'entry.team'}}
+  </div>
+</div>
+
+<form class="box-body default-padding caminio" {{action 'save' on='submit'}}>
+
+  <div class="form-group">
+
+    <label class=" control-label">{{t 'entry.orig_project_url'}}</label>
+    <div>
+      {{view App.Select2SelectView
+              class='fill-width'
+              promptTranslation='person.select_or_create'
+              createTranslation='person.nothing_found_create_new'
+              createAction='createPerson'
+              contentBinding='parentController.availablePeople'
+              optionValuePath='content.id'
+              optionLabelPath='content.name'
+              selectionBinding='venue'}}
+
+    </div>
+    
+  </div>
+
+</form>
