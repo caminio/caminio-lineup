@@ -17,7 +17,7 @@
           last = e.get('starts');
       });
       if( first && last )
-        return moment(first).format('DD.MMM.') + ' &ndash; ' + moment(last).format('DD.MMM.');
+        return new Handlebars.SafeString(moment(first).format('DD.MMM.') + ' &ndash; ' + moment(last).format('DD.MMM.'));
       return '';
     }.property('lineup_events.@each'),
 
