@@ -23,6 +23,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
     filename: { type: String, public: true },
     type: { type: String, public: true, index: true },
+    filename: { type: String, public: true, index: true },
     status: { type: String, public: true, default: 'draft' },
 
     requestReviewMsg: { type: String, public: true },
@@ -73,6 +74,10 @@ module.exports = function LineupEntry( caminio, mongoose ){
     .get( function(){ return this._curTranslation; } )
     .set( function( value ){  this._curTranslation = value; } );
 
+  schema.virtual( 'teaser' )
+    .get( function(){ return this._teaser; } )
+    .set( function( value ){  this._teaser = value; } );
+
   schema.pre('save', function(next){
     if( !this.isNew )
       return next();
@@ -95,6 +100,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
     return this._path + '/' + this.filename + '.' + fallbackLang + '.htm';
 
   };
+  
   return schema;
 
 };
