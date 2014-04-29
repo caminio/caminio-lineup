@@ -23,7 +23,6 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
     filename: { type: String, public: true },
     type: { type: String, public: true, index: true },
-    filename: { type: String, public: true, index: true },
     status: { type: String, public: true, default: 'draft' },
 
     requestReviewMsg: { type: String, public: true },
@@ -100,7 +99,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
     return this._path + '/' + this.filename + '.' + fallbackLang + '.htm';
 
   };
-  
+
   return schema;
 
 };

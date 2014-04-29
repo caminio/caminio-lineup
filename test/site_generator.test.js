@@ -7,7 +7,7 @@
  * @Date:   2014-04-16 00:14:37
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-04-29 18:22:16
+ * @Last Modified time: 2014-04-29 18:36:06
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -31,12 +31,14 @@ var path = __dirname + "/support/content/test_com";
 
 describe( 'Site Generator lineup test', function(){
 
-  function addWebpage( name, next ){    
+  function addWebpage( name, next ){ 
     var project = new Entry( { 
-      filename: name, 
       camDomain: domain.id, 
-      translations: [{content: 'testcontent', locale: 'en'},
-                     { content: 'deutsch', locale: 'de'}
+      translations: [
+        { content: 'testcontent', locale: 'en',
+          title: name },
+        { content: 'deutsch', locale: 'de',
+          title: name}
       ] 
     } );
     project.save( function( err ){
@@ -84,7 +86,6 @@ describe( 'Site Generator lineup test', function(){
             projects[0], 
             { locals: {  currentUser: 'adsfsadf', }, isPublished: true },
             function( err, content ){
-              console.log( err, content, 'DONE');
               done();
           });
         });
