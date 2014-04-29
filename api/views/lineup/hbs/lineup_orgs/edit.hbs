@@ -5,28 +5,11 @@
     <div class="title-box">
       <div class="main-ctrl">
 
-        <button 
-            {{bind-attr class=":btn :icon-text isPublished:success:primary"}}
-            target="_blank"
-            {{action 'togglePublished'}}>
-          {{#if isPublished}}
-            {{t 'entry.published'}}
-          {{else}}
-            {{t 'entry.draft'}}
-          {{/if}}
-        </button>
-
         <button class="btn icon-text"
                 {{action 'goToEntries'}}>
           <i class="fa fa-arrow-left"></i>
           {{t 'back'}}
         </button>
-
-        <a class="btn icon-text" target="_blank"
-            {{bind-attr href='previewLink'}}>
-          <i class="fa fa-eye"></i>
-          {{t 'preview'}}
-        </a>
         
         <button {{bind-attr class='isDirty:primary curTranslation.isDirty:primary :btn :icon-text'}}
                 {{action 'save'}}>
@@ -40,8 +23,6 @@
         <span class="desc">{{t 'entry.title'}}</span><br>
         {{#if curTranslation.title}}
           {{curTranslation.title}}
-        {{else}}
-          I
         {{/if}}
       </h1>
 
@@ -53,7 +34,7 @@
 
     <div class="col-md-8">
       <div class="box fill-box default-padding">
-        {{partial 'lineup_entries/form'}}
+        {{partial 'lineup_orgs/form'}}
       </div>
     </div>
 
@@ -64,15 +45,7 @@
       </div>
 
       <div class="box fill-box margin-top">
-        {{view 'lineup_events_list'}}
-      </div>
-
-      <div class="box fill-box margin-top">
-        {{partial 'lineup_entries/links'}}
-      </div>
-
-      <div class="box fill-box margin-top">
-        {{view 'lineup_jobs_list'}}
+        {{partial 'lineup_orgs/links'}}
       </div>
 
     </div>

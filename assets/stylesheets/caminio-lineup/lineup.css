@@ -72,15 +72,18 @@
   width: 46%;
 }
 
-.events-list{
+.events-list,
+.jobs-list{
   list-style: none;
   padding: 0;
 }
 
-.events-list .lineup-event{
+.events-list .job,
+.jobs-list .lineup-event{
   padding: 5px;
 }
 
+.jobs-list .job-name,
 .events-list .venue{
   font-weight: 600;
 }
@@ -97,10 +100,12 @@
   padding-right: 0;
 }
 
+.jobs-list .cancel,
 .events-list .edit-prices{
   margin: 4px 15px 0 0;
 }
 
+.jobs-list .row,
 .events-list .row{
   margin-bottom: 5px;
 }

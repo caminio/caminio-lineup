@@ -9,6 +9,7 @@
     requestReviewMsg: DS.attr(),
     status: DS.attr('string', { defaultValue: 'draft'}),
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
+    lineup_jobs: DS.hasMany( 'lineup_job', { embedded: 'always' } ),
     
     recommendedAge: DS.attr('number'),
     durationMin: DS.attr('number'),
@@ -56,7 +57,18 @@
     }.property('status'),
     isDraft: function(){
       return this.get('status') === 'draft';
-    }.property('status')
+    }.property('status'),
+
+    curTranslation: function(){
+      return this.get('translations').findBy('locale', App._curLang);
+    }.property('translations.@each'),
+
+    previewLink: function(){
+      var url = 'http://'+currentDomain.fqdn+'/drafts/'+this.get('id');
+      url += '.' + App._curLang + '.htm';
+      return url;
+    }.property('id')
+    
 
   });
 

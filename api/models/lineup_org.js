@@ -37,6 +37,8 @@ module.exports = function LineupOrganization( caminio, mongoose ){
     extRefNote: { type: String, public: true },
     extRefSyncAt: { type: String, public: true },
 
+    origUrl: { type: String, public: true },
+    
     extUrl: { type: String, public: true },
     videoUrl: { type: String, public: true },
     videoType: { type: String, public: true },

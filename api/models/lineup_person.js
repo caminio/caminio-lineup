@@ -16,8 +16,8 @@ module.exports = function LineupPerson( caminio, mongoose ){
     type: { type: String, public: true, index: true },
     status: { type: String, public: true, default: 'draft' },
 
-    translations: [ TranslationSchema ],
-    mediafiles: [ MediafileSchema ],
+    translations: { type: [ TranslationSchema ], public: true },
+    mediafiles: { type: [ MediafileSchema ], public: true },
 
     tags: { type: [String], public: true },
 

@@ -2,24 +2,11 @@
   
   'use strict';
 
-  App.LineupEntryController = Ember.Controller.extend({
+  App.LineupOrgController = Ember.Controller.extend({
 
     curTranslation: function(){
       return this.get('content.translations').findBy('locale', App._curLang);
     }.property('App._curLang'),
-
-    period: function(){
-      var first, last;
-      this.get('content.lineup_events').forEach(function(e){
-        if( !first || e.get('starts') <= first )
-          first = e.get('starts');
-        if( !last || e.get('starts') >= last )
-          last = e.get('starts');
-      });
-      if( first && last )
-        return new Handlebars.SafeString(moment(first).format('DD.MMM.') + ' &ndash; ' + moment(last).format('DD.MMM.'));
-      return '';
-    }.property('lineup_events.@each'),
 
     actions: {
       'removeItem': function(){
@@ -36,7 +23,7 @@
         });
       },
       'editItem': function( item ){
-        this.transitionToRoute('lineup_entries.edit', item.get('id'));
+        this.transitionToRoute('lineup_orgs.edit', item.get('id'));
       }
     }
 
