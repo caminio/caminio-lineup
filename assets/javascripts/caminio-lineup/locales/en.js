@@ -59,6 +59,7 @@
     'entry.breaks': 'Breaks',
     'entry.from_age_of': 'From',
     'entry.years': 'years',
+    'entry.filename': 'Filename',
 
     'entry.media': 'Media',
 

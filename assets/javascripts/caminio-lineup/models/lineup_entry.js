@@ -19,6 +19,8 @@
     derniere: DS.attr('boolean', { defaultValue: false }),
     canceled: DS.attr('boolean', { defaultValue: false }),
 
+    filename: DS.attr('string'),
+
     age: DS.attr('number'),
 
     lineup_events: DS.hasMany('lineup_event', { embedded: 'always' }),
@@ -66,6 +68,7 @@
     previewLink: function(){
       var url = 'http://'+currentDomain.fqdn+'/drafts/'+this.get('id');
       url += '.' + App._curLang + '.htm';
+      console.log('url', url);
       return url;
     }.property('id')
     
