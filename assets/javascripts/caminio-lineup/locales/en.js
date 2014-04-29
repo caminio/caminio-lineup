@@ -44,6 +44,11 @@
     'entry.derniere': 'Derniere',
     'entry.canceled': 'Cancelled',
 
+    'entry.draft': 'Draft',
+    'entry.published': 'Published',
+    'entry.marked_published': '{{name}} is now published',
+    'entry.marked_draft': '{{name}} is no longer published and marked as draft',
+
     'entry.ttp': 'Theatre / Dance / Performance',
     'entry.youth': 'Young audience',
     'entry.cab': 'Cabaret',

@@ -7,10 +7,6 @@
     availableVenues: Em.A(),
     availablePeople: Em.A(),
 
-    curTranslation: function(){
-      return this.get('translations').findBy('locale', App._curLang);
-    }.property('App._curLang'),
-
     youtubeVideoURL: function(){
       return '//www.youtube-nocookie.com/embed/'+this.get('videoId');
     }.property('videoId'),
@@ -31,10 +27,27 @@
 
     actions: {
 
+      'goToEntries': function(){
+        this.transitionToRoute('lineup_entries')
+      },
+
       'toggleVideoProvider': function(){
         if( this.get('videoProvider') === 'youtube' )
           return this.set('videoProvider', 'vimeo');
         return this.set('videoProvider', 'youtube');
+      },
+
+      'togglePublished': function(){
+        var content = this.get('content');
+        content.set('status', content.get('status') === 'draft' ? 'published' : 'published' );
+        content
+          .save()
+          .then(function(){
+            if( content.get('status') === 'draft' )
+              notify('info', Em.I18n.t('entry.marked_draft', { name: content.get('curTranslation.title') }));
+            else
+              notify('info', Em.I18n.t('entry.marked_published', { name: content.get('curTranslation.title') }));
+          });
       },
 
       'save': function(){

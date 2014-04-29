@@ -4,6 +4,7 @@
  *
  */
 
+var _                 = require('lodash');
 var normalizeFilename = require('caminio/util').normalizeFilename;
  
 module.exports = function LineupEntry( caminio, mongoose ){
@@ -79,6 +80,21 @@ module.exports = function LineupEntry( caminio, mongoose ){
     next();
   });
 
+  schema.methods.url = function url( selectedLang, fallbackLang ){
+    fallbackLang = fallbackLang || selectedLang;
+    
+    var lang = _.first(this.translations, { 'locale': selectedLang });
+
+    if( lang )
+      lang = lang.locale;
+
+    if( this.translations.length === 1 )
+        return this._path + '/' + this.filename + '.htm';
+    if( lang )
+        return this._path + '/' + this.filename + '.' + lang + '.htm';
+    return this._path + '/' + this.filename + '.' + fallbackLang + '.htm';
+
+  };
   return schema;
 
 };
