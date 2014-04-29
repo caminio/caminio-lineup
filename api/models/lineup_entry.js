@@ -18,6 +18,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
   var schema = new mongoose.Schema({
 
     type: { type: String, public: true, index: true },
+    filename: { type: String, public: true, index: true },
     status: { type: String, public: true, default: 'draft' },
 
     requestReviewMsg: { type: String, public: true },
@@ -65,6 +66,10 @@ module.exports = function LineupEntry( caminio, mongoose ){
   schema.virtual( 'curTranslation' )
     .get( function(){ return this._curTranslation; } )
     .set( function( value ){  this._curTranslation = value; } );
+
+  schema.virtual( 'teaser' )
+    .get( function(){ return this._teaser; } )
+    .set( function( value ){  this._teaser = value; } );
 
   return schema;
 
