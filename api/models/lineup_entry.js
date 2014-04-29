@@ -69,13 +69,21 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   });
 
-  schema.virtual( 'curTranslation' )
-    .get( function(){ return this._curTranslation; } )
-    .set( function( value ){  this._curTranslation = value; } );
+  schema.virtual('curTranslation')
+    .get(function(){
+      return this._curTranslation;
+    });
 
+  schema.virtual('curLang')
+    .set(function(lang){
+      this._curTranslation = _.first( this.translations, { locale: lang } ); 
+      if( this._curTranslation instanceof Array )
+        this._curTranslation = this._curTranslation[0];
+    });
+
+  //TODO: make teaser
   schema.virtual( 'teaser' )
-    .get( function(){ return this._teaser; } )
-    .set( function( value ){  this._teaser = value; } );
+    .get( function(){ return; } )
 
   schema.pre('save', function(next){
     if( !this.isNew )
