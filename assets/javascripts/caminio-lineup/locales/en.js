@@ -64,6 +64,7 @@
 
     'error.missing_title': 'Title must be filled in before you can continue',
     'entry.saved': 'Entry {{name}} has been saved',
+    'entry.deleted': 'Entry {{name}} has been deleted',
 
     'entry.ensembles': 'Ensembles',
 

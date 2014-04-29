@@ -5,6 +5,12 @@
     <div class="title-box">
       <div class="main-ctrl">
 
+        <button class="btn icon-text"
+                {{action 'goToEntries'}}>
+          <i class="fa fa-arrow-left"></i>
+          {{t 'back'}}
+        </button>
+
         <button 
             {{bind-attr class=":btn :icon-text isPublished:success:primary"}}
             target="_blank"
@@ -16,10 +22,10 @@
           {{/if}}
         </button>
 
-        <button class="btn icon-text"
-                {{action 'goToEntries'}}>
-          <i class="fa fa-arrow-left"></i>
-          {{t 'back'}}
+        <button class="btn icon-text highlight-danger"
+                {{action 'remove' content}}>
+          <i class="fa fa-trash-o"></i>
+          {{t 'delete'}}
         </button>
 
         <a class="btn icon-text" target="_blank"
