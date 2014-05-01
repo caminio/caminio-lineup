@@ -67,9 +67,9 @@
 
     previewLink: function(){
       var url = 'http://'+currentDomain.fqdn+'/drafts/'+this.get('id');
-      url += '.' + App._curLang + '.htm';
-      console.log('url', url);
-      return url;
+      if( this.get('translations').content.length > 1 )
+        url += '.' + this.get('curLang');
+      return url + '.htm';
     }.property('id')
     
 

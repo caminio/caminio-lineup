@@ -46,6 +46,15 @@ module.exports = function LineupOrganization( caminio, mongoose ){
     othersWrite: { type: String, public: true },
     notifyMeOnWrite: { type: Boolean, default: true, public: true },
 
+    reachByBus: { type: String, public: true },
+    reachByTram: { type: String, public: true },
+    reachByTrain: { type: String, public: true },
+
+    openingHours: { type: String, public: true },
+
+    email: { type: String, public: true },
+    phone: { type: String, public: true },
+
     camDomain: { type: ObjectId, ref: 'Domain' },
     createdAt: { type: Date, default: Date.now, public: true },
     createdBy: { type: ObjectId, ref: 'User', public: true },

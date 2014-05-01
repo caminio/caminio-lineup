@@ -94,6 +94,17 @@
     'venue.saved': 'Organisation {{name}} wurde gespeichert',
     'venue.orig_org_url': 'Link zur Webseite',
 
+    'venue.contact': 'Kontakt',
+    'venue.accessibility': 'Erreichbarkeit',
+    'venue.phone': 'Telefon',
+    'venue.email': 'Email',
+    'venue.opening_hours': 'Öffnungszeiten',
+
+    'venue.public_transports': 'Öffentliche Verkehrsmittel in der Nähe',
+    'venue.train': 'Zug',
+    'venue.tram': 'Straßenbahn',
+    'venue.bus': 'Bus',
+
     'person.select_or_create': 'Person auswählen oder neuen Namen eintragen',
     'person.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
     'person.created': 'Person {{name}} wurde erstellt',
