@@ -83,7 +83,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   //TODO: make teaser
   schema.virtual( 'teaser' )
-    .get( function(){ return; } )
+    .get( function(){ return; } );
 
   schema.pre('save', function(next){
     if( !this.isNew )

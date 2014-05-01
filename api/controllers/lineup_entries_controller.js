@@ -18,7 +18,7 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
       'update': compilePages
     },
 
-  }
+  };
 
   function compilePages( req, res, next ){
     gen = new SiteGen( res.locals.currentDomain.getContentPath(), 'projects' );

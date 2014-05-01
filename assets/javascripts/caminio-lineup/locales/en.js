@@ -60,6 +60,7 @@
     'entry.from_age_of': 'From',
     'entry.years': 'years',
     'entry.filename': 'Filename',
+    'entry.press_voices': 'Press voices',
 
     'entry.media': 'Media',
 
