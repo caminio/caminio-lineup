@@ -1,0 +1,51 @@
+<div class="box-header">
+  <div class="box-title">
+    {{t 'venue.accessibility'}}
+  </div>
+</div>
+
+<form class="box-body default-padding caminio" {{action 'save' on='submit'}}>
+
+  <div class="form-group">
+
+    <label class="control-label">{{t 'venue.opening_hours'}}</label>
+    <div>
+      {{input valueBinding='openingHours' class="form-control"}}
+    </div>
+    
+  </div>
+
+
+  <h4 class="mini-title">
+    <i class="fa fa-road"></i>
+    {{t 'venue.public_transports'}}
+  </h4>
+
+  <div class="form-group">
+
+    <label class="control-label">{{t 'venue.bus'}}</label>
+    <div>
+      {{input valueBinding='reachByBus' class="form-control"}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+
+    <label class=" control-label">{{t 'venue.tram'}}</label>
+    <div>
+      {{input valueBinding='reachByTram' class="form-control"}}
+    </div>
+    
+  </div>
+
+  <div class="form-group">
+
+    <label class=" control-label">{{t 'venue.train'}}</label>
+    <div>
+      {{input valueBinding='reachByTrain' class="form-control"}}
+    </div>
+    
+  </div>
+
+</form>

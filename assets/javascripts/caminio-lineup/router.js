@@ -72,7 +72,7 @@
     },
 
     setupController: function( controller, model ){
-      this.store.find('mediafile', { parent: model.get('id')}).then(function(mediafiles){
+      this.store.find('mediafile', { parent: model.get('id'), order: 'position:asc' }).then(function(mediafiles){
         controller.set('mediafiles',mediafiles);
       });
       this.store.all('lineup_org', { type: 'venue' }).forEach(function(venue){
@@ -155,7 +155,7 @@
     },
 
     setupController: function( controller, model ){
-      this.store.find('mediafile', { parent: model.get('id')}).then(function(mediafiles){
+      this.store.find('mediafile', { parent: model.get('id'), order: 'position:asc'}).then(function(mediafiles){
         controller.set('mediafiles',mediafiles);
       });
       controller.set('model',model);

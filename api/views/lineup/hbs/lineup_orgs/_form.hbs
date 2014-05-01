@@ -22,6 +22,27 @@
 
   <hr>
 
+  <h4 class="mini-title">{{t 'venue.contact'}}</h4>
+
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{t 'venue.email'}}</label>
+    <div class="col-md-10">
+      {{input valueBinding='email' class="form-control"}}
+    </div>
+  </div>
+
+  <div class="form-group">
+
+    <label class="control-label col-md-2">{{t 'venue.phone'}}</label>
+    <div class="col-md-10">
+      {{input valueBinding='phone' class="form-control"}}
+    </div>
+    
+  </div>
+
+  <hr>
+
   <h4 class="mini-title">{{t 'venue.address'}}</h4>
 
   <div class="form-group">
@@ -59,7 +80,7 @@
     <label class="col-md-2 control-label">{{t 'country'}}</label>
     <div class="col-md-10">
       {{view App.Select2CountryView
-        selectionBinding="country"
+        valueBinding="country"
         class="fill-width"}}
     </div>
   </div>

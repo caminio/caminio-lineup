@@ -12,8 +12,6 @@
       return this.get('translations').findBy('locale', App._curLang);
     }.property('translations.@each'),
 
-    tags: DS.attr('array'),
-
     street: DS.attr('string'),
     zip: DS.attr('string'),
     city: DS.attr('string'),
@@ -29,6 +27,15 @@
     extRefSrc: DS.attr('string'),
     extRefNote: DS.attr('string'),
     extRefSyncAt: DS.attr('date'),
+
+    openingHours: DS.attr('string'),
+    
+    reachByBus: DS.attr('string'),
+    reachByTram: DS.attr('string'),
+    reachByTrain: DS.attr('string'),
+
+    email: DS.attr('string'),
+    phone: DS.attr('string'),
 
     extUrl: DS.attr('string'),
     videoUrl: DS.attr('string'),
@@ -53,7 +60,12 @@
     }.property('status'),
     isDraft: function(){
       return this.get('status') === 'draft';
-    }.property('status')
+    }.property('status'),
+
+    obsCountry: function(){
+      console.log('changed', this.get('country'));
+    }.observes('country')
+
   });
 
   Ember.Inflector.inflector.irregular('lineupOrg', 'lineup_orgs');

@@ -69,37 +69,48 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   });
 
-  schema.virtual( 'curTranslation' )
-    .get( function(){ return this._curTranslation; } )
-    .set( function( value ){  this._curTranslation = value; } );
+  schema.virtual('curTranslation')
+    .get(function(){
+      if( !this._curLang )
+        return null;
+      return _.first( this.translations, { locale: this._curLang } )[0]; 
+    });
 
+  schema.virtual('curLang')
+    .set(function(lang){
+      this._curLang = lang;
+    });
+
+  //TODO: make teaser
   schema.virtual( 'teaser' )
-    .get( function(){ return this._teaser; } )
-    .set( function( value ){  this._teaser = value; } );
+    .get( function(){ return; } )
 
   schema.pre('save', function(next){
     if( !this.isNew )
       return next();
-    this.filename = normalizeFilename( this.translations[0].title );
+    if( !this.filename )
+      this.filename = normalizeFilename( this.translations[0].title );
     next();
   });
 
-  schema.methods.url = function url( selectedLang, fallbackLang ){
-    fallbackLang = fallbackLang || selectedLang;
+  schema.virtual('absoluteUrl')
+    .get(function(){
+      return this.url();
+    });
+
+  schema.methods.url = function url(){
     
-    var lang = _.first(this.translations, { 'locale': selectedLang });
-
-    if( lang )
-      lang = lang.locale;
-
     if( this.translations.length === 1 )
         return this._path + '/' + this.filename + '.htm';
-    if( lang )
-        return this._path + '/' + this.filename + '.' + lang + '.htm';
-    return this._path + '/' + this.filename + '.' + fallbackLang + '.htm';
+    // if( lang )
+    //     return this._path + '/' + this.filename + '.' + lang + '.htm';
+    return this._path + '/' + this.filename + '.' + this._curLang + '.htm';
 
   };
 
+  schema.publicAttributes = ['absoluteUrl'];
+
   return schema;
+
 
 };

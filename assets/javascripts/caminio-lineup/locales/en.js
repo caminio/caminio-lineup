@@ -85,6 +85,7 @@
 
     'venue.created': 'Venue {{name}} has been created',
 
+    'venue.contact': 'Contact',
     'venues.title': 'Venues',
     'venue.create': 'Create a new venue',
     'venue.name': 'Name',
@@ -93,6 +94,16 @@
     'venue.address': 'Address',
     'venue.saved': 'Organization {{name}} has been saved',
     'venue.orig_org_url': 'Link to website',
+
+    'venue.accessibility': 'Accessibility',
+    'venue.phone': 'Phone',
+    'venue.email': 'Email',
+    'venue.opening_hours': 'Opening hours',
+
+    'venue.public_transports': 'Public transports nearby',
+    'venue.train': 'Train',
+    'venue.tram': 'Tram',
+    'venue.bus': 'Bus',
 
     'person.select_or_create': 'Select or create person',
     'person.nothing_found_create_new': 'No person matched your search. Enter to create',
