@@ -88,13 +88,15 @@ module.exports = function LineupEntry( caminio, mongoose ){
     .set( function(teaser){ this._teaser = teaser; });
 
   schema.pre('save', function(next){
+    if(this.filename)
+      this.filename = normalizeFilename( this.filename );
     if( !this.isNew )
       return next();
     if( !this.filename )
       this.filename = normalizeFilename( this.translations[0].title );
     next();
   });
-
+  
   schema.virtual('absoluteUrl')
     .get(function(){
       return this.url();
