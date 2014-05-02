@@ -7,7 +7,7 @@
  * @Date:   2014-04-16 00:14:37
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-04-29 18:36:06
+ * @Last Modified time: 2014-04-29 18:37:23
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -36,9 +36,7 @@ describe( 'Site Generator lineup test', function(){
       camDomain: domain.id, 
       translations: [
         { content: 'testcontent', locale: 'en',
-          title: name },
-        { content: 'deutsch', locale: 'de',
-          title: name}
+          title: name }
       ] 
     } );
     project.save( function( err ){

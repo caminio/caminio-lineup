@@ -5,6 +5,8 @@
  *
  */
  
+var _                 = require('lodash');
+
 module.exports = function LineupOrganization( caminio, mongoose ){
 
   var ObjectId = mongoose.Schema.Types.ObjectId;
@@ -62,6 +64,19 @@ module.exports = function LineupOrganization( caminio, mongoose ){
     updatedBy: { type: ObjectId, ref: 'User', public: true }
 
   });
+
+
+  schema.virtual('curTranslation')
+    .get(function(){
+      if( !this._curLang )
+        return null;
+      return _.first( this.translations, { locale: this._curLang } )[0]; 
+    });
+
+  schema.virtual('curLang')
+    .set(function(lang){
+      this._curLang = lang;
+    });
 
   return schema;
 
