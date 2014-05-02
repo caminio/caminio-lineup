@@ -73,7 +73,9 @@ module.exports = function LineupEntry( caminio, mongoose ){
     .get(function(){
       if( !this._curLang )
         return null;
-      return _.first( this.translations, { locale: this._curLang } )[0]; 
+      var guess = _.first( this.translations, { locale: this._curLang } )[0]; 
+      if( guess ){ return guess; }
+      return this.translations[0];
     });
 
   schema.virtual('curLang')
@@ -81,9 +83,9 @@ module.exports = function LineupEntry( caminio, mongoose ){
       this._curLang = lang;
     });
 
-  //TODO: make teaser
   schema.virtual( 'teaser' )
-    .get( function(){ return; } );
+    .get( function(){ return this._teaser; } )
+    .set( function(teaser){ this._teaser = teaser; });
 
   schema.pre('save', function(next){
     if( !this.isNew )

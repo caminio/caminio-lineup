@@ -67,6 +67,7 @@
     'error.missing_title': 'Titel muss vor dem Fortfahren ausgefüllt werden.',
     'entry.saved': 'Eintrag {{name}} wurde gespeichert',
     'entry.deleted': 'Eintrag {{name}} wurde gelöscht',
+    'entry.really_delete': '{{name}} wirklich löschen?',
 
     'entry.ensembles': 'Ensembles',
 

@@ -63,7 +63,7 @@
 
     curTranslation: function(){
       return this.get('translations').findBy('locale', App._curLang);
-    }.property('translations.@each'),
+    }.property('translations.@each', 'App._curLang'),
 
     previewLink: function(){
       var url = 'http://'+currentDomain.fqdn+'/drafts/'+this.get('id');

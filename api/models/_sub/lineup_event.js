@@ -12,7 +12,7 @@ module.exports = function LineupEvent( caminio, mongoose ){
   var schema = new mongoose.Schema({
 
     starts: { type: Date, public: true },
-    venue: { type: ObjectId, ref: 'LineupOrg' },
+    lineup_org: { type: ObjectId, ref: 'LineupOrg', public: true },
     prices: [ LineupPriceSchema ],
     festival: { type: ObjectId, ref: 'LineupOrg' }
 

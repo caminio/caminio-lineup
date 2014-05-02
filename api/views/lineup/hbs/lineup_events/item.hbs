@@ -12,7 +12,7 @@
                   contentBinding='parentController.availableVenues'
                   optionValuePath='content.id'
                   optionLabelPath='content.curTranslation.title'
-                  selectionBinding='venue'}}
+                  selectionBinding='lineup_org'}}
         </div>
       </div>
 
@@ -57,7 +57,7 @@
     <button class="btn pull-right" {{action 'toggleEditMode'}}>
       <i class="fa fa-pencil"></i>
     </button>
-    <div class="venue">{{venue.curTranslation.title}}</div>
+    <div class="venue">{{lineup_org.curTranslation.title}}</div>
     <time>{{formatDate starts format='ddd, DD. MMM. HH:mm'}}</time>
   {{/if}}
 </li>

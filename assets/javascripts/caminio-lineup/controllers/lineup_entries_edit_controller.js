@@ -50,15 +50,36 @@
           });
       },
 
+      'changeLang': function( lang ){
+        var tr = this.get('content.translations').find( function( tr ){
+          return tr.get('locale') === lang;
+        });
+        if( !tr ){
+          tr = this.store.createRecord('translation', { locale: lang,
+                                                        title: this.get('content.curTranslation.title'),
+                                                        subtitle: this.get('content.curTranslation.subtitle'),
+                                                        aside: this.get('content.curTranslation.aside'),
+                                                        content: this.get('content.curTranslation.content') });
+          this.get('content.translations').pushObject( tr );
+        }
+
+        App.set('_curLang', lang);
+
+      },
+
       'remove': function( content ){
-        content.deleteRecord();
-        var self = this;
-        content
-          .save()
-          .then(function(){
-            notify('info', Em.I18n.t('entry.deleted', { name: content.get('curTranslation.title') }));
-            self.transitionToRoute('lineup_entries');
-          });
+        bootbox.confirm( Em.I18n.t('entry.really_delete', {name: content.get('name')}), function(result){
+          if( !result )
+            return;
+          content.deleteRecord();
+          var self = this;
+          content
+            .save()
+            .then(function(){
+              notify('info', Em.I18n.t('entry.deleted', { name: content.get('curTranslation.title') }));
+              self.transitionToRoute('lineup_entries');
+            });
+        });
       },
 
       'save': function(){

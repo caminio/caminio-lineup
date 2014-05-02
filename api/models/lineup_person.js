@@ -52,6 +52,20 @@ module.exports = function LineupPerson( caminio, mongoose ){
 
   });
 
+  schema.virtual('name')
+    .get(function(){
+      var str = '';
+      if( this.firstname )
+        str += this.firstname;
+      if( str.lastname ){
+        if( str.length > 0 )
+          str += ' ';
+        str += this.lastname;
+      }
+    });
+
+  schema.publicAttributes = [ 'name' ];
+  
   return schema;
 
 };

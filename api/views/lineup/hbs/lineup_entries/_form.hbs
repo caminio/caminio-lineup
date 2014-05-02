@@ -24,7 +24,8 @@
     <label class="col-md-2 control-label">{{t 'entry.description'}}</label>
     <div class="col-md-10 inline-editor">
       {{view App.CodeMirrorView
-            valueBinding='curTranslation.content'}}
+            valueBinding='curTranslation.content'
+            class='content'}}
     </div>
     
   </div>
@@ -167,7 +168,8 @@
     <label class="col-md-2 control-label">{{t 'entry.press_voices'}}</label>
     <div class="col-md-10 inline-editor">
       {{view App.CodeMirrorView
-            valueBinding='curTranslation.aside'}}
+            valueBinding='curTranslation.aside'
+            class='aside'}}
     </div>
     
   </div>

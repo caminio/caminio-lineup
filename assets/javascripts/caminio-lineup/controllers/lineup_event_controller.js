@@ -22,7 +22,7 @@
           .then(function(){
             notify('info', Em.I18n.t('venue.created', { name: venue.get('curTranslation.title') }));
             self.get('parentController.availableVenues').pushObject( venue );
-            self.get('content').set('venue', venue);
+            self.get('content').set('lineup_org', venue);
             $obj.append('<option value="'+venue.get('id')+'">'+venue.get('curTranslation.title')+'</option>');
             $obj.select2('val', venue.get('id'));
           });
