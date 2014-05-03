@@ -10,6 +10,21 @@
           <i class="fa fa-arrow-left"></i>
           {{t 'back'}}
         </button>
+
+        {{#if curTranslation.hasMultiLang}}
+          <div class="dropdown btn-group">
+            <button class="btn text-icon dropdown-toggle" data-toggle="dropdown">
+              {{t 'translation.title'}}:
+              <strong>{{curTranslation.locale}}</strong>
+              <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right">
+              {{#each lang in curTranslation.availableLangs}}
+                <li {{action 'changeLang' lang}}><a href="#">{{lang}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
         
         <button {{bind-attr class='isDirty:primary curTranslation.isDirty:primary :btn :icon-text'}}
                 {{action 'save'}}>

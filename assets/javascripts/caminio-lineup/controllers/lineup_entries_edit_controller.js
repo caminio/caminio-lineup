@@ -1,12 +1,12 @@
 ( function(){
   
   'use strict';
-
+  
   App.LineupEntriesEditController = Ember.ObjectController.extend({
 
     availableVenues: Em.A(),
     availablePeople: Em.A(),
-
+    
     youtubeVideoURL: function(){
       return '//www.youtube-nocookie.com/embed/'+this.get('videoId');
     }.property('videoId'),

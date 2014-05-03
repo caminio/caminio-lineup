@@ -34,6 +34,23 @@
         return this.set('videoProvider', 'youtube');
       },
 
+      'changeLang': function( lang ){
+        var tr = this.get('content.translations').find( function( tr ){
+          return tr.get('locale') === lang;
+        });
+        if( !tr ){
+          tr = this.store.createRecord('translation', { locale: lang,
+                                                        title: this.get('content.curTranslation.title'),
+                                                        subtitle: this.get('content.curTranslation.subtitle'),
+                                                        aside: this.get('content.curTranslation.aside'),
+                                                        content: this.get('content.curTranslation.content') });
+          this.get('content.translations').pushObject( tr );
+        }
+
+        App.set('_curLang', lang);
+
+      },
+
       'save': function(){
         var self = this;
         if( !this.get('curTranslation.title') ){

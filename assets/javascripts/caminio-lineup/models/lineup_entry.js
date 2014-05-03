@@ -66,10 +66,10 @@
     }.property('translations.@each', 'App._curLang'),
 
     previewLink: function(){
-      var url = 'http://'+currentDomain.fqdn+'/drafts/'+this.get('id');
+      var url = 'http://'+currentDomain.fqdn+'/drafts/'+this.get('id')+'.htm';
       if( this.get('translations').content.length > 1 )
         url += '.' + this.get('curLang');
-      return url + '.htm';
+      return url;
     }.property('id')
     
 

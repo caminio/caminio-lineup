@@ -5,6 +5,7 @@
  */
 
 var _                 = require('lodash');
+var join              = require('path').join;
 var normalizeFilename = require('caminio/util').normalizeFilename;
  
 module.exports = function LineupEntry( caminio, mongoose ){
@@ -73,7 +74,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
     .get(function(){
       if( !this._curLang )
         return this.translations[0];
-      var guess = _.first( this.translations, { locale: this._curLang } )[0]; 
+      var guess = _.find( this.translations, { locale: this._curLang } );
       if( guess ){ return guess; }
       return this.translations[0];
     });
@@ -112,7 +113,12 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   };
 
-  schema.publicAttributes = ['absoluteUrl'];
+  schema.virtual('relPath')
+    .get(function(){
+      return join( 'projekte', this.filename );
+    });
+
+  schema.publicAttributes = ['absoluteUrl', 'relPath'];
 
   return schema;
 
