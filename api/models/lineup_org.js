@@ -65,18 +65,23 @@ module.exports = function LineupOrganization( caminio, mongoose ){
 
   });
 
-
   schema.virtual('curTranslation')
     .get(function(){
       if( !this._curLang )
-        return null;
-      return _.first( this.translations, { locale: this._curLang } )[0]; 
+        return this.translations[0];
+      var guess = _.first( this.translations, { locale: this._curLang } )[0]; 
+      if( guess ){ return guess; }
+      return this.translations[0];
     });
 
   schema.virtual('curLang')
     .set(function(lang){
       this._curLang = lang;
     });
+
+  schema.virtual( 'teaser' )
+    .get( function(){ return this._teaser; } )
+    .set( function(teaser){ this._teaser = teaser; });
 
   return schema;
 

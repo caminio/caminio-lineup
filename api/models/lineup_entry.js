@@ -72,7 +72,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
   schema.virtual('curTranslation')
     .get(function(){
       if( !this._curLang )
-        return null;
+        return this.translations[0];
       var guess = _.first( this.translations, { locale: this._curLang } )[0]; 
       if( guess ){ return guess; }
       return this.translations[0];
