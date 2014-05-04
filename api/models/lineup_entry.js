@@ -23,8 +23,14 @@ module.exports = function LineupEntry( caminio, mongoose ){
   var schema = new mongoose.Schema({
 
     filename: { type: String, public: true },
-    type: { type: String, public: true, index: true },
+    //type: { type: String, public: true, index: true },
     status: { type: String, public: true, default: 'draft' },
+
+    /**
+     * @property labels
+     * @type ObjectId
+     */
+    labels: { type: [ObjectId], ref: 'Label', index: true, public: true },
 
     requestReviewMsg: { type: String, public: true },
     requestReviewBy: { type: ObjectId, ref: 'User', public: true },

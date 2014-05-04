@@ -16,7 +16,7 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
 
     _before: {
       '*': policies.ensureLogin,
-      'update': checkLocaleExistsAndDismiss
+      'update': [ checkLocaleExistsAndDismiss, repairEmberLabels ]
     },
 
     _beforeResponse: {
@@ -81,5 +81,19 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
     next();
 
   }
+
+  function repairEmberLabels( req, res, next ){
+    if( req.body.lineup_entry && req.body.lineup_entry.labels ){
+      repairedLabels = [];
+      req.body.lineup_entry.labels.forEach(function(label){
+        if( typeof(label) === 'object' )
+          repairedLabels.push( label._id );
+      });
+      if( repairedLabels.length > 0 )
+        req.body.lineup_entry.labels = repairedLabels;
+    }
+    next();
+  }
+
 
 };

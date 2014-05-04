@@ -17,6 +17,11 @@
     'entries.title': 'Line up entries',
 
     'entry.title': 'Title',
+    'entry.labels': 'Labels',
+    'entry.currently_labeled': 'is currently labeled with',
+    'entry.available_labels': 'Available labels',
+    'entry.no_labels': 'No label',
+    'entry.click_label': 'Click a label below to mark this entry with it',
     'entry.video_id': 'Embedded video ID',
     'entry.video_provider': 'Embedded video provider',
     'entry.subtitle': 'Subtitle',

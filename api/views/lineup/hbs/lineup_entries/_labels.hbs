@@ -1,0 +1,52 @@
+<div class="box-header">
+  <div class="box-title">
+    {{t 'entry.labels'}}
+  </div>
+</div>
+
+<div class="box-body default-padding">
+
+
+  <h4 class="mini-title">
+    {{curTranslation.title}} {{t 'entry.currently_labeled'}}:
+  </h4>
+
+  <div>
+    {{#each labels}}
+      <span class="label" {{bind-attr style=this.styleAttrs}}>
+        {{name}}
+      </span>
+    {{else}}
+      {{t 'entry.no_labels'}}
+    {{/each}}
+  </div>
+
+  <br>
+
+  <div class="desc">{{t 'entry.click_label'}}</div>
+
+  <button class="btn pale pull-right new-label-btn" 
+          {{action editLabel}}
+          {{translateAttr title='labels.new'}}>
+    <i class="fa fa-plus"></i>
+  </button>
+  <h4 class="mini-title margin-top">
+    {{t 'entry.available_labels'}}
+  </h4>
+
+  <ul class="labels-list">
+    {{#each availableLabels}}
+      <li {{bind-attr class="hide:pale"}} {{bind-attr data-id=id}}>
+        <span {{bind-attr class=":color private:private"}} {{bind-attr data-private='private'}} 
+                            {{action editLabel this}} 
+                            {{bind-attr style='styleAttrs'}}></span>
+        <button class="btn transparent small pull-right highlight-danger remove-label" 
+                {{translateAttr title='label.delete'}}
+                {{action removeLabel this}}>
+          <i class="fa fa-trash-o"></i>
+        </button>
+        <span class="label-title" {{action toggleLabel this}}>{{name}}</span>
+      </li>
+    {{/each}}
+  </ul>
+</div>

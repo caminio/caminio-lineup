@@ -17,6 +17,11 @@
     'entries.title': 'Einträge im Spielplan',
 
     'entry.title': 'Titel',
+    'entry.labels': 'Labels',
+    'entry.currently_labeled': 'ist aktuell gelabelt mit',
+    'entry.available_labels': 'Verfügbare Labels',
+    'entry.no_labels': 'Keinem Label',
+    'entry.click_label': 'Auf eines der verfügbaren Labels unterhalb klicken um diesen Spielplaneintrag damit zu markieren',
     'entry.video_id': 'Video einbetten (ID)',
     'entry.video_provider': 'Video-Provider',
     'entry.subtitle': 'Untertitel',

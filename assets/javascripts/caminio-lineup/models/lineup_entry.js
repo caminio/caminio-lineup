@@ -10,6 +10,8 @@
     status: DS.attr('string', { defaultValue: 'draft'}),
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
     lineup_jobs: DS.hasMany( 'lineup_job', { embedded: 'always' } ),
+
+    labels: DS.hasMany( 'label', { async: true } ),
     
     recommendedAge: DS.attr('number'),
     durationMin: DS.attr('number'),
