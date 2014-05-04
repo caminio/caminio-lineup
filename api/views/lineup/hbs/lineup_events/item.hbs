@@ -54,7 +54,10 @@
     </form>
 
   {{else}}
-    <button class="btn pull-right" {{action 'toggleEditMode'}}>
+    <button class="btn pull-right icon-only highlight-danger" {{action 'remove' content}}>
+      <i class="fa fa-trash-o"></i>
+    </button>
+    <button class="btn pull-right icon-only" {{action 'toggleEditMode'}}>
       <i class="fa fa-pencil"></i>
     </button>
     <div class="venue">{{lineup_org.curTranslation.title}}</div>

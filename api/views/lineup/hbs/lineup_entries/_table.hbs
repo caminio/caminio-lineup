@@ -11,7 +11,10 @@
   <tbody>
     {{#each model itemController='lineup_entry'}}
       <tr {{action 'editItem' content}}>
-        <td>{{curTranslation.title}}</td>
+        <td>
+          <span {{bind-attr class=":status-indicator :btn content.isPublished:success content.isDraft:primary content.inReview:warning"}}></span>
+          {{curTranslation.title}}
+        </td>
         <td>{{period}}</td>
         <td>
           {{#each content.venues}}

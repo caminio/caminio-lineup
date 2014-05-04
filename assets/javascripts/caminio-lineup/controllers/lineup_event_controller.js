@@ -9,6 +9,7 @@
     }.property('parentController.curFile'),
 
     actions: {
+      
       createVenue: function( name, $obj ){
         var self = this;
         var venue = this.get('parentController').store.createRecord('lineup_org', { type: 'venue' });

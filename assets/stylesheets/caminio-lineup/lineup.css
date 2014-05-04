@@ -109,3 +109,11 @@
 .events-list .row{
   margin-bottom: 5px;
 }
+
+table.entries-table td{
+  padding: 7px 10px;
+}
+table.entries-table .btn.status-indicator{
+  margin: 0 5px 0 0;
+  height: 1.6em;
+}
