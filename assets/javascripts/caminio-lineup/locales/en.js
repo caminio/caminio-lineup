@@ -66,6 +66,7 @@
 
     'error.missing_title': 'Title must be filled in before you can continue',
     'entry.saved': 'Entry {{name}} has been saved',
+    'entry.saving_failed': 'Entry {{name}} failed to save',
     'entry.deleted': 'Entry {{name}} has been deleted',
     'entry.really_delete': 'Really delete {{name}}?',
 
@@ -88,6 +89,7 @@
     'venue.created': 'Venue {{name}} has been created',
 
     'venue.contact': 'Contact',
+    'venue.type': 'Type',
     'venues.title': 'Venues',
     'venue.create': 'Create a new venue',
     'venue.name': 'Name',

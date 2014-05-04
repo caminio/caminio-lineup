@@ -118,6 +118,15 @@ module.exports = function LineupEntry( caminio, mongoose ){
       return join( 'projekte', this.filename );
     });
 
+  schema.virtual('absPath')
+    .get(function(){
+      return join( '/', this.curTranslation.locale, 'projekte', this.filename );
+    });
+
+  schema.methods.hasTranslation = function( lang ){
+    return _.find( this.translations, { locale: lang } );
+  };
+
   schema.publicAttributes = ['absoluteUrl', 'relPath'];
 
   return schema;

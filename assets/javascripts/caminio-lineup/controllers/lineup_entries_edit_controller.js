@@ -47,6 +47,9 @@
               notify('info', Em.I18n.t('entry.marked_draft', { name: content.get('curTranslation.title') }));
             else
               notify('info', Em.I18n.t('entry.marked_published', { name: content.get('curTranslation.title') }));
+          })
+          .fail(function(){
+            notify('error', Em.I18n.t('entry.saving_failed', { name: content.get('curTranslation.title') }));
           });
       },
 

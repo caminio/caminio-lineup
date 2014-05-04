@@ -66,6 +66,7 @@
 
     'error.missing_title': 'Titel muss vor dem Fortfahren ausgefüllt werden.',
     'entry.saved': 'Eintrag {{name}} wurde gespeichert',
+    'entry.saving_failed': '{{name}} konnte nicht gespeichert werden',
     'entry.deleted': 'Eintrag {{name}} wurde gelöscht',
     'entry.really_delete': '{{name}} wirklich löschen?',
 
@@ -88,6 +89,7 @@
     'venue.created': 'Spielort {{name}} wurde erstellt',
 
     'venues.title': 'Spielorte',
+    'venue.type': 'Typ',
     'venue.create': 'Neuer Spielort',
     'venue.name': 'Name',
     'venue.country': 'Land',

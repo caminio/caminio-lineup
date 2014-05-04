@@ -4,7 +4,7 @@
 
   App.LineupOrg = DS.Model.extend({
 
-    type: DS.attr('string', { defaultValue: 'ensemble' }),
+    type: DS.attr('string', { defaultValue: 'venue' }),
     status: DS.attr('string', { defaultValue: 'draft'}),
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
 

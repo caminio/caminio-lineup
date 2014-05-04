@@ -51,6 +51,10 @@
 
       },
 
+      'goToOrgs': function(){
+        this.transitionToRoute('lineup_orgs');
+      },
+
       'save': function(){
         var self = this;
         if( !this.get('curTranslation.title') ){
