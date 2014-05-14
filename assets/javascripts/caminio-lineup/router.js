@@ -11,8 +11,6 @@
   });
 
   App.IndexRoute = Ember.Route.extend({
-    setupController: function( controller ){
-    }
   });
 
   /**
@@ -189,6 +187,12 @@
 
     }
 
+  });
+
+  App.ApplicationView = Em.View.extend({
+    didInsertElement: function(){
+      setupCaminio(this.$());
+    }
   });
 
   App._curLang = currentDomain.lang;

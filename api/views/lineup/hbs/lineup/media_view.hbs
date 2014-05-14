@@ -6,7 +6,9 @@
 
 <div class="box-body default-padding">
   {{#if model.isNew}}
-    {{t 'entry.save_before_content'}}
+    <div class="big-desc">
+      {{t 'entry.save_before_content'}}
+    </div>
   {{else}}
     <div class="media-items lineup-media clearfix">
       {{#each mediafiles itemController='lineup_mediafile'}}

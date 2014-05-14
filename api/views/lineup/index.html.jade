@@ -69,14 +69,11 @@ append foot
 
 block content
 
-  aside#notifications.notifications
-    
-  script(type="text/x-handlebars")
-    include hbs/app.hbs
+  script(type="text/x-handlebars", data-template-name="navbar")
+    include hbs/navbar.hbs
 
   script(type="text/x-handlebars", data-template-name="index")
     include hbs/lineup/index.hbs
-
 
   script(type="text/x-handlebars", data-template-name="lineup_entries")
     include hbs/lineup_entries/index.hbs

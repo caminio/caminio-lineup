@@ -32,6 +32,11 @@
 
     actions: {
 
+      'cancelNewEntry': function(){
+        this.get('model').deleteRecord();
+        this.transitionToRoute('lineup_entries');
+      },
+
       'goToEntries': function(){
         this.transitionToRoute('lineup_entries')
       },

@@ -19,6 +19,8 @@
 
       App.setupCtrlS( this.get('controller.content'), Em.I18n.t('entry.saved', {name: this.get('controller.content.curTranslation.title') }) );
 
+      this.$('input[type=text]:visible:first').focus();
+
     }
 
   });

@@ -2,6 +2,6 @@ var Gear    = require('caminio/gear');
 new Gear({ 
   api: true,
     applications: [
-      { name: 'lineup', icon: 'asterisk', color: '#d55' }
+      { name: 'lineup', icon: 'fa-asterisk', color: '#d55' }
     ]
 });
