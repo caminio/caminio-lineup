@@ -5,7 +5,7 @@
     <div class="title-box">
       <div class="main-ctrl">
 
-        <button class="btn icon-text"
+        <button class="btn icon-text transparent borderless"
                 {{action 'goToEntries'}}>
           <i class="fa fa-arrow-left"></i>
           {{t 'back'}}
@@ -13,7 +13,7 @@
 
         {{#if curTranslation.hasMultiLang}}
           <div class="dropdown btn-group">
-            <button class="btn text-icon dropdown-toggle" data-toggle="dropdown">
+            <button class="btn transparent borderless text-icon dropdown-toggle" data-toggle="dropdown">
               {{t 'translation.title'}}:
               <strong>{{curTranslation.locale}}</strong>
               <i class="fa fa-angle-down"></i>
@@ -27,33 +27,38 @@
         {{/if}}
 
         <button 
-            {{bind-attr class=":btn :icon-text isPublished:success:primary"}}
+            {{bind-attr class=":btn :icon-text :publish-status isPublished:success:warning"}}
             target="_blank"
             {{action 'togglePublished'}}>
           {{#if isPublished}}
-            {{t 'entry.published'}}
+            <i class="fa fa-globe" {{translateAttr title='published_click_to_change'}}></i>
           {{else}}
-            {{t 'entry.draft'}}
+            <i class="fa fa-lock" {{translateAttr title='draft_click_to_change'}}></i>
           {{/if}}
         </button>
 
-        <button class="btn icon-text highlight-danger"
-                {{action 'remove' content}}>
-          <i class="fa fa-trash-o"></i>
-          {{t 'delete'}}
-        </button>
-
-        <a class="btn icon-text" target="_blank"
-            {{bind-attr href='previewLink'}}>
-          <i class="fa fa-eye"></i>
-          {{t 'preview'}}
-        </a>
-        
         <button {{bind-attr class='isDirty:primary curTranslation.isDirty:primary :btn :icon-text'}}
                 {{action 'save'}}>
-          <i class="fa fa-save"></i>
           {{t 'save'}}
         </button>
+
+        <div class="dropdown dropdown-hover as-btn">
+          <button class="btn transparent borderless icon-only"><i class="fa fa-bars"></i></button>
+          <ul class="dropdown-menu pull-right">
+            <li>
+                <a href="#" class="highlight-danger"
+                  {{action 'remove' content}}>
+                  {{t 'delete'}}
+                </a>
+            </li>
+            <li>
+              <a target="_blank"
+                {{bind-attr href='previewLink'}}>
+                {{t 'preview'}}
+              </a>
+            </li>
+          </ul>
+        </div>
 
       </div>
 

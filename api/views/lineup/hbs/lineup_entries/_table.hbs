@@ -1,29 +1,89 @@
-<table class="caminio entries-table">
-  <thead>
-    <tr>
-      <th>{{t 'entry.title'}}</th>
-      <th>{{t 'entry.date'}}</th>
-      <th>{{t 'entry.venues'}}</th>
-      <th>{{t 'updated_at'}}</th>
-      <th>{{t 'updated_by'}}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each model itemController='lineup_entry'}}
-      <tr {{action 'editItem' content}}>
+<div class="caminio-table-wrapper">
+  <table class="caminio entries-table">
+    <thead>
+      <tr>
+        <th class="favorite">
+          <div {{bind-attr class=":checker someSelected:greyed"}} {{action 'selectAllTableItems'}}>
+            <i {{bind-attr class=":fa oneOrMoreSelected:fa-check"}}></i>
+          </div>
+        </th>
+        {{#each tableHeaders itemController='table_header_item'}}
+        <th class="sortable" {{bind-attr style='calculateStyle'}}>
+          <span class="hide sortable-asc" {{action 'sortByColumn' content.name true}}></span>
+          {{#if isSortingAsc}}
+            <i class="fa fa-sort-asc"></i>
+          {{else}}
+            {{#if isSortingDesc}}
+              <i class="fa fa-sort-desc"></i>
+            {{else}}
+              <i class="fa fa-sort"></i>
+            {{/if}}
+          {{/if}}
+          <span {{action 'sortByColumn' content.name}}>
+            {{tKey content.title}}
+          </span>
+        </th>
+        {{/each}}
+        <th class="actions" style="width:70px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each paginatedContent itemController='lineup_entry'}}
+      <tr {{action 'editItem' content on='doubleClick'}}
+        {{bind-attr class="isSelectedTableItem:active content.isSaving:block"}}>
         <td>
-          <span {{bind-attr class=":status-indicator :btn content.isPublished:success content.isDraft:primary content.inReview:warning"}}></span>
+          <div class="checker" {{action 'selectTableItem'}}>
+            <i {{bind-attr class=":fa isSelectedTableItem:fa-check"}}></i>
+          </div>
+        </td>
+        <td>
+          <div {{bind-attr class=":status-indicator :publish-indicator :btn content.isPublished:success content.isDraft:warning content.inReview:warning"}}
+              {{action 'togglePublished'}}>
+            <i {{bind-attr class=":fa content.isPublished:fa-globe:fa-lock"}}></i>
+          </div>
           {{curTranslation.title}}
+          {{#each content.labels}}
+            <span class="label" 
+                  {{bind-attr style='styleAttrs'}}
+                  {{bind-attr title='name'}}>{{name}}</span>
+          {{/each}}
         </td>
         <td>{{period}}</td>
         <td>
           {{#each content.venues}}
-            {{name}}
+          {{curTranslation.title}}
           {{/each}}
         </td>
-        <td>{{formatDate content.updatedAt}}</td>
+        <td>{{smartDate content.updatedAt}}</td>
         <td>{{content.updatedBy.name}}</td>
+        <td class="actions">
+          <div class="btn-group">
+            <a {{bind-attr href=content.previewLink}} class="btn"><i class="fa fa-eye"></i></a>
+            {{#link-to 'lineup_entries.edit' content.id class="btn"}}<i class="fa fa-pencil"></i>{{/link-to}}
+        </div>
+        </td>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+      {{/each}}
+    </tbody>
+  </table>
+  <div class="caminio-table-footer">
+    <span class="btn pale">{{t 'total'}}: <strong>{{content.length}}</strong></span>
+
+    <ul class="pagination pull-right">
+      <li><a href="#" {{action 'goToFirstPage'}}><i class="fa fa-angle-double-left"></i></a></li>
+      {{#each pages itemController='table_footer_page_item'}}
+        <li {{action 'goToPage' content}} {{bind-attr class="isActive:active"}}><a href="#">{{content}}</a></li>
+      {{/each}}
+      <li><a href="#" {{action 'goToLastPage'}}><i class="fa fa-angle-double-right"></i></a></li>
+    </ul>
+
+    {{view App.Select2SelectView
+        class="pull-right select-num-rows"
+        contentBinding="availableRows"
+        noPrompt=true
+        noSearch=true
+        valueBinding="numRows"}}
+
+  </div>
+  <div class="loader"><i class="fa fa-refresh fa-spin"></i></div>
+</div>

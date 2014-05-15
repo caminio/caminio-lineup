@@ -16,18 +16,18 @@
 
   <div class="row span-row">
 
-    <div class="col-md-8 animate-width" id="entries-table">
-      {{outlet 'table'}}
-    </div>
-
-    <div class="col-md-4">
+    <div class="col-sidebar">
+      
       {{partial 'lineup_entries/search'}}
+
+      <div class="box fill-box margin-top">
+        {{partial 'lineup/labels'}}
+      </div>
+
     </div>
 
-    <div class="col-md-8" id="entry-details" style="display:none">
-
-      {{outlet 'details'}}
-
+    <div class="col-table animate-width" id="entries-table">
+      {{outlet 'table'}}
     </div>
 
   </div>

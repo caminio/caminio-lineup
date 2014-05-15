@@ -2,7 +2,7 @@
 
   <div class="form-group">
 
-    <label class="col-md-2 control-label required">{{t 'venue.name'}}</label>
+    <label class="col-md-2 control-label required">{{t 'org.name'}}</label>
     <div {{bind-attr class=":col-md-10 nameError:field-with-error"}}>
       {{input valueBinding='curTranslation.title' class='form-control' id="entry-title"}}
       {{#if nameError}}<span class="help-block">{{errors.title}}</span>{{/if}}
@@ -12,9 +12,25 @@
   
   <div class="form-group">
 
-    <label class="col-md-2 control-label">{{t 'venue.type'}}</label>
-    <div class="col-md-5">
-      {{input valueBinding='type' class='form-control'}}
+    <label class="col-md-2 control-label">{{t 'org.type'}}</label>
+    <div class="col-md-10">
+      <div class="btn-group">
+        <a href="#" {{bind-attr class=":btn :adapt-to-form isVenue:primary :icon-text"}}
+                    {{action 'setType' 'venue'}}>
+          <i class="fa fa-home"></i>
+          {{t 'org.type.venue'}}
+        </a>
+        <a href="#" {{bind-attr class=":btn :adapt-to-form isEnsemble:primary :icon-text"}}
+                    {{action 'setType' 'ensemble'}}>
+          <i class="fa fa-group"></i>
+          {{t 'org.type.ensemble'}}
+        </a>
+        <a href="#" {{bind-attr class=":btn :adapt-to-form isOrganizer:primary :icon-text"}}
+                    {{action 'setType' 'organizer'}}>
+          <i class="fa fa-cubes"></i>
+          {{t 'org.type.organizer'}}
+        </a>
+      </div>
     </div>
     
   </div>
@@ -31,11 +47,11 @@
 
   <hr>
 
-  <h4 class="mini-title">{{t 'venue.contact'}}</h4>
+  <h4 class="mini-title">{{t 'org.contact'}}</h4>
 
   <div class="form-group">
 
-    <label class="col-md-2 control-label">{{t 'venue.email'}}</label>
+    <label class="col-md-2 control-label">{{t 'org.email'}}</label>
     <div class="col-md-10">
       {{input valueBinding='email' class="form-control"}}
     </div>
@@ -43,7 +59,7 @@
 
   <div class="form-group">
 
-    <label class="control-label col-md-2">{{t 'venue.phone'}}</label>
+    <label class="control-label col-md-2">{{t 'org.phone'}}</label>
     <div class="col-md-10">
       {{input valueBinding='phone' class="form-control"}}
     </div>
@@ -52,7 +68,7 @@
 
   <hr>
 
-  <h4 class="mini-title">{{t 'venue.address'}}</h4>
+  <h4 class="mini-title">{{t 'org.address'}}</h4>
 
   <div class="form-group">
 
@@ -102,4 +118,5 @@
     </div>
   </div>
 
+  <input type="submit" class="hide">
 </form>

@@ -1,7 +1,6 @@
-.search-box{
-  margin-left: 20px;
+.main-view{
+  max-width: 100%;
 }
-
 .entries-table .order-num,
 .entries-table .item-num{
   width: 70px;

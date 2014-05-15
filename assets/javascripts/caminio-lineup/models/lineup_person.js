@@ -4,7 +4,7 @@
 
   App.LineupPerson = DS.Model.extend({
 
-    status: DS.attr('string', { defaultValue: 'draft'}),
+    status: DS.attr('string', { defaultValue: 'published'}),
     translations: DS.hasMany( 'translation' ),
 
     tags: DS.attr('array'),
@@ -17,7 +17,7 @@
     zip: DS.attr('string'),
     city: DS.attr('string'),
     gkz: DS.attr('string'), // gemeindekennziffer (allows)
-    country: DS.attr('string'),
+    country: DS.attr('string', { defaultValue: 'AT' }),
     state: DS.attr('string'),
 
     extRefId: DS.attr('string'),

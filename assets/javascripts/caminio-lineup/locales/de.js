@@ -64,12 +64,11 @@
     'entry.breaks': 'Anzahl Pausen',
     'entry.from_age_of': 'ab',
     'entry.years': 'Jahren',
-    'entry.filename': 'Dateiname',
+    'entry.filename': 'Dateiname / Teil der Internetadresse',
     'entry.press_voices': 'Pressestimmen',
 
     'entry.media': 'Medien',
 
-    'error.missing_title': 'Titel muss vor dem Fortfahren ausgefüllt werden.',
     'entry.saved': 'Eintrag {{name}} wurde gespeichert',
     'entry.saving_failed': '{{name}} konnte nicht gespeichert werden',
     'entry.deleted': 'Eintrag {{name}} wurde gelöscht',
@@ -91,28 +90,39 @@
     'event.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
     'event.saved': 'Termin {{starts}} wurde erstellt',
 
-    'venue.created': 'Spielort {{name}} wurde erstellt',
+    'org.created': 'Spielort {{name}} wurde erstellt',
 
-    'venues.title': 'Spielorte',
-    'venue.type': 'Typ',
-    'venue.create': 'Neuer Spielort',
-    'venue.name': 'Name',
-    'venue.country': 'Land',
-    'venue.city': 'Stadt',
-    'venue.address': 'Adresse',
-    'venue.saved': 'Organisation {{name}} wurde gespeichert',
-    'venue.orig_org_url': 'Link zur Webseite',
+    'org.title': 'Spielorte',
+    'org.type': 'Typ',
+    'org.type.venue': 'Spielort',
+    'org.type.ensemble': 'Ensemble',
+    'org.type.organizer': 'Organisator',
+    'org.create': 'Neuer Spielort',
+    'org.name': 'Name',
+    'org.country': 'Land',
+    'org.city': 'Stadt',
+    'org.address': 'Adresse',
+    'org.saved': 'Organisation {{name}} wurde gespeichert',
+    'org.orig_org_url': 'Link zur Webseite',
 
-    'venue.contact': 'Kontakt',
-    'venue.accessibility': 'Erreichbarkeit',
-    'venue.phone': 'Telefon',
-    'venue.email': 'Email',
-    'venue.opening_hours': 'Öffnungszeiten',
+    'org.contact': 'Kontakt',
+    'org.accessibility': 'Erreichbarkeit',
+    'org.phone': 'Telefon',
+    'org.email': 'Email',
+    'org.opening_hours': 'Öffnungszeiten',
 
-    'venue.public_transports': 'Öffentliche Verkehrsmittel in der Nähe',
-    'venue.train': 'Zug',
-    'venue.tram': 'Straßenbahn',
-    'venue.bus': 'Bus',
+    'org.public_transports': 'Öffentliche Verkehrsmittel in der Nähe',
+    'org.train': 'Zug',
+    'org.tram': 'Straßenbahn',
+    'org.bus': 'Bus',
+
+    'people.title': 'Personen',
+    'person.title': 'Name der Person',
+    'person.create': 'Person erstellen',
+    'person.name': 'Name',
+    'person.saved': 'Person {{name}} wurde gespeichert',
+    'person.firstname': 'Vorname',
+    'person.lastname': 'Nachname',
 
     'person.select_or_create': 'Person auswählen oder neuen Namen eintragen',
     'person.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
@@ -122,8 +132,10 @@
     'jobs.add': 'Neue Person/Funktion',
     'jobs.no_yet': 'Keine Funktionen definiert',
     'job.description': 'Funktion',
-    'job.saved': 'Funktion {{name}} wurde gespeichert'
+    'job.saved': 'Funktion {{name}} wurde gespeichert',
 
+    'error.missing_title': 'Titel muss vor dem Fortfahren ausgefüllt werden.',
+    'error.missing_firstname': 'Vorname muss vor dem Fortfahren ausgefüllt werden.'
   };
 
   for( var i in translations )

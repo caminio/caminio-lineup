@@ -1,20 +1,34 @@
 <div class="box fill-box search-box">
 
-  <div class="form-group search-group">
-    <input type="text" class="form-control no-border" id="quick-search"
-          {{translateAttr placeholder='entries.search.quick'}} />
+  <form {{action 'search' on='submit'}}>
+    <div class="form-group search-group">
+      {{input class="form-control no-border" valueBinding='searchQ.title'
+      placeholderTranslation="entries.search.quick"}}
+      <button class="search-btn transparent" 
+        id="search-btn"
+        {{translateAttr title="entries.search"}}
+        {{action search true}}>
+        <i class="fa fa-search"></i>
+      </button>
+      <button class="adv-search-btn transparent" 
+        {{translateAttr title='entries.search.advanced'}}
+        {{action toggleAdvSearch}}>
+        <i class="fa fa-gears"></i>
+      </button>
+    </div>
+    <input type="submit" class="hide">
+  </form>
+  <div class="adv-search default-padding" style="display:none">
 
-    <button class="search-btn transparent" 
-            id="search-btn"
-            {{translateAttr title="entries.search"}}
-            {{action search true}}>
-            <i class="fa fa-search"></i>
-    </button>
-    <button class="adv-search-btn transparent" 
-            {{translateAttr title='entries.search.advanced'}}
-            {{action toggleAdvSearch}}>
-            <i class="fa fa-gears"></i>
-    </button>
+    <h4 class="mini-title">
+
+      <span class="btn pale close" {{action toggleAdvSearch}}><i class="fa fa-times"></i></span>
+      <button class="btn icon-text search-btn2" {{action search}}><i class="fa fa-search"></i>Search</button>
+
+      {{t 'adv_search'}}
+
+    </h4>
+
   </div>
-  
+
 </div>

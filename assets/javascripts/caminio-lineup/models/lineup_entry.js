@@ -11,7 +11,7 @@
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
     lineup_jobs: DS.hasMany( 'lineup_job', { embedded: 'always' } ),
 
-    labels: DS.hasMany( 'label', { async: true } ),
+    labels: DS.hasMany( 'label', { async: false } ),
     
     recommendedAge: DS.attr('number'),
     durationMin: DS.attr('number'),
@@ -28,7 +28,14 @@
     lineup_events: DS.hasMany('lineup_event', { embedded: 'always' }),
     ensembles: DS.hasMany('lineup_org'),
     organizers: DS.hasMany('lineup_org'),
-    venues: DS.hasMany('lineup_org'),
+    venues: function(){
+      var venues = [];
+      this.get('lineup_events').forEach(function(evnt){
+        if( evnt.get('lineup_org') )
+        venues.push(evnt.get('lineup_org'));
+      });
+      return venues;
+    }.property('lineup_events.@each'),
 
     extRefId: DS.attr('string'),
     extRefSrc: DS.attr('string'),
@@ -48,6 +55,9 @@
     othersWrite: DS.attr('boolean', { defaultValue: true }),
     notifyMeOnWrite: DS.attr('boolean', { defaultValue: true }),
 
+    name: function(){
+      return this.get('title');
+    }.property('title'),
     usedLocales: function(){
       var locales = this.get('translations').map(function(trans){ return trans.locale; }).join(',');
       if( locales.length < 1 )

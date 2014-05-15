@@ -1,4 +1,4 @@
-( function(){
+( function( App ){
   
   'use strict';
 
@@ -55,6 +55,10 @@
         this.transitionToRoute('lineup_orgs');
       },
 
+      'setType': function( type ){
+        this.get('content').set('type', type);
+      },
+
       'save': function(){
         var self = this;
         if( !this.get('curTranslation.title') ){
@@ -65,7 +69,7 @@
         this.get('content')
           .save()
           .then(function(){
-            notify('info', Em.I18n.t('venue.saved', {name: self.get('curTranslation.title')}));
+            notify('info', Em.I18n.t('org.saved', {name: self.get('curTranslation.title')}));
             self.transitionToRoute('lineup_orgs.edit', self.get('content.id'));
           });
       }
@@ -77,4 +81,4 @@
   App.LineupOrgsNewController = App.LineupOrgsEditController.extend();
 
 
-}).call();
+})( App );

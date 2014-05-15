@@ -8,9 +8,14 @@
     this.resource('lineup_orgs.edit', { path: '/lineup_org/edit/:id' });
     this.resource('lineup_orgs.new', { path: '/lineup_org/new' });
     this.resource('lineup_people');
+    this.resource('lineup_people.edit', { path: '/lineup_person/edit/:id'});
+    this.resource('lineup_people.new', { path: '/lineup_person/new'});
   });
 
   App.IndexRoute = Ember.Route.extend({
+    redirect: function(){
+      this.transitionTo('lineup_entries');
+    }
   });
 
   /**
@@ -18,9 +23,13 @@
    */
   App.LineupEntriesRoute = Ember.Route.extend({
     
+    model: function(){
+      return this.store.find('lineup_entry');
+    },
+
     setupController: function(controller, model){
       c = this.controllerFor('lineup_entries_table');
-      c.set('model', this.store.find('lineup_entry'));
+      c.set('model', model);
     },
 
     renderTemplate: function(){
@@ -50,22 +59,6 @@
    * LineupEntries.Edit
    */
   App.LineupEntriesEditRoute = Ember.Route.extend({
-
-    beforeModel: function(){
-      var self = this;
-      var promise = new Ember.RSVP.Promise( processRequirements );
-      return promise;
-
-      function processRequirements( resolve, reject ){
-        self.store.find('lineup_org').then(function(){
-          self.store.find('lineup_person').then(function(){
-            self.store.find('label', { type: 'lineup_entry' }).then(function(){
-              resolve();
-            });
-          });
-        });
-      }
-    },
 
     model: function( prefix, options ){
       return this.store.find('lineup_entry', options.params.id);
@@ -112,13 +105,14 @@
 
   });
 
-  // orgs
-
+  /**
+   * LineupOrgs
+   */
   App.LineupOrgsRoute = Ember.Route.extend({
 
     setupController: function(controller, model){
       c = this.controllerFor('lineup_orgs_table');
-      c.set('model', this.store.find('lineup_org'));
+      c.set('model', this.store.all('lineup_org'));
     },
 
     renderTemplate: function(){
@@ -129,7 +123,7 @@
   });
 
   /**
-   * LineupEntries.New
+   * LineupOrgs.New
    */
   App.LineupOrgsNewRoute = Ember.Route.extend({
 
@@ -145,7 +139,7 @@
   });
 
   /**
-   * LineupEntries.Edit
+   * LineupOrgs.Edit
    */
   App.LineupOrgsEditRoute = Ember.Route.extend({
 
@@ -171,7 +165,7 @@
         c.set('model', mediafile);
         c.set('curRoute', this);
         this.render('mediafile_editor', {
-          into: 'lineup_entries.edit',
+          into: 'lineup_orgs.edit',
           outlet: 'modal'
         });
       },
@@ -181,13 +175,196 @@
           this.get('controller.mediafiles').removeObject(deletedMediafile);
         this.disconnectOutlet({
           outlet: 'modal',
-          parentView: 'lineup_entries.edit'
+          parentView: 'lineup_orgs.edit'
         });
       }
 
     }
 
   });
+
+  /**
+   * LineupPeople
+   */
+  App.LineupPeopleRoute = Ember.Route.extend({
+
+    setupController: function(controller, model){
+      c = this.controllerFor('lineup_people_table');
+      c.set('model', this.store.all('lineup_person'));
+    },
+
+    renderTemplate: function(){
+      this.render();
+      this.render( 'lineup_people.table', { into: 'lineup_people', outlet: 'table', controller: 'lineup_people_table' });
+    }
+
+  });
+
+  /**
+   * LineupPeople.New
+   */
+  App.LineupPeopleNewRoute = Ember.Route.extend({
+
+    model: function( prefix, options ){
+      return this.store.createRecord('lineup_person');
+    },
+
+    setupController: function( controller, model ){
+      controller.set('model',model);
+      controller._createTr( model );
+    }
+
+  });
+
+  /**
+   * LineupPeople.Edit
+   */
+  App.LineupPeopleEditRoute = Ember.Route.extend({
+
+    beforeModel: function(){
+      return this.store.find('lineup_person')
+    },
+
+    model: function( prefix, options ){
+      return this.store.find('lineup_person', options.params.id);
+    },
+
+    setupController: function( controller, model ){
+      this.store.find('mediafile', { parent: model.get('id'), order: 'position:asc'}).then(function(mediafiles){
+        controller.set('mediafiles',mediafiles);
+      });
+      controller.set('model',model);
+    },
+
+    actions: { 
+
+      editMediafileModal: function( mediafile ){
+        var c = this.controllerFor('mediafile_editor');
+        c.set('model', mediafile);
+        c.set('curRoute', this);
+        this.render('mediafile_editor', {
+          into: 'lineup_people.edit',
+          outlet: 'modal'
+        });
+      },
+
+      closeModal: function( deletedMediafile ){
+        if( deletedMediafile )
+          this.get('controller.mediafiles').removeObject(deletedMediafile);
+        this.disconnectOutlet({
+          outlet: 'modal',
+          parentView: 'lineup_people.edit'
+        });
+      }
+
+    }
+
+  });
+
+  App.ApplicationRoute = Em.Route.extend({
+  
+    beforeModel: function(){
+      var self = this;
+      var promise = new Ember.RSVP.Promise( processRequirements );
+      return promise;
+
+      function processRequirements( resolve, reject ){
+        self.store.find('lineup_org').then(function(){
+          self.store.find('lineup_person').then(function(){
+            self.store.find('label', { type: 'lineup' }).then(function( labels ){
+              App.set('_availableLabels', labels);
+              resolve();
+            });
+          });
+        });
+      }
+    },
+
+    actions: {
+    
+      editLabel: function( label ){
+
+        var store = this.store;
+        if( !label )
+          label = store.createRecord('label', { type: 'lineup' });
+
+        bootbox.dialog({ title: Em.I18n.t('name'), 
+                         message: getEditLabelContent( label ),
+                         className: 'edit-label-modal',
+                         buttons: {
+                            save: {
+                              label: Em.I18n.t('save'),
+                              className: "primary",
+                              callback: saveEvent
+                            }
+                          }
+                        }).on('shown.bs.modal', onShowBootbox)
+                          .on('hide.bs.modal', onHideBootbox);
+
+        function onShowBootbox(){
+          var $box = $(this);
+
+          $box.find('form').on('submit', function(e){ 
+            e.preventDefault(); 
+            saveEvent();
+            $box.modal('hide');
+          });
+          setTimeout(function(){
+            $box.find('input[type=text]:first').focus();
+          },500);
+          $box.find('.color').on('click', function(){
+            $box.find('.color').removeClass('active');
+            $(this).addClass('active');
+          });
+          $box.find('input[type=checkbox]').attr('checked',label.get('private'));
+          $box.find('.color[data-bg-color='+label.get('bgColor')+']').addClass('active');
+        }
+
+        function onHideBootbox(){
+          if( label.isDirty )
+            label.deleteRecord();
+        }
+        function saveEvent(){
+          var $color = $('.bootbox .color.active');
+          if( !$color.length )
+            $color = $('.bootbox .color:first').addClass('active');
+
+          label.set('bgColor', $color.attr('data-bg-color'));
+          label.set('fgColor', $color.attr('data-fg-color'));
+          label.set('borderColor', $color.attr('data-border-color'));
+
+          var user = store.getById('user', currentUser._id);
+          if( $('.bootbox .private').is(':checked') ){
+            label.get('usersAccess').pushObject( user );
+          } else {
+            label.get('usersAccess').removeObject( user );
+          }
+
+          label.set('name', $('.edit-label-modal .name').val());
+          saveLabel();
+        }
+
+        function saveLabel(){
+          var newRecord = label.id ? false : true;
+          label
+            .save()
+            .then( function(label){
+              if( newRecord )
+                notify('info', Em.I18n.t('label.created', {name: label.get('name')}) );
+              else
+                notify('info', Em.I18n.t('label.saved', {name: label.get('name')}) );
+            })
+            .catch( function(err){
+              console.error(err);
+              notify('error', err);
+            });
+        }
+
+      }
+
+    }
+
+  })
 
   App.ApplicationView = Em.View.extend({
     didInsertElement: function(){
@@ -197,27 +374,22 @@
 
   App._curLang = currentDomain.lang;
 
-  App.getLabelColors = function getLabelColors(){
-
-    var str = '';
-    [
-      { bgc: '#428BCA', bc: '#26a', fgc: '#fff' },
-      { bgc: '#F0AD4E', bc: '#c82', fgc: '#333a3a' },
-      { bgc: '#1CAF9A', bc: '#087', fgc: '#fff' },
-      { bgc: '#D9534F', bc: '#b32', fgc: '#fff' },
-      { bgc: '#1d2939', bc: '#001', fgc: '#fff' }
-    ].forEach( function( colSet ){
-      str += '<span class="color" data-fg-color="'+colSet.fgc+'" data-bg-color="'+colSet.bgc+'" data-border-color="'+colSet.bc+'"'+
-              'style="background-color:'+colSet.bgc+'; color:'+colSet.fgc+'; border-color: '+colSet.bc+';"></span>';
-    });
-    return str;
-  };
-
-  App.getLabelBoxes = function getLabelBoxes(){
-    var str = '';
-    App.User.store.all('label').content.forEach( function(label){
-      str += '<span class="color" data-private="'+label.get('private')+'" data-id="'+label.id+'" title="'+label.get('name')+'" style="background-color:'+label.get('bgColor')+'; color:'+label.get('fgColor')+'; border-color: '+label.get('borderColor')+';"></span>';
-    });
+  function getEditLabelContent( label ){
+    var str = '<form class="bootbox-form">'+
+              '<div class="form-group row">'+
+              '<input type="text" value="'+(label.get('name') || '')+'" autocomplete="off" class="bootbox-input bootbox-input-text form-control name col-md-12">'+
+              '</div>'+
+              '<div class="row margin-top clearfix colors"><label class="control-label col-md-3">'+Em.I18n.t('label.select_color')+'</label>'+
+                '<div class="col-md-9">'+
+                  caminio.labels.getColors()+
+                '</div>'+
+              '</div>'+
+              '<div class="row margin-top clearfix colors"><label class="control-label col-md-3">'+Em.I18n.t('label.private')+'</label>'+
+                '<div class="col-md-9">'+
+                  '<input type="checkbox" class="private">'+
+                '</div>'+
+              '</div>'+
+              '</form>';
     return str;
   }
 

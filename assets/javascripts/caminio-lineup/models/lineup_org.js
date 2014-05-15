@@ -5,7 +5,7 @@
   App.LineupOrg = DS.Model.extend({
 
     type: DS.attr('string', { defaultValue: 'venue' }),
-    status: DS.attr('string', { defaultValue: 'draft'}),
+    status: DS.attr('string', { defaultValue: 'published'}),
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
 
     curTranslation: function(){
@@ -16,7 +16,7 @@
     zip: DS.attr('string'),
     city: DS.attr('string'),
     gkz: DS.attr('string'), // gemeindekennziffer (allows)
-    country: DS.attr('string'),
+    country: DS.attr('string', { defaultValue: 'AT'}),
     state: DS.attr('string'),
 
     members: DS.hasMany('lineup_person'),
@@ -64,7 +64,19 @@
 
     obsCountry: function(){
       console.log('changed', this.get('country'));
-    }.observes('country')
+    }.observes('country'),
+
+    isVenue: function(){
+      return this.get('type') === 'venue';
+    }.property('type'),
+
+    isEnsemble: function(){
+      return this.get('type') === 'ensemble';
+    }.property('type'),
+
+    isOrganizer: function(){
+      return this.get('type') === 'organizer';
+    }.property('type'),
 
   });
 

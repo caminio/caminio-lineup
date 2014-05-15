@@ -53,6 +53,10 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_org_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_orgs_edit_controller.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_job_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_people_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_people_table_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_people_edit_controller.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/controllers/lineup_person_controller.js')
 
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_entry.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/models/lineup_org.js')
@@ -65,6 +69,8 @@ append foot
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_media_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_events_list_view.js')
     script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_jobs_list_view.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_orgs_edit_view.js')
+    script(type='text/javascript', src='/javascripts/caminio-lineup/views/lineup_people_edit_view.js')
 
 
 block content
@@ -101,6 +107,10 @@ block content
 
   script(type="text/x-handlebars", data-template-name="lineup/media")
     include hbs/lineup/media_view.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup/labels")
+    include hbs/lineup/labels.hbs
+  
   
   script(type="text/x-handlebars", data-template-name="lineup_events/list")
     include hbs/lineup_events/list.hbs
@@ -145,3 +155,25 @@ block content
 
   script(type="text/x-handlebars", data-template-name="lineup_orgs/accessibility")
     include hbs/lineup_orgs/_accessibility.hbs
+
+  // people
+  script(type="text/x-handlebars", data-template-name="lineup_people")
+    include hbs/lineup_people/index.hbs
+  
+  script(type="text/x-handlebars", data-template-name="lineup_people/edit")
+    include hbs/lineup_people/edit.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_people/new")
+    include hbs/lineup_people/new.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_people/search")
+    include hbs/lineup_people/_search.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_people/form")
+    include hbs/lineup_people/_form.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_people/table")
+    include hbs/lineup_people/_table.hbs
+
+  script(type="text/x-handlebars", data-template-name="lineup_people/links")
+    include hbs/lineup_people/_links.hbs

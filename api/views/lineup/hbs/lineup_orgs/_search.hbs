@@ -1,44 +1,33 @@
-<div class="box fill-box">
+<div class="box fill-box search-box">
 
-  <div class="form-group search-group">
-    <input type="text" class="form-control no-border" id="quick-search"
-          {{translateAttr placeholder='contacts.search.quick'}} />
-
-    <button class="search-btn transparent" 
-            id="search-btn"
-            {{translateAttr title="contacts.search"}}
-            {{action search true}}>
-            <i class="fa fa-search"></i>
-    </button>
-    <button class="adv-search-btn transparent" 
-            {{translateAttr title='contacts.advanced_search'}}
-            {{action toggleAdvSearch}}>
-            <i class="fa fa-gears"></i>
-    </button>
-  </div>
-
+  <form {{action 'search' on='submit'}}>
+    <div class="form-group search-group">
+      {{input class="form-control no-border" valueBinding='searchQ.title'
+      placeholderTranslation="entries.search.quick"}}
+      <button class="search-btn transparent" 
+        id="search-btn"
+        {{translateAttr title="entries.search"}}
+        {{action search true}}>
+        <i class="fa fa-search"></i>
+      </button>
+      <button class="adv-search-btn transparent" 
+        {{translateAttr title='entries.search.advanced'}}
+        {{action toggleAdvSearch}}>
+        <i class="fa fa-gears"></i>
+      </button>
+    </div>
+    <input type="submit" class="hide">
+  </form>
   <div class="adv-search default-padding" style="display:none">
 
-      <h4 class="mini-title">
+    <h4 class="mini-title">
 
-        <span class="btn pale close" {{action toggleAdvSearch}}><i class="fa fa-times"></i></span>
-        <button class="btn icon-text search-btn2" {{action search}}><i class="fa fa-search"></i>Search</button>
+      <span class="btn pale close" {{action toggleAdvSearch}}><i class="fa fa-times"></i></span>
+      <button class="btn icon-text search-btn2" {{action search}}><i class="fa fa-search"></i>Search</button>
 
-        {{t contacts.search.details}}
+      {{t 'adv_search'}}
 
-      </h4>
+    </h4>
 
-      <h5 class="micro-title">
-        <a href="#" class="save-search-btn btn pale pull-right" 
-          {{translateAttr title="search.save"}}
-          {{action 'saveSearch'}}><i class="fa fa-save"></i></a>
-        {{ t search.saved}}
-      </h5>
-      <div class="form-group contacts-features clearfix row remove-margin">
-        <div class="col-md-12">
-          <input type="text" id="saved-searches" style="width: 100%" />
-        </div>
-      </div>
-    </div>
   </div>
 </div>

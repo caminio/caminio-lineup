@@ -5,15 +5,14 @@
     <div class="title-box">
       <div class="main-ctrl">
 
-        <button class="btn icon-text"
+        <button class="btn transparent borderless icon-text"
                 {{action 'cancelNewEntry'}}>
-          <i class="fa fa-times"></i>
+          <i class="fa fa-arrow-left"></i>
           {{t 'cancel'}}
         </button>
         
         <button {{bind-attr class='isDirty:primary :btn :icon-text'}}
                 {{action 'save'}}>
-          <i class="fa fa-save"></i>
           {{t 'save'}}
         </button>
 

@@ -2,11 +2,7 @@
   
   'use strict';
 
-  App.LineupEntryController = Ember.Controller.extend({
-
-    curTranslation: function(){
-      return this.get('content.translations').findBy('locale', App._curLang);
-    }.property('App._curLang'),
+  App.LineupEntryController = App.TableItemController.extend({
 
     period: function(){
       var first, last;
@@ -16,28 +12,35 @@
         if( !last || e.get('starts') >= last )
           last = e.get('starts');
       });
+      if( first && this.get('content.lineup_events.length') < 2 )
+        return new Handlebars.SafeString(moment(first).format('DD.MMM. HH:mm') );
       if( first && last )
         return new Handlebars.SafeString(moment(first).format('DD.MMM.') + ' &ndash; ' + moment(last).format('DD.MMM.'));
       return '';
     }.property('lineup_events.@each'),
 
     actions: {
-      'removeItem': function(){
-        var item = this.get('model');
-        bootbox.confirm(Em.I18n.t('item.really_delete', {itemNum: item.get('itemNum'), name: item.get('name')}), function(result){
-          if( !result )
-            return;
 
-          item.deleteRecord();
-          item.save().then(function(){
-            notify('info', Em.I18n.t('item.deleted', { itemNum: item.get('itemNum'), name: item.get('name') }));
+      'togglePublished': function(){
+        var content = this.get('content');
+        content.set('status', ( !content.get('status') ||  content.get('status') === 'draft' ) ? 'published' : 'draft' );
+        content
+          .save()
+          .then(function(){
+            if( content.get('status') === 'draft' )
+              notify('info', Em.I18n.t('entry.marked_draft', { name: content.get('curTranslation.title') }));
+            else
+              notify('info', Em.I18n.t('entry.marked_published', { name: content.get('curTranslation.title') }));
+          })
+          .catch(function(){
+            notify('error', Em.I18n.t('entry.saving_failed', { name: content.get('curTranslation.title') }));
           });
-          Ember.View.views[$('.form-item-container:visible').closest('.ember-view').attr('id')].destroy();
-        });
       },
+
       'editItem': function( item ){
         this.transitionToRoute('lineup_entries.edit', item.get('id'));
       }
+
     }
 
 
