@@ -1,0 +1,69 @@
+<section class="plain-wrapper">
+
+  <header>
+
+    <div class="title-box">
+      <div class="main-ctrl">
+
+        <button class="btn transparent borderless icon-text"
+                {{action 'goToPeople'}}>
+          <i class="fa fa-arrow-left"></i>
+          {{t 'back'}}
+        </button>
+
+        {{#if curTranslation.hasMultiLang}}
+          <div class="dropdown btn-group">
+            <button class="btn text-icon dropdown-toggle" data-toggle="dropdown">
+              {{t 'translation.title'}}:
+              <strong>{{curTranslation.locale}}</strong>
+              <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right">
+              {{#each lang in curTranslation.availableLangs}}
+                <li {{action 'changeLang' lang}}><a href="#">{{lang}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+        
+        <button {{bind-attr class='isDirty:primary curTranslation.isDirty:primary :btn :icon-text'}}
+                {{action 'save'}}>
+          {{t 'save'}}
+        </button>
+
+      </div>
+
+      <h1>
+        <span class="desc">{{t 'person.name'}}</span><br>
+        {{name}}
+      </h1>
+
+    </div>
+
+  </header>
+
+  <div class="row span-row">
+
+    <div class="col-md-8">
+      <div class="box fill-box default-padding">
+        {{partial 'lineup_people/form'}}
+      </div>
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="box fill-box">
+        {{view 'lineup_media'}}
+      </div>
+
+      <div class="box fill-box margin-top">
+        {{partial 'lineup_people/links'}}
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+{{outlet 'modal'}}

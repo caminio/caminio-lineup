@@ -1,0 +1,38 @@
+<div class="box-header">
+  <div class="box-title">
+
+    <button class="btn pale pull-right new-label-btn" 
+      {{action editLabel}}
+      {{translateAttr title='labels.new'}}>
+      <i class="fa fa-plus"></i>
+    </button>
+
+    {{t 'labels'}}
+  </div>
+</div>
+
+<div class="box-body default-padding">
+
+  {{#if App._selTableItems.length}}
+    {{t 'labels.items_selected' countBinding='App._selTableItems.length'}}
+  {{else}}
+    {{t 'labels.select_entries_then_click_on_label'}}
+  {{/if}}
+  <div class="desc">{{t 'entry.click_label'}}</div>
+
+  <ul class="labels-list">
+    {{#each App._availableLabels itemController='label_item'}}
+      <li {{bind-attr class="hide:pale isActive:active"}} {{bind-attr data-id=id}}>
+        <span {{bind-attr class=":color private:private"}} {{bind-attr data-private='private'}} 
+                            {{action editLabel this}} 
+                            {{bind-attr style='styleAttrs'}}></span>
+        <button class="btn transparent small pull-right highlight-danger remove-label" 
+                {{translateAttr title='label.delete'}}
+                {{action removeLabel this}}>
+          <i class="fa fa-trash-o"></i>
+        </button>
+        <span class="label-title" {{action toggleLabelOrLabelContent this}}>{{name}}</span>
+      </li>
+    {{/each}}
+  </ul>
+</div>

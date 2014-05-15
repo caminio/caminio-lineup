@@ -1,0 +1,29 @@
+<section class="plain-wrapper">
+
+  <header>
+    <div class="box title-box website">
+      <div class="main-ctrl">
+        {{#link-to 'lineup_people.new' class="btn icon-text primary"}}
+          <i class="fa fa-plus"></i>
+          {{t 'person.create'}}
+        {{/link-to}}
+      </div>
+      <h1>{{t 'people.title'}}</h1>
+
+    </div>
+
+  </header>
+
+  <div class="row span-row">
+
+    <div class="col-sidebar" id="search-entries">
+      {{partial 'lineup_people/search'}}
+    </div>
+
+    <div class="col-table" id="entries-table">
+      {{outlet 'table'}}
+    </div>
+
+  </div>
+
+</section>
