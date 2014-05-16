@@ -48,14 +48,14 @@
                   {{bind-attr title='name'}}>{{name}}</span>
           {{/each}}
         </td>
-        <td>{{period}}</td>
-        <td>
+        <td {{action 'selectTableItem'}}>{{period}}</td>
+        <td {{action 'selectTableItem'}}>
           {{#each content.venues}}
           {{curTranslation.title}}
           {{/each}}
         </td>
-        <td>{{smartDate content.updatedAt}}</td>
-        <td>{{content.updatedBy.name}}</td>
+        <td {{action 'selectTableItem'}}>{{smartDate content.updatedAt}}</td>
+        <td {{action 'selectTableItem'}}>{{content.updatedBy.name}}</td>
         <td class="actions">
           <div class="btn-group">
             <a {{bind-attr href=content.previewLink}} class="btn"><i class="fa fa-eye"></i></a>

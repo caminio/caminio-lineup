@@ -43,9 +43,9 @@
           </div>
           {{content.name}}
         </td>
-        <td>{{content.city}}</td>
-        <td>{{smartDate content.updatedAt}}</td>
-        <td>{{content.updatedBy.name}}</td>
+        <td {{action 'selectTableItem'}}>{{content.city}}</td>
+        <td {{action 'selectTableItem'}}>{{smartDate content.updatedAt}}</td>
+        <td {{action 'selectTableItem'}}>{{content.updatedBy.name}}</td>
         <td class="actions">
           <div class="btn-group">
             {{#link-to 'lineup_people.edit' content.id class="btn"}}<i class="fa fa-pencil"></i>{{/link-to}}
