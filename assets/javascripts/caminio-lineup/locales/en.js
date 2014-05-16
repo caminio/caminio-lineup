@@ -98,7 +98,6 @@
     'org.type.ensemble': 'Ensemble',
     'org.type.organizer': 'Organizer',
     'org.title': 'Venues',
-    'org.name': 'Name',
     'org.create': 'Create a new venue',
     'org.name': 'Name',
     'org.country': 'Country',

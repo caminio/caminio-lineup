@@ -21,7 +21,7 @@
       if( this.get('createdBy') )
         attrs.createdBy = this.get('createdBy');
       if( this.get('labels.length') )
-        attrs.labels = this.get('labels').map(function(label){ return label.get('id'); }).join(',');
+        attrs.labels = 'in('+this.get('labels').map(function(label){ return label.get('id'); }).join(',')+')';
       return attrs;
     }
   });

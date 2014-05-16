@@ -144,14 +144,14 @@
       },
 
       toggleLabel: function( label ){
-        var found = this.content.get('labels').find( function(label){
-          if( label.get('id') === label.get('id') )
+        var found = this.get('content.labels').find( function(_label){
+          if( label.get('id') === _label.get('id') )
             return true;
         });
         if( found )
-          this.content.get('labels').removeObject(label);
+          this.get('content.labels').removeObject(label);
         else
-          this.content.get('labels').pushObject(label);
+          this.get('content.labels').pushObject(label);
       }
 
     }

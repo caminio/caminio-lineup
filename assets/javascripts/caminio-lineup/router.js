@@ -74,9 +74,9 @@
       this.store.all('lineup_person').forEach(function(person){
         controller.get('availablePeople').pushObject(person);
       });
-      this.store.all('label').forEach(function(person){
-        controller.get('availableLabels').pushObject(person);
-      });
+      //this.store.all('label').forEach(function(label){
+      //  controller.get('availableLabels').pushObject(label);
+      //});
       controller.set('model',model);
     },
 
@@ -349,8 +349,10 @@
           label
             .save()
             .then( function(label){
-              if( newRecord )
+              if( newRecord ){
                 notify('info', Em.I18n.t('label.created', {name: label.get('name')}) );
+                App.get('_availableLabels').pushObject(label);
+              }
               else
                 notify('info', Em.I18n.t('label.saved', {name: label.get('name')}) );
             })

@@ -35,7 +35,7 @@
   </h4>
 
   <ul class="labels-list">
-    {{#each availableLabels}}
+    {{#each App._availableLabels}}
       <li {{bind-attr class="hide:pale"}} {{bind-attr data-id=id}}>
         <span {{bind-attr class=":color private:private"}} {{bind-attr data-private='private'}} 
                             {{action editLabel this}} 

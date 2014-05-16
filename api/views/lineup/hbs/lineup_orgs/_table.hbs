@@ -60,7 +60,7 @@
 
     <ul class="pagination pull-right">
       <li><a href="#" {{action 'goToFirstPage'}}><i class="fa fa-angle-double-left"></i></a></li>
-      {{#each pages itemController='table_footer_page_item'}}
+      {{#each closestPages itemController='table_footer_page_item'}}
         <li {{action 'goToPage' content}} {{bind-attr class="isActive:active"}}><a href="#">{{content}}</a></li>
       {{/each}}
       <li><a href="#" {{action 'goToLastPage'}}><i class="fa fa-angle-double-right"></i></a></li>
