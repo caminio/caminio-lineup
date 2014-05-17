@@ -47,9 +47,8 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
     age: { type: Number, public: true },
 
-    ensembles: { type: [ObjectId], ref: 'LineupOrg', index: true },
-    organizers: { type: [ObjectId], ref: 'LineupOrg', index: true },
-    venues: { type: [ObjectId], ref: 'LineupOrg', index: true },
+    ensembles: { type: [ObjectId], ref: 'LineupOrg', index: true, public: true },
+    organizers: { type: [ObjectId], ref: 'LineupOrg', index: true, public: true },
 
     extRefId: { type: String, public: true, index: true },
     extRefSrc: { type: String, public: true, index: true },

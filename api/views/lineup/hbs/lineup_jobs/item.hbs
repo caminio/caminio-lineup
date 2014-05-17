@@ -1,4 +1,4 @@
-<li class="job">
+<li class="job" {{bind-attr data-id='id'}}>
   {{#if editMode}}
     <form class="caminio" {{action 'save' on='submit'}}>
 
@@ -18,7 +18,11 @@
 
       <div class="row">
         <div class="col-md-12">
-          {{input valueBinding='name' class="form-control" placeholderTranslation='job.description'}}
+          {{view App.Select2TextFieldView
+          localContent=App._defaultJobs
+          valueBinding="title"
+          placeholderTranslation='job.description'
+          class='form-control'}}
         </div>
       </div>
 
@@ -35,14 +39,23 @@
             {{t 'cancel'}}
           </a>
         </div>
+      </div>
 
     </form>
 
-  {{else}}
-    <button class="btn pull-right" {{action 'toggleEditMode'}}>
-      <i class="fa fa-pencil"></i>
-    </button>
-    <div class="job-name">{{name}}</div>
+    {{else}}
+    <div class="actions pull-right">
+      <a class="btn transparent borderless move-job">
+        <i class="fa fa-arrows"></i>
+      </a>
+      <button class="btn transparent borderless" {{action 'toggleEditMode'}}>
+        <i class="fa fa-pencil"></i>
+      </button>
+      <button class="btn transparent borderless highlight-danger" {{action 'remove' content}}>
+        <i class="fa fa-unlink"></i>
+      </button>
+    </div>
+    <div class="job-name">{{title}}</div>
     <div class="person-name">{{lineup_person.name}}</div>
   {{/if}}
 </li>

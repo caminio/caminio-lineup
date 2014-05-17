@@ -30,8 +30,8 @@
     'entry.create': 'Neuer Spielplaneintrag',
     'entry.description': 'Beschreibung',
     'entry.meta_keywords': 'Schlagwörter',
-    'entry.author': 'Autor',
-    'entry.director': 'Regie',
+    'entry.author': 'Autorenschaft',
+    'entry.director': 'Inszenierung',
     'entry.keywords': 'Schlagwörter',
     'entry.save_before_content': 'Vor dem Hinzufügen von Bildern bitte speichern',
 
@@ -89,6 +89,7 @@
     'event.edit_prices': 'Preise bearbeiten',
     'event.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
     'event.saved': 'Termin {{starts}} wurde erstellt',
+    'event.venue_required': 'Ohne Spielort kann der Termin nicht angelegt werden',
 
     'org.created': 'Spielort {{name}} wurde erstellt',
 
@@ -127,12 +128,22 @@
     'person.select_or_create': 'Person auswählen oder neuen Namen eintragen',
     'person.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
     'person.created': 'Person {{name}} wurde erstellt',
+    'person.show_edit_form': 'Formular dieser Person anzeigen',
+    'person.unlink_from_entry': 'Verknüpfung mit diesem Eintrag lösen',
 
     'jobs': 'Team / Funktionen',
     'jobs.add': 'Neue Person/Funktion',
     'jobs.no_yet': 'Keine Funktionen definiert',
     'job.description': 'Funktion',
     'job.saved': 'Funktion {{name}} wurde gespeichert',
+    'job.author': 'Autorenschaft',
+    'job.director': 'Inszenierung',
+
+    'ensemble.select_or_create': 'Ensemble auswählen oder neuen Namen eintragen',
+    'ensemble.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
+    'ensemble.created': 'Ensemble {{name}} wurde erstellt',
+    'ensemble.show_edit_form': 'Formular dieses Ensembles anzeigen',
+    'ensemble.unlink_from_entry': 'Verknüpfung mit diesem Eintrag lösen',
 
     'error.missing_title': 'Titel muss vor dem Fortfahren ausgefüllt werden.',
     'error.missing_firstname': 'Vorname muss vor dem Fortfahren ausgefüllt werden.'

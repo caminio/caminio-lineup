@@ -11,7 +11,7 @@ module.exports = function LineupJob( caminio, mongoose ){
   var schema = new mongoose.Schema({
 
     lineup_person: { type: ObjectId, ref: 'LineupPerson', public: true },
-    name: { type: String, public: true }
+    title: { type: String, public: true }
 
   });
 

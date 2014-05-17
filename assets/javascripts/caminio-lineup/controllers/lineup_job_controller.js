@@ -15,8 +15,8 @@
           .save()
           .then(function(){
             notify('info', Em.I18n.t('person.created', { name: person.get('name') }));
-            self.get('parentController.availableVenues').pushObject( person );
-            self.get('content').set('person', person);
+            self.get('parentController.availablePeople').pushObject( person );
+            self.get('content').set('lineup_person', person);
             $obj.append('<option value="'+person.get('id')+'">'+person.get('name')+'</option>');
             $obj.select2('val', person.get('id'));
           });
@@ -40,6 +40,10 @@
       },
 
       toggleEditMode: function(){
+        if( !this.get('content.id') ){
+          this.get('parentController.lineup_jobs').removeObject( this.get('content') );
+          return this.get('content').deleteRecord();
+        }
         this.get('content').set('editMode', (this.get('content.editMode') ? !this.get('content.editMode') : true));
       }
 

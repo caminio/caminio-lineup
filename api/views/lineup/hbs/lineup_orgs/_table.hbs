@@ -37,10 +37,13 @@
           </div>
         </td>
         <td>
-          <div {{bind-attr class=":status-indicator :publish-indicator :btn content.isPublished:success content.isDraft:warning content.inReview:warning"}}
+          <span {{bind-attr class=":label content.isPublished:label-success content.isDraft:label-warning content.inReview:label-warning"}}
               {{action 'togglePublished'}}>
             <i {{bind-attr class=":fa content.isPublished:fa-globe:fa-lock"}}></i>
-          </div>
+          </span>
+          <span {{bind-attr class=":label content.isEnsemble:label-primary content.isVenue:label-danger"}}>
+            <i {{bind-attr class=":fa content.isEnsemble:fa-group content.isVenue:fa-home pull-left"}}></i>
+          </span> &nbsp;
           {{curTranslation.title}}
         </td>
         <td {{action 'selectTableItem'}}>{{content.city}}</td>

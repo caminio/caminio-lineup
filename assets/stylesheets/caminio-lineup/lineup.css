@@ -77,14 +77,28 @@
   padding: 0;
 }
 
-.events-list .job,
+.jobs-list .job,
 .jobs-list .lineup-event{
   padding: 5px;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+  background: #fafafa;
+}
+
+.jobs-list .job .move-job{
+  cursor: move;
 }
 
 .jobs-list .job-name,
 .events-list .venue{
   font-weight: 600;
+  line-height: 1.2em;
+  color: #555;
+}
+
+.jobs-list .person-name{
+  line-height: 1.2em;
+  color: #555;
 }
 
 .events-list input[type=text]{
@@ -99,9 +113,110 @@
   padding-right: 0;
 }
 
+.events-list li{
+  height: 60px;
+  transition: height 0.3s;
+}
+
+.events-list li.editing{
+  height: 120px;
+  transition: height 0.3s;
+}
+
+.events-list .select2-container.error a .select2-arrow,
+.events-list .select2-container.error a{
+  background-color: #fcc !important;
+}
+
+.events-list li.past{
+  opacity: 0.4;
+}
+
+.events-list li.editing{
+  border-top: 3px solid #ddd;
+  border-bottom: 3px solid #ddd;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.events-list .day{
+  position: relative;
+  float: left;
+  background: #fff;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+}
+
+.events-list .daynum{
+  font-size: 24px;
+  line-height: 1.1em;
+  font-weight: 100;
+  color: #333;
+}
+
+.events-list .year{
+  position: absolute;
+  right: -11px;
+  bottom: -8px;
+}
+
+.events-list .dayname,
+.events-list .month{
+  font-size: 8px;
+  line-height: 1em;
+  color: #777;
+  padding: 5px 0 0 0;
+}
+
+.events-list .dayname{
+  margin-top: -5px;
+  padding: 5px 0 0 0;
+}
+
+.events-list .title{
+  padding: 18px 0;
+  margin: 0 0 0 55px;
+}
+
+.events-list .title a{
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
+  color: #333;
+}
+
+.events-list .title time{
+  color: #555;
+}
+
 .jobs-list .cancel,
 .events-list .edit-prices{
   margin: 4px 15px 0 0;
+}
+
+.events-list .actions{
+  margin: -2px 0;
+}
+
+.jobs-list .actions{
+  margin: 4px 0 0;
+}
+
+.jobs-list .ui-sortable-placeholder{
+  background: #59e;
+  border: none;
+  visibility: visible !important;
+}
+
+.jobs-list .job.ui-draggable-dragging{
+  z-index: 100;
 }
 
 .jobs-list .row,
@@ -115,4 +230,21 @@ table.entries-table td{
 table.entries-table .btn.status-indicator{
   margin: 0 5px 0 0;
   height: 1.6em;
+}
+
+.ensemble-list{
+  list-style: none;
+  padding: 10px 0 0;
+}
+
+.ensemble-list li{
+  padding: 5px 20px;
+}
+
+.ensemble-list li .title{
+  font-weight: 600;
+}
+
+.ensemble-list li .actions{
+  float: right;
 }

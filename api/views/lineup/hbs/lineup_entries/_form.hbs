@@ -38,10 +38,30 @@
     <div class="col-md-10">
       {{view App.Select2SelectView
               class='fill-width'
+              promptTranslation='ensemble.select_or_create'
+              createTranslation='ensemble.nothing_found_create_new'
+              createAction='createEnsemble'
+              changeAction='addEnsemble'
               contentBinding='availableEnsembles'
               optionValuePath='content.id'
-              optionLabelPath='content.name'
-              selectionBinding='addEnsembleId'}}
+              optionLabelPath='content.curTranslation.title'}}
+      <ul class="ensemble-list">
+        {{#each ensembles itemController='ensembles_item'}}
+        <li>
+          <div class="btn-group actions">
+            <button {{action 'goToEnsemble'}} class="btn transparent borderless"
+                    {{translateAttr title='ensemble.show_edit_form'}}>
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button {{action 'removeEnsemble'}} class="btn highlight-danger transparent borderless"
+                    {{translateAttr title='ensemble.unlink_from_entry'}}>
+              <i class="fa fa-unlink"></i>
+            </button>
+          </div>
+          <span class="title">{{curTranslation.title}}</span>
+        </li>
+        {{/each}}
+      </ul>
     </div>
     
   </div>
@@ -52,7 +72,34 @@
 
     <label class="col-md-2 control-label">{{t 'entry.author'}}</label>
     <div class="col-md-10">
-      {{input valueBinding='author' class='form-control'}}
+      {{view App.Select2SelectView
+              class='fill-width'
+              promptTranslation='person.select_or_create'
+              createTranslation='person.nothing_found_create_new'
+              createAction='createAuthor'
+              changeAction='addAuthor'
+              contentBinding='availablePeople'
+              optionValuePath='content.id'
+              optionLabelPath='content.name'}}
+      <ul class="ensemble-list">
+        {{#each lineup_jobs itemController='jobs_item'}}
+          {{#if isAuthor}}
+            <li>
+              <div class="btn-group actions">
+                <button {{action 'goToPerson'}} class="btn transparent borderless"
+                        {{translateAttr title='person.show_edit_form'}}>
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button {{action 'removePerson'}} class="btn highlight-danger transparent borderless"
+                        {{translateAttr title='person.unlink_from_entry'}}>
+                  <i class="fa fa-unlink"></i>
+                </button>
+              </div>
+              <span class="title">{{name}}</span>
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
     </div>
     
   </div>
@@ -61,7 +108,34 @@
 
     <label class="col-md-2 control-label">{{t 'entry.director'}}</label>
     <div class="col-md-10">
-      {{input valueBinding='director' class='form-control'}}
+      {{view App.Select2SelectView
+              class='fill-width'
+              promptTranslation='person.select_or_create'
+              createTranslation='person.nothing_found_create_new'
+              createAction='createDirector'
+              changeAction='addDirector'
+              contentBinding='availablePeople'
+              optionValuePath='content.id'
+              optionLabelPath='content.name'}}
+      <ul class="ensemble-list">
+        {{#each lineup_jobs itemController='jobs_item'}}
+          {{#if isDirector}}
+            <li>
+              <div class="btn-group actions">
+                <button {{action 'goToPerson'}} class="btn transparent borderless"
+                        {{translateAttr title='person.show_edit_form'}}>
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button {{action 'removePerson'}} class="btn highlight-danger transparent borderless"
+                        {{translateAttr title='person.unlink_from_entry'}}>
+                  <i class="fa fa-unlink"></i>
+                </button>
+              </div>
+              <span class="title">{{name}}</span>
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
     </div>
     
   </div>

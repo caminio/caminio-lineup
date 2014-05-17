@@ -18,6 +18,8 @@
     }
   });
 
+  App.set('_defaultJobs', domainSettings.lineupDefaultJobs);
+
   /**
    * LineupEntries
    */
@@ -68,15 +70,15 @@
       this.store.find('mediafile', { parent: model.get('id'), order: 'position:asc' }).then(function(mediafiles){
         controller.set('mediafiles',mediafiles);
       });
-      this.store.all('lineup_org', { type: 'venue' }).forEach(function(venue){
-        controller.get('availableVenues').pushObject(venue);
+      this.store.all('lineup_org').forEach(function(org){
+        if( org.get('type') === 'venue' ) 
+          controller.get('availableVenues').pushObject(org);
+        else if( org.get('type') === 'ensemble' )
+          controller.get('availableEnsembles').pushObject(org);
       });
       this.store.all('lineup_person').forEach(function(person){
         controller.get('availablePeople').pushObject(person);
       });
-      //this.store.all('label').forEach(function(label){
-      //  controller.get('availableLabels').pushObject(label);
-      //});
       controller.set('model',model);
     },
 

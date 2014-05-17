@@ -26,7 +26,7 @@
     age: DS.attr('number'),
 
     lineup_events: DS.hasMany('lineup_event', { embedded: 'always' }),
-    ensembles: DS.hasMany('lineup_org'),
+    ensembles: DS.hasMany('lineup_org', { embedded: 'keys' }),
     organizers: DS.hasMany('lineup_org'),
     venues: function(){
       var venues = [];
@@ -44,6 +44,19 @@
 
     origProjectUrl: DS.attr('string'),
     videoId: DS.attr('string'),
+    videoIdTransformer: function(){
+      if( !this.get('videoId') )
+        return;
+      if( this.get('videoId').indexOf('?v=') > 0 ){
+        this.set('videoId', this.get('videoId').split('?v=')[1] );
+        this.set('videoProvider', 'youtube');
+      }
+      else if( this.get('videoId').indexOf('vimeo.com/') >= 0 ){
+        this.set('videoId', this.get('videoId').split('vimeo.com/')[1] );
+        this.set('videoProvider', 'vimeo');
+      }
+    }.observes('videoId'),
+
     videoProvider: DS.attr('string', {defaultValue: 'youtube'}), // youtube, vimeo
 
     createdBy: DS.belongsTo('user'),

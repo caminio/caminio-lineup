@@ -1,4 +1,4 @@
-<li class="lineup-event">
+<li {{bind-attr class=":lineup-event editMode:editing pastEvent:past"}}>
   {{#if editMode}}
     <form class="caminio" {{action 'save' on='submit'}}>
 
@@ -20,14 +20,14 @@
         <div class="col-md-7 date">
           <div class="input-group">
             {{input valueBinding='startsDate' class="datepicker form-control" placeholderTranslation='event.starts_placeholder'}}
-            <span class="input-group-addon datepicker">
+            <span class="input-group-addon trigger-datepicker">
               <i class="fa fa-calendar-o"></i>
             </span>
           </div>
         </div>
         <div class="col-md-5 time-prices">
           <div class="input-group">
-            {{input valueBinding='startsTime' class="form-control" placeholderTranslation='event.starts_time_placeholder'}}
+            {{input valueBinding='startsTime' class="timepicker form-control" placeholderTranslation='event.starts_time_placeholder'}}
             <span class="input-group-addon">
               <i class="fa fa-clock-o"></i>
             </span>
@@ -36,17 +36,16 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <button class="btn icon-text pull-right">
-            <i class="fa fa-save"></i>
+          <button class="btn primary pull-right">
             {{t 'save'}}
           </button>
-          <button class="btn icon-text pull-right" {{action 'remove' this}} {{translateAttr title='delete'}}>
-            <i class="fa fa-trash-o"></i>
+          <button class="btn highlight-danger pull-right" {{action 'remove' this}} {{translateAttr title='delete'}}>
+            {{t 'delete'}}
           </button>
           <a href="#" class="edit-prices pull-right" {{action 'toggleEditMode'}}>
             {{t 'cancel'}}
           </a>
-          <a href="#" class="edit-prices pull-right">
+          <a class="edit-prices pull-right">
             {{t 'event.edit_prices'}}
           </a>
         </div>
@@ -54,13 +53,28 @@
     </form>
 
   {{else}}
-    <button class="btn pull-right icon-only highlight-danger" {{action 'remove' content}}>
-      <i class="fa fa-trash-o"></i>
-    </button>
-    <button class="btn pull-right icon-only" {{action 'toggleEditMode'}}>
-      <i class="fa fa-pencil"></i>
-    </button>
-    <div class="venue">{{lineup_org.curTranslation.title}}</div>
-    <time>{{formatDate starts format='ddd, DD. MMM. HH:mm'}}</time>
+    <div class="day">
+      <div class="month">{{formatDate starts format='MMMM'}}</div>
+      <div class="daynum">{{formatDate starts format='DD'}}</div>
+      <div class="dayname">{{formatDate starts format='dddd'}}</div>
+      {{#thisYear starts}}
+      {{else}}
+      <div class="label label-warning year">{{formatDate starts format='YYYY'}}</div>
+      {{/thisYear}}
+    </div>
+    <div class="title">
+      <div class="actions pull-right">
+        <button class="btn transparent borderless icon-only" {{action 'toggleEditMode'}}>
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn borderless transparent icon-only highlight-danger" {{action 'remove' content}}>
+          <i class="fa fa-trash-o"></i>
+        </button>
+      </div>
+      {{formatDate starts format='HH:mm'}}
+      {{#link-to 'lineup_orgs.edit' lineup_org.id}}
+      {{lineup_org.curTranslation.title}}
+      {{/link-to}}
+    </div>
   {{/if}}
 </li>

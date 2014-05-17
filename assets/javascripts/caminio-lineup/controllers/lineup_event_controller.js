@@ -8,6 +8,10 @@
       return this.get('content.id') === this.get('parentController.curEvent.id');
     }.property('parentController.curFile'),
 
+    pastEvent: function(){
+      return moment(this.get('starts')).isValid() ? moment(this.get('starts')).endOf('day') < moment() : false;
+    }.property('content.start'),
+
     actions: {
       
       createVenue: function( name, $obj ){
@@ -31,6 +35,11 @@
 
       save: function(){
         var content = this.get('content');
+        if( !content.get('lineup_org') ){
+          $('.lineup-event.editing:visible .select2-container').addClass('error');
+          return notify('error', Em.I18n.t('event.venue_required'));
+        }
+        $('.lineup-event.editing:visible .select2-container').removeClass('error');
         var self = this;
         this.get('parentController.content')
           .save()
@@ -47,6 +56,10 @@
       },
 
       toggleEditMode: function(){
+        if( !this.get('content.id') ){
+          this.get('parentController.lineup_events').removeObject( this.get('content') );
+          return this.get('content').deleteRecord();
+        }
         this.get('content').set('editMode', (this.get('content.editMode') ? !this.get('content.editMode') : true));
       }
 

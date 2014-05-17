@@ -89,6 +89,7 @@
     'event.edit_prices': 'Edit prices',
     'event.nothing_found_create_new': 'No results. Press Enter to create venue',
     'event.saved': 'Event {{starts}} has been saved',
+    'event.venue_required': 'Venue is required in order to save event',
 
     'org.created': 'Venue {{name}} has been created',
 
@@ -127,12 +128,22 @@
     'person.select_or_create': 'Select or create person',
     'person.nothing_found_create_new': 'No person matched your search. Enter to create',
     'person.created': 'Person {{name}} has been created',
+    'person.show_edit_form': 'Show form of this person',
+    'person.unlink_from_entry': 'Unlink person from this entry',
 
     'jobs': 'Team / Jobs',
     'jobs.add': 'Add a job',
     'jobs.no_yet': 'There is no job yet',
     'job.description': 'Job description',
     'job.saved': 'Job for {{name}} has been saved',
+    'job.author': 'Playwright',
+    'job.director': 'Directing',
+
+    'ensemble.select_or_create': 'Select or create ensemble',
+    'ensemble.nothing_found_create_new': 'No ensemble matched your search. Enter to create',
+    'ensemble.created': 'Ensemble {{name}} has been created',
+    'ensemble.show_edit_form': 'Show form of ensemble',
+    'ensemble.unlink_from_entry': 'Unlink ensemble from this entry',
 
     'error.missing_title': 'Title must be filled in before you can continue',
     'error.missing_firstname': 'Firstname must be filled in before you can continue',

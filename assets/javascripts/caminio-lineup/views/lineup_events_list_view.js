@@ -7,14 +7,21 @@
     templateName: 'lineup_events/list',
 
     didInsertElement: function(){
-      this.$().on('click', '.datepicker', function(){
-        var $elem = $(this).is('input[type=text]') ? $(this) : $(this).prev('input[type=text]');
-        if( !$elem.data('datepicker') )
-          $elem.datepicker({
-            prevText: '',
-            nextText: '',
-            dateFormat: 'yy-mm-dd'
-          });
+      this.$().on('mouseenter', '.datepicker', function(e){
+        if( $(this).hasClass('hasDatepicker') )
+          return;
+        $(this).datepicker({
+          prevText: '',
+          nextText: '',
+          dateFormat: 'yy-mm-dd'
+        });
+      });
+
+      this.$().on('mouseenter', '.timepicker', function(e){
+        if( $(this).hasClass('hasTimepicker') )
+          return;
+
+        $(this).caminioTimepicker();
       });
     }
 

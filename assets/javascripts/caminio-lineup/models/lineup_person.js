@@ -50,7 +50,14 @@
       return this.get('status') === 'draft';
     }.property('status'),
 
-    name: function(){
+    name: function( ns, value ){
+      if( value ){
+        this.set('firstname', value);
+        if( value.split(' ').length > 1 ){
+          this.set('firstname', value.split(' ')[0] );
+          this.set('lastname', value.replace( value.split(' ')[0],'') );
+        }
+      }
       var name = '';
       if( this.get('firstname') && this.get('firstname').length > 0 )
         name += this.get('firstname');
