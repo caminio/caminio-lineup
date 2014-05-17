@@ -13,7 +13,7 @@
         title: 'entry.title'}, 
       { name: 'period',
         title: 'entry.date',
-        width: '100px'},
+        width: '150px'},
       { name: 'venues',
         title: 'entry.venues'}, 
       { name: 'updatedAt',

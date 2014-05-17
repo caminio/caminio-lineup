@@ -16,6 +16,7 @@
             var obj = self.get('controller').store.getById( 'lineup_job', $(this).attr('data-id') );
             self.get('controller.lineup_jobs').removeObject( obj );
             self.get('controller.lineup_jobs').pushObject( obj );
+            self.get('controller.content').send('becomeDirty');
           });
         }
       });

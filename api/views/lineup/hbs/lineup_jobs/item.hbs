@@ -18,7 +18,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          {{view App.Select2TextFieldView
+          {{view App.TypeaheadTextFieldView
           localContent=App._defaultJobs
           valueBinding="title"
           placeholderTranslation='job.description'
@@ -28,12 +28,11 @@
 
       <div class="row">
         <div class="col-md-12">
-          <button class="btn icon-text pull-right">
-            <i class="fa fa-save"></i>
+          <button class="btn primary pull-right">
             {{t 'save'}}
           </button>
-          <button class="btn icon-text pull-right" {{action 'remove' this}} {{translateAttr title='delete'}}>
-            <i class="fa fa-trash-o"></i>
+          <button class="btn pull-right" {{action 'remove' this}}>
+            {{t 'delete'}}
           </button>
           <a href="#" class="cancel pull-right" {{action 'toggleEditMode'}}>
             {{t 'cancel'}}
