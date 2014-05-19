@@ -11,7 +11,7 @@
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
     lineup_jobs: DS.hasMany( 'lineup_job', { embedded: 'always' } ),
 
-    labels: DS.hasMany( 'label', { async: false } ),
+    labels: DS.hasMany( 'label', { async: false, embedded: 'keys' } ),
     
     recommendedAge: DS.attr('number'),
     durationMin: DS.attr('number'),
