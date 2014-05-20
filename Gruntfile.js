@@ -10,6 +10,9 @@ module.exports = function(grunt) {
   uglifyFiles['build/javascripts/'+gearName+'.min.js'] = [
     'assets/javascripts/'+gearName+'/**/*.js'
   ];
+  uglifyFiles['build/javascripts/caminio-lineup-models.min.js'] = [
+    'assets/javascripts/'+gearName+'/models/*.js'
+  ];
 
   // Project configuration.
   grunt.initConfig({

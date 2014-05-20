@@ -1,5 +1,7 @@
 ( function( App ){
 
+  'use strict';
+
   App.Router.map( function(){
     this.resource('lineup_entries');
     this.resource('lineup_entries.edit', { path: '/lineup_entries/edit/:id' });
@@ -30,7 +32,7 @@
     },
 
     setupController: function(controller, model){
-      c = this.controllerFor('lineup_entries_table');
+      var c = this.controllerFor('lineup_entries_table');
       c.set('model', model);
     },
 
