@@ -115,7 +115,7 @@
   App.LineupOrgsRoute = Ember.Route.extend({
 
     setupController: function(controller, model){
-      c = this.controllerFor('lineup_orgs_table');
+      var c = this.controllerFor('lineup_orgs_table');
       c.set('model', this.store.all('lineup_org'));
     },
 
@@ -193,7 +193,7 @@
   App.LineupPeopleRoute = Ember.Route.extend({
 
     setupController: function(controller, model){
-      c = this.controllerFor('lineup_people_table');
+      var c = this.controllerFor('lineup_people_table');
       c.set('model', this.store.all('lineup_person'));
     },
 

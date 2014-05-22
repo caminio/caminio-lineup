@@ -62,9 +62,9 @@
       return this.get('status') === 'draft';
     }.property('status'),
 
-    obsCountry: function(){
-      console.log('changed', this.get('country'));
-    }.observes('country'),
+    //obsCountry: function(){
+    //  console.log('changed', this.get('country'));
+    //}.observes('country'),
 
     isVenue: function(){
       return this.get('type') === 'venue';

@@ -8,6 +8,7 @@
     lineup_org: DS.belongsTo('lineup_org'),
     festival: DS.belongsTo('lineup_entry'),
     prices: DS.hasMany('lineup_price'),
+    lineup_entry: DS.belongsTo('lineup_entry'),
 
     startsDate: function( key, val ){
       var curTime = moment(this.get('starts'));

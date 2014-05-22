@@ -13,9 +13,15 @@ module.exports = function LineupEvent( caminio, mongoose ){
 
     starts: { type: Date, public: true },
     lineup_org: { type: ObjectId, ref: 'LineupOrg', public: true },
+    quota: { type: Number, public: true },
+    shop_orders: { type: [ObjectId], ref: 'ShopOrder' },
     prices: [ LineupPriceSchema ],
-    festival: { type: ObjectId, ref: 'LineupOrg' }
+    festival: { type: ObjectId, ref: 'LineupOrg' },
 
+  });
+
+  schema.virtual('lineup_entry').get(function(){
+    return this.parent().id;
   });
 
   return schema;
