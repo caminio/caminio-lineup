@@ -7,7 +7,6 @@
     starts: DS.attr('date', {defaultValue: moment().hour(20).minutes(0).seconds(0).toDate()}),
     lineup_org: DS.belongsTo('lineup_org'),
     festival: DS.belongsTo('lineup_entry'),
-    prices: DS.hasMany('lineup_price'),
     lineup_entry: DS.belongsTo('lineup_entry'),
 
     startsDate: function( key, val ){
