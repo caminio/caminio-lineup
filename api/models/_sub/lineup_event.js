@@ -9,7 +9,6 @@ module.exports = function LineupEvent( caminio, mongoose ){
   var fs = require('fs');
 
   var ObjectId = mongoose.Schema.Types.ObjectId;
-  var LineupPriceSchema = require( __dirname+'/lineup_price' )( caminio, mongoose );
 
   var schema = new mongoose.Schema({
 
