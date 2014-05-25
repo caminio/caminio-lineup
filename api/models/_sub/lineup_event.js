@@ -24,6 +24,7 @@ module.exports = function LineupEvent( caminio, mongoose ){
     var ShopPriceSchema = require(__dirname+'/../../../../caminio-shop/api/models/_sub/price')( caminio, mongoose );
     schema.add({ 
       prices: { type: [ShopPriceSchema], public: true },
+      quota: { type: Number, public: true },
       bookable: { type: Boolean, default: true, public: true }
     });
   } catch( e ){ console.error(e); caminio.logger.info('lineup events initializing without price schema'); }
