@@ -3,7 +3,11 @@
  * @class LineupPerson
  *
  */
+
+'use strict';
  
+var _ = require('lodash');
+
 module.exports = function LineupPerson( caminio, mongoose ){
 
   var ObjectId = mongoose.Schema.Types.ObjectId;
@@ -51,6 +55,20 @@ module.exports = function LineupPerson( caminio, mongoose ){
     updatedBy: { type: ObjectId, ref: 'User', public: true }
 
   });
+
+  schema.virtual('curTranslation')
+    .get(function(){
+      if( !this._curLang )
+        return this.translations[0];
+      var guess = _.find( this.translations, { locale: this._curLang } );
+      if( guess ){ return guess; }
+      return this.translations[0];
+    });
+
+  schema.virtual('curLang')
+    .set(function(lang){
+      this._curLang = lang;
+    });
 
   schema.virtual('name')
     .get(function(){
