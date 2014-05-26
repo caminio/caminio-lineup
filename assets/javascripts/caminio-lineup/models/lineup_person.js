@@ -5,7 +5,7 @@
   App.LineupPerson = DS.Model.extend({
 
     status: DS.attr('string', { defaultValue: 'published'}),
-    translations: DS.hasMany( 'translation' ),
+    translations: DS.hasMany( 'translation', { embedded: 'always' } ),
 
     tags: DS.attr('array'),
 

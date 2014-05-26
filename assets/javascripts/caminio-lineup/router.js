@@ -234,6 +234,8 @@
     },
 
     setupController: function( controller, model ){
+      if( !model.get('curTranslation') )
+        model.get('translations').pushObject( this.store.createRecord('translation', { locale: App._curLang, content: '' }) );
       this.store.find('mediafile', { parent: model.get('id'), order: 'position:asc'}).then(function(mediafiles){
         controller.set('mediafiles',mediafiles);
       });
