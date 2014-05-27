@@ -1,19 +1,54 @@
 <div class="box-header">
+  <div class="ctrl">
+    <button class="btn borderless transparent" {{action 'toggleEditSettings'}} {{translateAttr title='entry.adv_settings'}}>
+      <i class="fa fa-cogs"></i>
+    </button>
+  </div>
   <div class="box-title">
-    {{t 'entry.marketing'}}
+    {{t 'entry.marketing_adv'}}
   </div>
 </div>
 
 <form class="box-body default-padding caminio" {{action 'save' on='submit'}}>
 
-  <div class="form-group">
+  {{#if editSettings}}
 
-    <label class=" control-label">{{t 'entry.filename'}}</label>
-    <div>
-      {{input valueBinding='filename' class="form-control"}}
+    <div class="form-group">
+
+      <label class=" control-label">{{t 'entry.filename'}}</label>
+      <div>
+        {{input valueBinding='filename' class="form-control"}}
+      </div>
+      
     </div>
-    
-  </div>
+
+    <h4 class="mini-title">{{t 'entry.last_changes'}}</h4>
+
+    <table class="caminio">
+      <tr>
+        <td class="align-top">{{t 'updated'}}</td>
+        <td>
+          {{updatedBy.name}}<br>
+          {{smartDate updatedAt}}</td>
+      </tr>
+      <tr>
+        <td class="align-top">{{t 'created'}}</td>
+        <td>
+          {{createdBy.name}}<br>
+          {{smartDate createdAt}}</td>
+      </tr>
+    </table>
+
+    {{#if isOwner}}
+    <div class="checkbox">
+      {{input type='checkbox' checked='notifyCreatorOnChange'}}
+      <label>{{t 'entry.notify_creator_on_change'}}
+    </div>
+    {{/if}}
+
+    <hr>
+
+  {{/if}}
 
   <div class="form-group">
 

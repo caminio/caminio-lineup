@@ -35,6 +35,19 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-12 btn-group">
+          <button {{bind-attr class=":btn premiere:success"}} {{action 'toggleSpecial' 'premiere'}}>
+            {{t 'entry.premiere'}}
+          </button>
+          <button {{bind-attr class=":btn derniere:warning"}} {{action 'toggleSpecial' 'derniere'}}>
+            {{t 'entry.derniere'}}
+          </button>
+          <button {{bind-attr class=":btn cancelled:danger"}} {{action 'toggleSpecial' 'cancelled'}}>
+            {{t 'entry.cancelled'}}
+          </button>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-12">
           <button class="btn primary pull-right">
             {{t 'save'}}
@@ -44,9 +57,6 @@
           </button>
           <a href="#" class="edit-prices pull-right" {{action 'toggleEditMode'}}>
             {{t 'cancel'}}
-          </a>
-          <a class="edit-prices pull-right">
-            {{t 'event.edit_prices'}}
           </a>
         </div>
       </div>
@@ -75,6 +85,9 @@
       {{#link-to 'lineup_orgs.edit' lineup_org.id}}
       {{lineup_org.curTranslation.title}}
       {{/link-to}}
+      {{#if premiere}}<span class="label label-success">{{t 'entry.premiere'}}</span>{{/if}}
+      {{#if derniere}}<span class="label label-warning">{{t 'entry.derniere'}}</span>{{/if}}
+      {{#if cancelled}}<span class="label label-danger">{{t 'entry.cancelled'}}</span>{{/if}}
     </div>
   {{/if}}
 </li>

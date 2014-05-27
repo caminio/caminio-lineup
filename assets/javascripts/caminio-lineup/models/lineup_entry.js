@@ -17,15 +17,13 @@
     durationMin: DS.attr('number'),
     numBreaks: DS.attr('number'),
 
-    premiere: DS.attr('boolean', { defaultValue: false }),
-    derniere: DS.attr('boolean', { defaultValue: false }),
-    canceled: DS.attr('boolean', { defaultValue: false }),
+    notifyCreatorOnChange: DS.attr('boolean', { defaultValue: true }),
 
     filename: DS.attr('string'),
 
     age: DS.attr('number'),
 
-    lineup_events: DS.hasMany('lineup_event', { embedded: 'always' }),
+    lineup_events: DS.hasMany('lineup_event', { embedded: 'always', inverse: 'lineup_entry' }),
     ensembles: DS.hasMany('lineup_org', { embedded: 'keys' }),
     organizers: DS.hasMany('lineup_org'),
     venues: function(){
@@ -95,7 +93,12 @@
       if( this.get('translations').content.length > 1 )
         url += '.' + this.get('curLang');
       return url;
-    }.property('id')
+    }.property('id'),
+
+    isOwner: function(){
+      return ( this.get('createdBy.id') === currentUser._id || 
+        ( ( currentDomain._id in currentUser.roles) && currentUser.roles[currentDomain._id] >= 80 ) );
+    }.property('createdBy')
     
 
   });

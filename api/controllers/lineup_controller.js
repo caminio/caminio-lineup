@@ -2,9 +2,10 @@
  * @class LineupController
  */
 
-'use strict';
 
 module.exports = function LineupController( caminio, policies, middleware ){
+
+  'use strict';
 
   return {
 

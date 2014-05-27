@@ -17,6 +17,9 @@
     'entries.title': 'Einträge im Spielplan',
 
     'entry.title': 'Titel',
+    'entry.adv_settings': 'Erweiterte Einstellungen',
+    'entry.last_changes': 'Letzte Änderungen',
+    'entry.notify_creator_on_change': 'BesitzerIn benachrichtigen wenn jemand anderes Änderungen am Eintrag vornimmt',
     'entry.labels': 'Labels',
     'entry.currently_labeled': 'ist aktuell gelabelt mit',
     'entry.available_labels': 'Verfügbare Labels',
@@ -35,7 +38,7 @@
     'entry.keywords': 'Schlagwörter',
     'entry.save_before_content': 'Vor dem Hinzufügen von Bildern bitte speichern',
 
-    'entry.marketing': 'Marketing',
+    'entry.marketing_adv': 'Marketing / Erweitert',
     'entry.orig_project_url': 'Projekt URL (extern)',
     'entry.orig_project_url_desc': 'z.B..: http://example.com/path/to/project',
     'entry.vimeo': 'Vimeo (http://vimeo.com)',
@@ -47,7 +50,7 @@
 
     'entry.premiere': 'Premiere',
     'entry.derniere': 'Derniere',
-    'entry.canceled': 'Abgesagt',
+    'entry.cancelled': 'Abgesagt',
 
     'entry.draft': 'Entwurf',
     'entry.published': 'Veröffentlicht',

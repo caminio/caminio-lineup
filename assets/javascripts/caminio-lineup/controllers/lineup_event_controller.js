@@ -33,6 +33,10 @@
           });
       },
 
+      toggleSpecial: function( key ){
+        this.set('content.'+key, !this.get('content.'+key));
+      },
+
       save: function(){
         var content = this.get('content');
         if( !content.get('lineup_org') ){

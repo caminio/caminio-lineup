@@ -17,6 +17,9 @@
     'entries.title': 'Line up entries',
 
     'entry.title': 'Title',
+    'entry.adv_settings': 'Advanced settings',
+    'entry.last_changes': 'Latest changes',
+    'entry.notify_creator_on_change': 'Notify owner when entry is changed by someone else',
     'entry.labels': 'Labels',
     'entry.currently_labeled': 'is currently labeled with',
     'entry.available_labels': 'Available labels',
@@ -35,7 +38,7 @@
     'entry.keywords': 'Keywords',
     'entry.save_before_content': 'Save your content first before starting to upload images',
 
-    'entry.marketing': 'Marketing',
+    'entry.marketing_adv': 'Marketing / Advanced',
     'entry.orig_project_url': 'Original project URL',
     'entry.orig_project_url_desc': 'e.g.: http://example.com/path/to/project',
     'entry.vimeo': 'Vimeo (http://vimeo.com)',
@@ -47,7 +50,7 @@
 
     'entry.premiere': 'Premiere',
     'entry.derniere': 'Derniere',
-    'entry.canceled': 'Cancelled',
+    'entry.cancelled': 'Cancelled',
 
     'entry.draft': 'Draft',
     'entry.published': 'Published',

@@ -26,6 +26,8 @@ module.exports = function LineupEntry( caminio, mongoose ){
     //type: { type: String, public: true, index: true },
     status: { type: String, public: true, default: 'draft' },
 
+    notifyCreatorOnChange: { type: Boolean, public: true, default: true },
+
     /**
      * @property labels
      * @type ObjectId
@@ -58,10 +60,6 @@ module.exports = function LineupEntry( caminio, mongoose ){
     origProjectUrl: { type: String, public: true },
     videoId: { type: String, public: true },
     videoProvider: { type: String, public: true },
-
-    premiere: { type: Boolean, default: false, public: true },
-    derniere: { type: Boolean, default: false, public: true },
-    canceled: { type: Boolean, default: false, public: true },
 
     othersWrite: { type: String, public: true },
     notifyMeOnWrite: { type: Boolean, default: true, public: true },

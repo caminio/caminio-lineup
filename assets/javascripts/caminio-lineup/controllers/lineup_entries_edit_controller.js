@@ -9,6 +9,8 @@
     availableEnsembles: Em.A(),
     availableLabels: Em.A(),
     
+    editSettings: false,
+
     youtubeVideoURL: function(){
       return '//www.youtube-nocookie.com/embed/'+this.get('videoId');
     }.property('videoId'),
@@ -40,6 +42,10 @@
       'cancelNewEntry': function(){
         this.get('model').deleteRecord();
         this.transitionToRoute('lineup_entries');
+      },
+
+      'toggleEditSettings': function(){
+        this.set('editSettings', !this.get('editSettings'));
       },
 
       'goToEntries': function(){

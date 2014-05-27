@@ -9,6 +9,10 @@
     festival: DS.belongsTo('lineup_entry'),
     lineup_entry: DS.belongsTo('lineup_entry'),
 
+    premiere: DS.attr('boolean', { defaultValue: false }),
+    derniere: DS.attr('boolean', { defaultValue: false }),
+    cancelled: DS.attr('boolean', { defaultValue: false }),
+
     startsDate: function( key, val ){
       var curTime = moment(this.get('starts'));
       if(arguments.length === 2){

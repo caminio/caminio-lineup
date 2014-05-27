@@ -4,11 +4,11 @@
  *
  */
 
-'use strict';
- 
-var _ = require('lodash');
-
 module.exports = function LineupPerson( caminio, mongoose ){
+
+  'use strict';
+ 
+  var _ = require('lodash');
 
   var ObjectId = mongoose.Schema.Types.ObjectId;
 
