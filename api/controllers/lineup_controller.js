@@ -28,10 +28,8 @@ module.exports = function LineupController( caminio, policies, middleware ){
         var gen = new SiteGen( res.locals.currentDomain.getContentPath(), 'lineup' );
 
         gen.compileLayout( 'index', { locals: res.locals }, function( err, content ){
-          console.log('WE GET: ', content );
+          res.send(200);
         });
-
-        res.send(200);
       } 
     ]
 
