@@ -8,7 +8,8 @@
     availablePeople: Em.A(),
     availableEnsembles: Em.A(),
     availableLabels: Em.A(),
-    
+    availableCategories: Em.A( domainSettings.lineupAvailableCategories || [] ),
+
     editSettings: false,
 
     youtubeVideoURL: function(){

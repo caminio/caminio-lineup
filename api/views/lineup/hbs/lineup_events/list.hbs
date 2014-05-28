@@ -1,6 +1,7 @@
 <div class="box-header">
   <div class="box-title">
 
+    {{#unless isNew}}
     <div class="ctrl">
       <button class="btn"
             {{action 'addEvent'}}>
@@ -8,6 +9,7 @@
         {{t 'events.add'}}
       </button>
     </div>
+    {{/unless}}
   
     {{t 'events'}}
 
@@ -16,14 +18,20 @@
 
 <div class="box-body default-padding">
 
-  <ul class="events-list">
-    {{#each arrangedEvents itemController='lineup_event'}}
-      {{partial 'lineup_events/item'}}
-    {{else}}
-      <li class="lineup-event">
-        <div class="venue">{{t 'event.no_yet'}}</div>
-      </li>
-    {{/each}}
-  </ul>
+  {{#if isNew}}
+    <div class="big-desc">
+      {{t 'entry.save_before_content'}}
+    </div>
+  {{else}}
+    <ul class="events-list">
+      {{#each arrangedEvents itemController='lineup_event'}}
+        {{partial 'lineup_events/item'}}
+      {{else}}
+        <li class="lineup-event">
+          <div class="venue">{{t 'event.no_yet'}}</div>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
 
 </div>

@@ -36,7 +36,7 @@
     'entry.author': 'Autorenschaft',
     'entry.director': 'Inszenierung',
     'entry.keywords': 'Schlagwörter',
-    'entry.save_before_content': 'Vor dem Hinzufügen von Bildern bitte speichern',
+    'entry.save_before_content': 'Eintrag speichern, um diese Einstellungen verfügbar zu machen',
 
     'entry.marketing_adv': 'Marketing / Erweitert',
     'entry.orig_project_url': 'Projekt URL (extern)',

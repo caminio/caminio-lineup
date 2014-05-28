@@ -49,7 +49,8 @@
   App.LineupEntriesNewRoute = Ember.Route.extend({
 
     model: function( prefix, options ){
-      return this.store.createRecord('lineup_entry');
+      var defaultCategories = domainSettings.lineupDefaultCategories || [];
+      return this.store.createRecord('lineup_entry', { categories: defaultCategories });
     },
 
     setupController: function( controller, model ){
