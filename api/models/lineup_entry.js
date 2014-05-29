@@ -34,6 +34,8 @@ module.exports = function LineupEntry( caminio, mongoose ){
      */
     labels: { type: [ObjectId], ref: 'Label', index: true, public: true },
 
+    categories: { type: [String], public: true },
+
     requestReviewMsg: { type: String, public: true },
     requestReviewBy: { type: ObjectId, ref: 'User', public: true },
 

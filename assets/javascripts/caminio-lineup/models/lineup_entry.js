@@ -9,6 +9,7 @@
     requestReviewMsg: DS.attr(),
     status: DS.attr('string', { defaultValue: 'draft'}),
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
+    categories: DS.attr('array'),
     lineup_jobs: DS.hasMany( 'lineup_job', { embedded: 'always' } ),
 
     labels: DS.hasMany( 'label', { async: false, embedded: 'keys' } ),
@@ -96,7 +97,7 @@
     }.property('id'),
 
     isOwner: function(){
-      return ( this.get('createdBy.id') === currentUser._id || 
+      return ( currentUser.superuser || this.get('createdBy.id') === currentUser._id || 
         ( ( currentDomain._id in currentUser.roles) && currentUser.roles[currentDomain._id] >= 80 ) );
     }.property('createdBy')
     
