@@ -24,13 +24,22 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
     'compileAll':[
       function( req, res ){
-        var SiteGen = require('caminio-rocksol/generator')( caminio );
 
-        var gen = new SiteGen( res.locals.currentDomain.getContentPath(), 'lineup' );
+        var Carver = require('carver');
+        var compiler = Carver.init({ 
+          workdir: res.locals.currentDomain.getContentPath()+'/spielplan_tmpls',
+          locals: res.locals
+        });
 
-        gen.compileLayout( 'index', { locals: res.locals }, function( err, content ){
+        compiler.compile( null, function( err ){
+          if( err ){ res.json( 500, { error: err }); }
           res.send(200);
         });
+        //var gen = new SiteGen( res.locals.currentDomain.getContentPath(), 'lineup' );
+
+        //gen.compileLayout( 'index', { locals: res.locals }, function( err, content ){
+        //  res.send(200);
+        //});
       } 
     ]
 

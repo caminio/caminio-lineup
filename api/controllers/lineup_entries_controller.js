@@ -2,13 +2,16 @@
  * @class LineupEntriesController
  */
 
-var join          = require('path').join;
-var fs            = require('fs');
-var async         = require('async');
-
 module.exports = function LineupEntriesController( caminio, policies, middleware ){
 
-  var SiteGen        = require('caminio-rocksol/generator')( caminio );
+  'use strict';
+
+  var join          = require('path').join;
+  var fs            = require('fs');
+  var async         = require('async');
+
+  var SiteGen       = require('caminio-rocksol/generator')( caminio );
+  var Carver        = require('carver');
 
   var LineupEntry = caminio.models.LineupEntry;
 
@@ -20,51 +23,63 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
     },
 
     _beforeResponse: {
-      'update': compilePages
+      //'update': compilePages
+      'update': compileWithCarver
     },
 
   };
 
-  function compilePages( req, res, next ){
-    var settingsFile = join( res.locals.currentDomain.contentPath, 'projects', '.settings' );
-    var types = {'LineupEntry': { layout: { name: 'projects' } }};
+  function compileWithCarver( req, res, next ){
 
-    if( fs.existsSync( settingsFile+'.js' ) ){
-      var settingsContent = require( settingsFile );
-      if( settingsContent.compileDeps )
-        types = settingsContent.compileDeps;
-    }
+    var Carver      = require('carver'); 
+    var compiler    = Carver.init({ 
+                          workdir: res.locals.currentDomain.getContentPath()+'/lineup_tmpls',
+                          locals: res.locals });
 
-    async.eachSeries( Object.keys(types), function( type, nextType ){
-
-      var gen = new SiteGen( res.locals.currentDomain.getContentPath(), types[type].namespace );
-
-      var q = caminio.models[type].find();
-      if( types[type].conditions && typeof(types[type].conditions) === 'object' ){
-        var conditions = {};
-        for( var key in types[type].conditions )
-          conditions[key] = ( types[type].conditions._id && types[type].conditions._id === 'PARAM_ID' ) ?
-                              req.param('id') :
-                              types[type].conditions[key];
-        q.where(conditions);
-      }
-      
-      q.exec( function( err, docs ){
-        async.eachSeries( docs, function( doc, compileNext ){
-
-          gen.compileObject( 
-              doc,
-              { locals: res.locals,
-                layout: types[type].layout,
-                isPublished: (req.doc.status === 'published') },
-              compileNext );
-
-        }, nextType );
-      });
-    }, next );
+    compiler.compile( res.locals.doc, next );
 
   }
 
+  // function compilePages( req, res, next ){
+  //   var settingsFile = join( res.locals.currentDomain.contentPath, 'projects', '.settings' );
+  //   var types = {'LineupEntry': { layout: { name: 'projects' } }};
+  //
+  //   if( fs.existsSync( settingsFile+'.js' ) ){
+  //     var settingsContent = require( settingsFile );
+  //     if( settingsContent.compileDeps )
+  //       types = settingsContent.compileDeps;
+  //   }
+  //
+  //   async.eachSeries( Object.keys(types), function( type, nextType ){
+  //
+  //     var gen = new SiteGen( res.locals.currentDomain.getContentPath(), types[type].namespace );
+  //
+  //     var q = caminio.models[type].find();
+  //     if( types[type].conditions && typeof(types[type].conditions) === 'object' ){
+  //       var conditions = {};
+  //       for( var key in types[type].conditions )
+  //         conditions[key] = ( types[type].conditions._id && types[type].conditions._id === 'PARAM_ID' ) ?
+  //                             req.param('id') :
+  //                             types[type].conditions[key];
+  //       q.where(conditions);
+  //     }
+  //     
+  //     q.exec( function( err, docs ){
+  //       async.eachSeries( docs, function( doc, compileNext ){
+  //
+  //         gen.compileObject( 
+  //             doc,
+  //             { locals: res.locals,
+  //               layout: types[type].layout,
+  //               isPublished: (req.doc.status === 'published') },
+  //             compileNext );
+  //
+  //       }, nextType );
+  //     });
+  //   }, next );
+  //
+  // }
+  //
   
   function checkLocaleExistsAndDismiss( req, res, next ){
 
@@ -84,7 +99,7 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
 
   function repairEmberLabels( req, res, next ){
     if( req.body.lineup_entry && req.body.lineup_entry.labels ){
-      repairedLabels = [];
+      var repairedLabels = [];
       req.body.lineup_entry.labels.forEach(function(label){
         if( typeof(label) === 'object' )
           repairedLabels.push( label._id );
