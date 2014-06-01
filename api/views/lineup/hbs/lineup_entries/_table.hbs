@@ -8,7 +8,8 @@
           </div>
         </th>
         {{#each tableHeaders itemController='table_header_item'}}
-        <th class="sortable" {{bind-attr style='calculateStyle'}}>
+        <th class="sortable" {{bind-attr style='calculateStyle'}}
+           {{action 'sortByColumn' content.name}}>
           <span class="hide sortable-asc" {{action 'sortByColumn' content.name true}}></span>
           {{#if isSortingAsc}}
             <i class="fa fa-sort-asc"></i>
@@ -19,7 +20,7 @@
               <i class="fa fa-sort"></i>
             {{/if}}
           {{/if}}
-          <span {{action 'sortByColumn' content.name}}>
+          <span>
             {{tKey content.title}}
           </span>
         </th>
@@ -42,11 +43,18 @@
             <i {{bind-attr class=":fa content.isPublished:fa-globe:fa-lock"}}></i>
           </div>
           {{curTranslation.title}}
+          {{#if isFestival}}
+            <span class="label label-default">
+              {{t 'entry.festival'}}
+            </span>
+          {{/if}}
+          {{#if App.emberUser.isTrusted}}
           {{#each content.labels}}
             <span class="label" 
                   {{bind-attr style='styleAttrs'}}
                   {{bind-attr title='name'}}>{{name}}</span>
           {{/each}}
+          {{/if}}
         </td>
         <td {{action 'selectTableItem'}}>{{period}}</td>
         <td {{action 'selectTableItem'}}>

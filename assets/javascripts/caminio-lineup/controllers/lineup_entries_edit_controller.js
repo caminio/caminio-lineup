@@ -124,7 +124,18 @@
       },
 
       addEvent: function(){
-        var evnt = this.store.createRecord('lineup_event', getLineupEventDefaults(this.get('model')));
+        var lastEvent = this.get('model.lineup_events.lastObject');
+        var lineupOrg;
+        if( lastEvent ){
+          lineupOrg = lastEvent.get('lineup_org');
+          lastEvent = lastEvent.toJSON();
+          delete lastEvent.lineup_org;
+          delete lastEvent.starts;
+          delete lastEvent.lineup_entry;
+        }
+        var evnt = this.store.createRecord('lineup_event', lastEvent ? lastEvent : {});
+        if( lineupOrg )
+          evnt.set('lineup_org', lineupOrg);
         this.get('lineup_events').pushObject(evnt);
         evnt.set('editMode',true);
         if( this.get('curEvent') )
@@ -213,17 +224,6 @@
 
   App.LineupEntriesNewController = App.LineupEntriesEditController.extend();
 
-
-  function getLineupEventDefaults(lineupEntry){
-    if( lineupEntry.get('lineup_events.length') > 0 ){
-      var evnt = lineupEntry.get('lineup_events.firstObject');
-      return {
-        prices: evnt.get('prices'),
-        venue: evnt.get('venue')
-      }
-    }
-    return {};
-  }
 
   App.EnsemblesItemController = Ember.ObjectController.extend({
     actions: {

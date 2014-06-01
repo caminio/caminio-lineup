@@ -23,6 +23,10 @@
 
         $(this).caminioTimepicker();
       });
+    },
+
+    willDestroyElement: function(){
+      this.$('.datepicker').datepicker('destroy');
     }
 
   });

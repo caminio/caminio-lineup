@@ -15,6 +15,14 @@ module.exports = function LineupEvent( caminio, mongoose ){
     starts: { type: Date, public: true },
     lineup_org: { type: ObjectId, ref: 'LineupOrg', public: true },
     shop_orders: { type: [ObjectId], ref: 'ShopOrder' },
+
+    note: { type: String, public: true },
+    bookPhone: { type: String, public: true },
+    bookEmail: { type: String, public: true },
+    bookUrl: { type: String, public: true },
+
+    concessions: { type: [String], public: true },
+
     festival: { type: ObjectId, ref: 'LineupOrg' },
     premiere: { type: Boolean, default: false, public: true },
     derniere: { type: Boolean, default: false, public: true },

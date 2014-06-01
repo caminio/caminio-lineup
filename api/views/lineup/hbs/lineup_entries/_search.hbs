@@ -29,6 +29,20 @@
 
     </h4>
 
+    <form class="caminio" {{action 'search' on='submit'}}>
+
+      <div class="checkbox">
+        {{input type='checkbox' checkedBinding='searchQ.onlyMine'}}
+        <label>{{t 'only_mine'}}</label>
+      </div>
+
+      <div class="checkbox">
+        {{input type='checkbox' checkedBinding='searchQ.onlyFuture'}}
+        <label>{{t 'only_future'}}</label>
+      </div>
+
+    </form>
+
   </div>
 
 </div>

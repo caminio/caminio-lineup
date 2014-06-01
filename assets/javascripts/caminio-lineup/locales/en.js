@@ -15,6 +15,7 @@
     'lineup_overview': 'Line up overview',
 
     'entries.title': 'Line up entries',
+    'only_future': 'Only future events',
 
     'entry.title': 'Title',
     'entry.adv_settings': 'Advanced settings',
@@ -37,6 +38,11 @@
     'entry.director': 'Director',
     'entry.keywords': 'Keywords',
     'entry.save_before_content': 'Save your content first before starting to upload images',
+    'entry.concessions': 'Concessions',
+    'entry.book_email': 'Booking email address',
+    'entry.book_phone': 'Booking info phone',
+    'entry.book_url': 'Booking link',
+    'entry.note': 'Note',
 
     'entry.marketing_adv': 'Marketing / Advanced',
     'entry.orig_project_url': 'Original project URL',
@@ -51,6 +57,10 @@
     'entry.premiere': 'Premiere',
     'entry.derniere': 'Derniere',
     'entry.cancelled': 'Cancelled',
+    'entry.festival': 'Festival',
+    'entry.select_festival': 'Select a festival (or create a new one)',
+    'entry.no_festival_found_create_new': 'No festival found (create new?)',
+    'festival.created': 'Festival {{name}} has been created',
 
     'entry.draft': 'Draft',
     'entry.published': 'Published',

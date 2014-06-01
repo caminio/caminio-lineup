@@ -6,16 +6,26 @@
 
   var SearchQ = Em.Object.extend({
     title: null,
-    start: null,
     end: null,
     createdBy: null,
+    startsAt: null,
+    onlyMine: function(ns, value){
+      if( typeof(value) !== 'undefined' )
+        this.set('createdBy', value ? currentUser._id : null);
+      return typeof(this.get('createdBy')) === 'string';
+    }.property('createdBy'),
+    onlyFuture: function(ns, value){
+      if( typeof(value) !== 'undefined' )
+        this.set('startsAt', value ? moment().startOf('day').toISOString() : null );
+      return typeof(this.get('startsAt')) === 'string';
+    }.property('startsAt'),
     labels: Em.A(),
     toJSON: function(){
       var attrs = {};
       if( this.get('title') )
         attrs['translations.title'] = 'regexp(/'+this.get('title')+'/i)';
-      if( this.get('start') )
-        attrs.start = this.get('start');
+      if( this.get('startsAt') )
+        attrs['lineup_events.starts'] = 'gteDate('+this.get('startsAt')+')';
       if( this.get('end') )
         attrs.start = this.get('end');
       if( this.get('createdBy') )
@@ -38,7 +48,7 @@
       return domainSettings.availableLangs;
     }.property(),
 
-    searchQ: SearchQ.create({ createdBy: currentUser._id }),
+    searchQ: SearchQ.create({ createdBy: currentUser._id, startsAt: moment().startOf('day').toISOString() }),
     
     actions: {
 

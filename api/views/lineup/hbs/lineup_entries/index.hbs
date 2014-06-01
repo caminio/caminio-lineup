@@ -20,9 +20,11 @@
       
       {{partial 'lineup_entries/search'}}
 
+      {{#if App.emberUser.isTrusted}}
       <div class="box fill-box margin-top">
         {{partial 'lineup/labels'}}
       </div>
+      {{/if}}
 
     </div>
 

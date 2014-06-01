@@ -21,6 +21,7 @@
   });
 
   App.set('_defaultJobs', domainSettings.lineupDefaultJobs);
+  App.set('_availableFestivals', Em.A());
 
   /**
    * LineupEntries
@@ -28,7 +29,10 @@
   App.LineupEntriesRoute = Ember.Route.extend({
     
     model: function(){
-      return this.store.find('lineup_entry');
+      var opts = { 'lineup_events.starts': 'gteDate('+moment().startOf('day').toISOString()+')' };
+      if( !App.get('emberUser.isTrusted') )
+        opts.createdBy = App.get('emberUser.id');
+      return this.store.find('lineup_entry', opts);
     },
 
     setupController: function(controller, model){
@@ -276,11 +280,19 @@
       return promise;
 
       function processRequirements( resolve, reject ){
-        self.store.find('lineup_org').then(function(){
-          self.store.find('lineup_person').then(function(){
-            self.store.find('label', { type: 'lineup' }).then(function( labels ){
-              App.set('_availableLabels', labels);
-              resolve();
+        self.store.find('user').then(function(){
+          App.set('emberUser', self.store.getById('user', currentUser._id));
+          self.store.find('lineup_org').then(function(){
+            self.store.find('lineup_entry', { categories: 'festival' }).then(function( festivals ){
+              festivals.forEach(function(festival){
+                App.get('_availableFestivals').pushObject(festival);
+              });
+              self.store.find('lineup_person').then(function(){
+                self.store.find('label', { type: 'lineup' }).then(function( labels ){
+                  App.set('_availableLabels', labels);
+                  resolve();
+                });
+              });
             });
           });
         });

@@ -7,6 +7,7 @@
     type: DS.attr('string', { defaultValue: 'ttp' }),
     requestReviewBy: DS.belongsTo('user'),
     requestReviewMsg: DS.attr(),
+
     status: DS.attr('string', { defaultValue: 'draft'}),
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
     categories: DS.attr('array'),
@@ -29,9 +30,12 @@
     organizers: DS.hasMany('lineup_org'),
     venues: function(){
       var venues = [];
+      var venueIds = [];
       this.get('lineup_events').forEach(function(evnt){
-        if( evnt.get('lineup_org') )
-        venues.push(evnt.get('lineup_org'));
+        if( evnt.get('lineup_org') && venueIds.indexOf(evnt.get('lineup_org.id')) < 0 ){
+          venues.push(evnt.get('lineup_org'));
+          venueIds.push(evnt.get('lineup_org.id'));
+        }
       });
       return venues;
     }.property('lineup_events.@each'),
@@ -99,7 +103,11 @@
     isOwner: function(){
       return ( currentUser.superuser || this.get('createdBy.id') === currentUser._id || 
         ( ( currentDomain._id in currentUser.roles) && currentUser.roles[currentDomain._id] >= 80 ) );
-    }.property('createdBy')
+    }.property('createdBy'),
+
+    isFestival: function(){
+      return this.get('categories').indexOf('festival') >= 0;
+    }.property('categories')
     
 
   });

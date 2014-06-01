@@ -13,6 +13,13 @@
     derniere: DS.attr('boolean', { defaultValue: false }),
     cancelled: DS.attr('boolean', { defaultValue: false }),
 
+    note: DS.attr(),
+    bookPhone: DS.attr(),
+    bookEmail: DS.attr(),
+    bookUrl: DS.attr(),
+    
+    concessions: DS.attr('array'),
+
     startsDate: function( key, val ){
       var curTime = moment(this.get('starts'));
       if(arguments.length === 2){

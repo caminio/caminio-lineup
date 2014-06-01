@@ -51,12 +51,12 @@
                   {{t 'delete'}}
                 </a>
             </li>
-            <li>
+            {{!--<li>
               <a target="_blank"
                 {{bind-attr href='previewLink'}}>
                 {{t 'preview'}}
               </a>
-            </li>
+              </li>--}}
           </ul>
         </div>
 
@@ -97,9 +97,11 @@
         {{partial 'lineup_entries/links'}}
       </div>
 
+      {{#if App.emberUser.isTrusted}}
       <div class="box fill-box margin-top">
         {{partial 'lineup_entries/labels'}}
       </div>
+      {{/if}}
 
     </div>
 

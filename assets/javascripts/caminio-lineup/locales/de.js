@@ -13,6 +13,7 @@
     'nav.settings': 'Einstellungen',
 
     'lineup_overview': 'Übersicht',
+    'only_future': 'Nur Termine in der Zukunft',
 
     'entries.title': 'Einträge im Spielplan',
 
@@ -37,6 +38,11 @@
     'entry.director': 'Inszenierung',
     'entry.keywords': 'Schlagwörter',
     'entry.save_before_content': 'Eintrag speichern, um diese Einstellungen verfügbar zu machen',
+    'entry.concessions': 'Ermäßigungen',
+    'entry.book_email': 'Reservierungen Email',
+    'entry.book_phone': 'Reservierungen Telefon',
+    'entry.book_url': 'Reservierungslink',
+    'entry.note': 'Notiz',
 
     'entry.marketing_adv': 'Marketing / Erweitert',
     'entry.orig_project_url': 'Projekt URL (extern)',
@@ -51,6 +57,10 @@
     'entry.premiere': 'Premiere',
     'entry.derniere': 'Derniere',
     'entry.cancelled': 'Abgesagt',
+    'entry.festival': 'Festival',
+    'entry.select_festival': 'Festival auswählen (oder neues anlegen)',
+    'entry.no_festival_found_create_new': 'Kein Festival gefunden (neues anlegen?)',
+    'festival.created': 'Festival {{name}} wurde angelegt',
 
     'entry.draft': 'Entwurf',
     'entry.published': 'Veröffentlicht',
@@ -134,7 +144,7 @@
     'person.show_edit_form': 'Formular dieser Person anzeigen',
     'person.unlink_from_entry': 'Verknüpfung mit diesem Eintrag lösen',
 
-    'jobs': 'Team / Funktionen',
+    'jobs': 'Mitwirkende',
     'jobs.add': 'Neue Person/Funktion',
     'jobs.no_yet': 'Keine Funktionen definiert',
     'job.description': 'Funktion',

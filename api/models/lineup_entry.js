@@ -70,6 +70,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
   });
 
   schema.publicAttributes = ['absoluteUrl', 'relPath'];
+  schema.trash = true;
   schema.plugin( CaminioCarver.langSchemaExtension );
 
   return schema;

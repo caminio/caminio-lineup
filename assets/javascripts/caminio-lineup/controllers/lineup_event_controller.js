@@ -4,6 +4,8 @@
 
   App.LineupEventController = Ember.ObjectController.extend({
 
+    editFestival: false,
+
     isCurrent: function(){
       return this.get('content.id') === this.get('parentController.curEvent.id');
     }.property('parentController.curFile'),
@@ -33,6 +35,42 @@
           });
       },
 
+      addVenue: function( value, $obj ){
+        var venue = this.store.getById('lineup_org', value);
+        this.get('content').set('lineup_org', venue);
+      },
+
+      createFestival: function( name, $obj ){
+        var self = this;
+        var festival = this.get('parentController').store.createRecord('lineup_entry', { categories: 'festival' });
+        
+        var tr = this.get('parentController').store.createRecord('translation', {locale: App._curLang,
+                                                                                title: name });
+        festival.get('translations').pushObject(tr);
+        festival.set('curTranslation', tr);
+
+        festival
+          .save()
+          .then(function(){
+            notify('info', Em.I18n.t('festival.created', { name: festival.get('curTranslation.title') }));
+            App.get('_availableFestivals').pushObject( festival );
+            self.get('content').set('festival', festival);
+            $obj.append('<option value="'+festival.get('id')+'">'+festival.get('curTranslation.title')+'</option>');
+            $obj.select2('val', festival.get('id'));
+          });
+
+      },
+
+      addFestival: function( value, $obj ){
+        var festival = this.store.getById('lineup_event', value);
+        this.get('content').set('festival', festival);
+      },
+
+      'toggleFestival': function(){
+        console.log('toggle festival', this.get('editFestival'));
+        this.set('editFestival', !this.get('editFestival'));
+      },
+
       toggleSpecial: function( key ){
         this.set('content.'+key, !this.get('content.'+key));
       },
@@ -49,9 +87,17 @@
           .save()
           .then(function(){
             notify('info', Em.I18n.t('event.saved', { starts: moment(content.get('starts')).format('LLLL') }));
-            if( !content.get('id') )
-              return self.get('parentController.content.lineup_events').removeObject(content);
-            content.set('editMode',false);
+            if( !content.get('isNew') )
+              return content.set('editMode',false);
+            var jsonContent = content.toJSON();
+            delete jsonContent.lineup_org;
+            delete jsonContent.lineup_entry;
+            delete jsonContent.starts;
+            var cloneContent = self.store.createRecord('lineup_event', jsonContent);
+            cloneContent.set('lineup_org', content.get('lineup_org'));
+            cloneContent.set('editMode',true);
+            self.get('parentController.content.lineup_events').pushObject(cloneContent);
+            self.get('parentController.content.lineup_events').removeObject(content);
           });
       },
 

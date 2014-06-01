@@ -113,14 +113,27 @@
   padding-right: 0;
 }
 
-.events-list li{
+.events-list li.lineup-event{
   height: 60px;
   transition: height 0.3s;
 }
 
 .events-list li.editing{
-  height: 150px;
+  height: 400px;
   transition: height 0.3s;
+}
+
+.events-list li.editing.edit-festival{
+  height: 440px;
+  transition: height 0.3s;
+}
+
+.events-list li .festival{
+  display: none;
+}
+
+.events-list li .festival.edit-festival{
+  display: block;
 }
 
 .events-list .select2-container.error a .select2-arrow,

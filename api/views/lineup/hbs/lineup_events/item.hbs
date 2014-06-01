@@ -1,4 +1,4 @@
-<li {{bind-attr class=":lineup-event editMode:editing pastEvent:past"}}>
+<li {{bind-attr class=":lineup-event editMode:editing editFestival:edit-festival pastEvent:past"}}>
   {{#if editMode}}
     <form class="caminio" {{action 'save' on='submit'}}>
 
@@ -9,6 +9,7 @@
                   promptTranslation='event.select_venue'
                   createTranslation='event.nothing_found_create_new'
                   createAction='createVenue'
+                  addAction='addVenue'
                   contentBinding='parentController.availableVenues'
                   optionValuePath='content.id'
                   optionLabelPath='content.curTranslation.title'
@@ -35,19 +36,85 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12 btn-group">
-          <button {{bind-attr class=":btn premiere:success"}} {{action 'toggleSpecial' 'premiere'}}>
-            {{t 'entry.premiere'}}
-          </button>
-          <button {{bind-attr class=":btn derniere:warning"}} {{action 'toggleSpecial' 'derniere'}}>
-            {{t 'entry.derniere'}}
-          </button>
-          <button {{bind-attr class=":btn cancelled:danger"}} {{action 'toggleSpecial' 'cancelled'}}>
-            {{t 'entry.cancelled'}}
-          </button>
+        <div class="col-md-12">
+          <div class="btn-group pull-right">
+            <button {{bind-attr class=":btn festival:success"}} {{action 'toggleFestival'}}>
+              {{t 'entry.festival'}}
+            </button>
+          </div>
+          <div class="btn-group">
+            <button {{bind-attr class=":btn premiere:success"}} {{action 'toggleSpecial' 'premiere'}}>
+              {{t 'entry.premiere'}}
+            </button>
+            <button {{bind-attr class=":btn derniere:warning"}} {{action 'toggleSpecial' 'derniere'}}>
+              {{t 'entry.derniere'}}
+            </button>
+            <button {{bind-attr class=":btn cancelled:danger"}} {{action 'toggleSpecial' 'cancelled'}}>
+              {{t 'entry.cancelled'}}
+            </button>
+          </div>
         </div>
       </div>
+
+      <div {{bind-attr class=":festival festival:edit-festival editFestival:edit-festival :row"}}>
+        <div class="col-md-12">
+          {{view App.Select2SelectView
+                  class='fill-width'
+                  promptTranslation='entry.select_festival'
+                  createTranslation='entry.no_festival_found_create_new'
+                  createAction='createFestival'
+                  addAction='addFestival'
+                  contentBinding='App._availableFestivals'
+                  optionValuePath='content.id'
+                  optionLabelPath='content.curTranslation.title'
+                  selectionBinding='festival'}}
+        </div>
+      </div>
+
       <div class="row">
+        <div class="col-md-12">
+          <div>
+            {{input valueBinding='bookEmail' placeholderTranslation='entry.book_email' class="form-control"}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            {{input valueBinding='bookPhone' placeholderTranslation='entry.book_phone' class="form-control"}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            {{input valueBinding='bookUrl' placeholderTranslation='entry.book_url' class="form-control"}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            {{input valueBinding='note' placeholderTranslation='entry.note' class="form-control"}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label class=" control-label">{{t 'entry.concessions'}}</label>
+          <div>
+            {{view App.Select2TagView
+            valueBinding='concessions'
+            tagsBinding='availableConcessions'}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row margin-top">
         <div class="col-md-12">
           <button class="btn primary pull-right">
             {{t 'save'}}
