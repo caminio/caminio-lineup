@@ -4,10 +4,10 @@
   "version": "1.0.2",
   "private": false,
   "dependencies": {
-    "caminio": "git://github.com/caminio/caminio.git#master",
-    "caminio-media": "git://github.com/caminio/caminio-media.git#master",
-    "carver": "git://github.com/caminio/carver.git#master",
-    "caminio-carver": "git://github.com/caminio/caminio-carver.git#master",
+    "caminio": "~1.2.0",
+    "caminio-media": "~1.0.1",
+    "carver": "~0.0.4",
+    "caminio-carver": "~0.0.1",
     "grunt": "~0.4.2",
     "async": "^0.8.0",
     "lodash": "~2.4.1"
