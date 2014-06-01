@@ -1,7 +1,7 @@
 {
   "name": "caminio-lineup",
   "description": "lineup / programme gear for caminio cms allowing to add activities / events and organize them",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "dependencies": {
     "caminio": "git://github.com/caminio/caminio.git#master",
