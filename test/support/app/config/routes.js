@@ -1,8 +1,0 @@
-/*
- * routes
- *
- */
-
-module.exports.routes = {
-
-}

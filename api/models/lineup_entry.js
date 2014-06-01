@@ -10,7 +10,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   var ObjectId            = mongoose.Schema.Types.ObjectId;
 
-  var caminioCarver       = require('caminio-carver')( caminio, mongoose );
+  var CaminioCarver       = require('caminio-carver')( caminio, mongoose );
 
   var MediafileSchema     = require('caminio-media/mediafile_schema')( caminio, mongoose );
 
@@ -70,7 +70,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
   });
 
   schema.publicAttributes = ['absoluteUrl', 'relPath'];
-  schema.plugin( caminioCarver.langSchemaExtension );
+  schema.plugin( CaminioCarver.langSchemaExtension );
 
   return schema;
 

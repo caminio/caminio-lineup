@@ -5,9 +5,9 @@
   "private": false,
   "dependencies": {
     "caminio": "~1.1.2",
+    "caminio-media": "git://github.com/caminio/caminio-media.git#master",
     "carver": "~0.0.4",
     "caminio-carver": "~0.0.1",
-    "caminio-rocksol": "~1.0.0",
     "grunt": "~0.4.2",
     "async": "^0.8.0",
     "lodash": "~2.4.1"

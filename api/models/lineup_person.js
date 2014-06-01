@@ -12,15 +12,12 @@ module.exports = function LineupPerson( caminio, mongoose ){
 
   var ObjectId = mongoose.Schema.Types.ObjectId;
 
-  var TranslationSchema = require('caminio-rocksol/translation_schema')( caminio, mongoose );
+  var CaminioCarver       = require('caminio-carver')( caminio, mongoose );
   var MediafileSchema = require('caminio-media/mediafile_schema')( caminio, mongoose );
 
   var schema = new mongoose.Schema({
 
     type: { type: String, public: true, index: true },
-    status: { type: String, public: true, default: 'draft' },
-
-    translations: { type: [ TranslationSchema ], public: true },
     mediafiles: { type: [ MediafileSchema ], public: true },
 
     tags: { type: [String], public: true },
@@ -56,20 +53,6 @@ module.exports = function LineupPerson( caminio, mongoose ){
 
   });
 
-  schema.virtual('curTranslation')
-    .get(function(){
-      if( !this._curLang )
-        return this.translations[0];
-      var guess = _.find( this.translations, { locale: this._curLang } );
-      if( guess ){ return guess; }
-      return this.translations[0];
-    });
-
-  schema.virtual('curLang')
-    .set(function(lang){
-      this._curLang = lang;
-    });
-
   schema.virtual('name')
     .get(function(){
       var str = '';
@@ -82,6 +65,7 @@ module.exports = function LineupPerson( caminio, mongoose ){
       }
     });
 
+  schema.plugin( CaminioCarver.langSchemaExtension, { fileSupport: false });
   schema.publicAttributes = [ 'name' ];
   
   return schema;

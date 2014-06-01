@@ -10,7 +10,7 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
   var fs            = require('fs');
   var async         = require('async');
 
-  var SiteGen       = require('caminio-rocksol/generator')( caminio );
+  //var SiteGen       = require('caminio-rocksol/generator')( caminio );
   var Carver        = require('carver');
 
   var LineupEntry = caminio.models.LineupEntry;
@@ -31,9 +31,10 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
 
   function compileWithCarver( req, res, next ){
 
+    res.locals.models = caminio.models;
     var Carver      = require('carver'); 
     var compiler    = Carver.init({ 
-                          workdir: res.locals.currentDomain.getContentPath()+'/lineup_tmpls',
+                          workdir: res.locals.currentDomain.getContentPath()+'/lineup/entry',
                           locals: res.locals });
 
     compiler.compile( res.locals.doc, next );

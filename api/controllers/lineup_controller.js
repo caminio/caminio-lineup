@@ -24,10 +24,10 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
     'compileAll':[
       function( req, res ){
-
+        res.locals.models = caminio.models;
         var Carver = require('carver');
         var compiler = Carver.init({ 
-          workdir: res.locals.currentDomain.getContentPath()+'/spielplan_tmpls',
+          workdir: res.locals.currentDomain.getContentPath()+'/lineup/index',
           locals: res.locals
         });
 

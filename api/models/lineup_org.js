@@ -12,15 +12,13 @@ module.exports = function LineupOrganization( caminio, mongoose ){
   var ObjectId = mongoose.Schema.Types.ObjectId;
   var Mixed = mongoose.Schema.Types.Mixed;
 
-  var TranslationSchema = require('caminio-rocksol/translation_schema')( caminio, mongoose );
+  var CaminioCarver       = require('caminio-carver')( caminio, mongoose );
   var MediafileSchema = require('caminio-media/mediafile_schema')( caminio, mongoose );
 
   var schema = new mongoose.Schema({
 
     type: { type: String, public: true, index: true },
-    status: { type: String, public: true, default: 'draft' },
   
-    translations: { type: [ TranslationSchema ], public: true },
     mediafiles: { type: [ MediafileSchema ], public: true },
     
     tags: { type: [String], public: true },
@@ -64,24 +62,8 @@ module.exports = function LineupOrganization( caminio, mongoose ){
     updatedBy: { type: ObjectId, ref: 'User', public: true }
 
   });
-
-  schema.virtual('curTranslation')
-    .get(function(){
-      if( !this._curLang )
-        return this.translations[0];
-      var guess = _.first( this.translations, { locale: this._curLang } )[0]; 
-      if( guess ){ return guess; }
-      return this.translations[0];
-    });
-
-  schema.virtual('curLang')
-    .set(function(lang){
-      this._curLang = lang;
-    });
-
-  schema.virtual( 'teaser' )
-    .get( function(){ return this._teaser; } )
-    .set( function(teaser){ this._teaser = teaser; });
+  
+  schema.plugin( CaminioCarver.langSchemaExtension );
 
   return schema;
 
