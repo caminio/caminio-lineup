@@ -126,8 +126,10 @@
       addEvent: function(){
         var lastEvent = this.get('model.lineup_events.lastObject');
         var lineupOrg;
+        var festival;
         if( lastEvent ){
           lineupOrg = lastEvent.get('lineup_org');
+          festival = lastEvent.get('festival');
           lastEvent = lastEvent.toJSON();
           delete lastEvent.lineup_org;
           delete lastEvent.starts;
@@ -136,6 +138,8 @@
         var evnt = this.store.createRecord('lineup_event', lastEvent ? lastEvent : {});
         if( lineupOrg )
           evnt.set('lineup_org', lineupOrg);
+        if( festival )
+          evnt.set('festival', festival);
         this.get('lineup_events').pushObject(evnt);
         evnt.set('editMode',true);
         if( this.get('curEvent') )

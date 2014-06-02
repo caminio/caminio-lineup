@@ -66,7 +66,7 @@
         <td {{action 'selectTableItem'}}>{{content.updatedBy.name}}</td>
         <td class="actions">
           <div class="btn-group">
-            <a {{bind-attr href=content.previewLink}} class="btn"><i class="fa fa-eye"></i></a>
+            <a target="_blank" {{bind-attr href=content.previewLink}} class="btn"><i class="fa fa-eye"></i></a>
             {{#link-to 'lineup_entries.edit' content.id class="btn"}}<i class="fa fa-pencil"></i>{{/link-to}}
         </div>
         </td>

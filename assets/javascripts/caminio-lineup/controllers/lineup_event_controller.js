@@ -89,14 +89,6 @@
             notify('info', Em.I18n.t('event.saved', { starts: moment(content.get('starts')).format('LLLL') }));
             if( !content.get('isNew') )
               return content.set('editMode',false);
-            var jsonContent = content.toJSON();
-            delete jsonContent.lineup_org;
-            delete jsonContent.lineup_entry;
-            delete jsonContent.starts;
-            var cloneContent = self.store.createRecord('lineup_event', jsonContent);
-            cloneContent.set('lineup_org', content.get('lineup_org'));
-            cloneContent.set('editMode',true);
-            self.get('parentController.content.lineup_events').pushObject(cloneContent);
             self.get('parentController.content.lineup_events').removeObject(content);
           });
       },

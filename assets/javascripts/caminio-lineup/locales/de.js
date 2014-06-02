@@ -152,6 +152,8 @@
     'job.author': 'Autorenschaft',
     'job.director': 'Inszenierung',
 
+    'venue.created': 'Spielort {{name}} wurde angelegt',
+
     'ensemble.select_or_create': 'Ensemble auswählen oder neuen Namen eintragen',
     'ensemble.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
     'ensemble.created': 'Ensemble {{name}} wurde erstellt',

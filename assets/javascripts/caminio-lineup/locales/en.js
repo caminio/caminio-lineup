@@ -158,6 +158,8 @@
     'ensemble.show_edit_form': 'Show form of ensemble',
     'ensemble.unlink_from_entry': 'Unlink ensemble from this entry',
 
+    'venue.created': 'Venue {{name}} has been created',
+
     'error.missing_title': 'Title must be filled in before you can continue',
     'error.missing_firstname': 'Firstname must be filled in before you can continue',
   };
