@@ -24,17 +24,12 @@
 
       save: function(){
         var content = this.get('content');
+        if( !content.get('lineup_person') ){
+          $('.job.editing:visible .select2-container').addClass('error');
+          return notify('error', Em.I18n.t('event.person_required'));
+        }
         this.get('parentController.content').send('becomeDirty');
         return content.set('editMode',false);
-        //var self = this;
-        //this.get('parentController.content')
-        //  .save()
-        //  .then(function(){
-        //    notify('info', Em.I18n.t('job.saved', { name: content.get('person.name') }));
-        //    if( !content.get('id') )
-        //      return self.get('parentController.content.lineup_jobs').removeObject(content);
-        //    content.set('editMode',false);
-        //  });
       },
 
       remove: function(content){

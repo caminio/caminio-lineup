@@ -17,17 +17,39 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
 
   return {
 
+    _policies: {
+      'events': policies.ensureLoginOrApiOrToken,
+      '*!(events)': policies.ensureLogin,
+    },
+
     _before: {
-      '*': policies.ensureLogin,
       'update': [ checkLocaleExistsAndDismiss, repairEmberLabels ]
     },
 
     _beforeResponse: {
       //'update': compilePages
-      'update': compileWithCarver
+      //'update': compileWithCarver
     },
 
+    events: [
+      collectEvents,
+      function( req, res ){
+        res.json( req.lineup_events );
+      }]
+
   };
+
+  function collectEvents( req, res, next ){
+    var q = LineupEntry.find({ camDomain: res.locals.currentDomain });
+    if( req.param('bookable') )
+      q.where({ 'lineup_events.quota': { $gte: 0 } });
+    q.where({ 'lineup_events.bookable': true })
+    .exec(function(err, entries){
+      if( err ){ return res.json(500, { error: 'internal error', details: err }); }
+      req.lineup_events = entries;
+      next();
+    });
+  }
 
   function compileWithCarver( req, res, next ){
 

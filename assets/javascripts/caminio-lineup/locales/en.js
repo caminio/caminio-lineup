@@ -103,6 +103,7 @@
     'event.nothing_found_create_new': 'No results. Press Enter to create venue',
     'event.saved': 'Event {{starts}} has been saved',
     'event.venue_required': 'Venue is required in order to save event',
+    'event.person_required': 'Please select a person',
 
     'org.created': 'Venue {{name}} has been created',
 

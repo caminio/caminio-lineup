@@ -1,0 +1,3 @@
+1.0.3
+  - festival bugfix (did not open - might still happen with wrongly assigned entries)
+  - job-person link bugfix 

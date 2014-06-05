@@ -1,7 +1,7 @@
 {
   "name": "caminio-lineup",
   "description": "lineup / programme gear for caminio cms allowing to add activities / events and organize them",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "dependencies": {
     "caminio": "~1.2.0",

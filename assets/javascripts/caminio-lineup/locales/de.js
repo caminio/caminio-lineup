@@ -103,6 +103,7 @@
     'event.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',
     'event.saved': 'Termin {{starts}} wurde erstellt',
     'event.venue_required': 'Ohne Spielort kann der Termin nicht angelegt werden',
+    'event.person_required': 'Bitte eine Person zuordnen',
 
     'org.created': 'Spielort {{name}} wurde erstellt',
 

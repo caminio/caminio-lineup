@@ -67,7 +67,6 @@
       },
 
       'toggleFestival': function(){
-        console.log('toggle festival', this.get('editFestival'));
         this.set('editFestival', !this.get('editFestival'));
       },
 
@@ -98,7 +97,7 @@
       },
 
       toggleEditMode: function(){
-        if( !this.get('content.id') ){
+        if( this.get('content.isNew') ){
           this.get('parentController.lineup_events').removeObject( this.get('content') );
           return this.get('content').deleteRecord();
         }

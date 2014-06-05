@@ -244,7 +244,7 @@
   App.JobsItemController = Ember.ObjectController.extend({
     actions: {
       goToPerson: function(){
-        this.transitionToRoute('lineup_people.edit', this.get('content.id'));
+        this.transitionToRoute('lineup_people.edit', this.get('content.lineup_person.id'));
       },
       removePerson: function(){
         this.get('parentController.content.lineup_jobs').removeObject( this.get('content') );

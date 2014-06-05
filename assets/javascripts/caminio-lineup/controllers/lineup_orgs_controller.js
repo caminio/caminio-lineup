@@ -42,7 +42,6 @@
       },
 
       search: function(){
-        console.log(this.get('searchQ'));
         this.get('controllers.lineup_orgs_table').set('content', this.store.find('lineup_org', this.get('searchQ').toJSON()));
         App._selTableItems.clear();
       },

@@ -1,4 +1,4 @@
-<li class="job" {{bind-attr data-id='id'}}>
+<li {{bind-attr data-id='id'}} {{bind-attr class="editMode:editing :job"}}>
   {{#if editMode}}
     <form class="caminio" {{action 'save' on='submit'}}>
 

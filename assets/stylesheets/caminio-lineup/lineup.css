@@ -136,6 +136,8 @@
   display: block;
 }
 
+.job .select2-container.error a .select2-arrow,
+.job .select2-container.error a,
 .events-list .select2-container.error a .select2-arrow,
 .events-list .select2-container.error a{
   background-color: #fcc !important;
