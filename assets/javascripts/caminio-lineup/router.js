@@ -281,7 +281,6 @@
 
       function processRequirements( resolve, reject ){
         self.store.find('user').then(function(){
-          App.set('emberUser', self.store.getById('user', currentUser._id));
           self.store.find('lineup_org').then(function(){
             self.store.find('lineup_entry', { categories: 'festival' }).then(function( festivals ){
               festivals.forEach(function(festival){

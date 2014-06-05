@@ -54,7 +54,7 @@
         <i class="fa fa-unlink"></i>
       </button>
     </div>
-    <div class="job-name">{{title}}</div>
+    <div class="job-name">{{#if title}}{{title}}{{else}}{{t 'job.no_title'}}{{/if}}</div>
     <div class="person-name">{{lineup_person.name}}</div>
   {{/if}}
 </li>

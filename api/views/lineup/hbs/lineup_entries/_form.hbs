@@ -31,7 +31,12 @@
   </div>
 
   <hr>
-  
+
+  {{#if isNew}}
+    <div class="big-desc">
+      {{t 'entry.save_before_content'}}
+    </div>
+  {{else}}
   <div class="form-group">
 
     <label class="col-md-2 control-label">{{t 'entry.ensembles'}}</label>
@@ -202,5 +207,7 @@
   </div>
 
   <input type="submit" class="hide">
+
+  {{/if}}
 
 </form>

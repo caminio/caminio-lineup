@@ -152,6 +152,7 @@
     'job.saved': 'Job for {{name}} has been saved',
     'job.author': 'Playwright',
     'job.director': 'Directing',
+    'job.no_title': 'crew member',
 
     'ensemble.select_or_create': 'Select or create ensemble',
     'ensemble.nothing_found_create_new': 'No ensemble matched your search. Enter to create',

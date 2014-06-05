@@ -152,6 +152,7 @@
     'job.saved': 'Funktion {{name}} wurde gespeichert',
     'job.author': 'Autorenschaft',
     'job.director': 'Inszenierung',
+    'job.no_title': 'Mitwirkende/r',
 
     'venue.created': 'Spielort {{name}} wurde angelegt',
 

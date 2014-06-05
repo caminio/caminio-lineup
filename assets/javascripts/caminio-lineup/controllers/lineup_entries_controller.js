@@ -12,6 +12,7 @@
     onlyMine: function(ns, value){
       if( typeof(value) !== 'undefined' )
         this.set('createdBy', value ? currentUser._id : null);
+      console.log('min is', this.get('createdBy'));
       return typeof(this.get('createdBy')) === 'string';
     }.property('createdBy'),
     onlyFuture: function(ns, value){
@@ -22,15 +23,15 @@
     labels: Em.A(),
     toJSON: function(){
       var attrs = {};
-      if( this.get('title') )
+      if( !Em.isEmpty(this.get('title')) )
         attrs['translations.title'] = 'regexp(/'+this.get('title')+'/i)';
-      if( this.get('startsAt') )
+      if( !Em.isEmpty(this.get('startsAt')) )
         attrs['lineup_events.starts'] = 'gteDate('+this.get('startsAt')+')';
-      if( this.get('end') )
+      if( !Em.isEmpty(this.get('end')) )
         attrs.start = this.get('end');
-      if( this.get('createdBy') )
+      if( !Em.isEmpty(this.get('createdBy')) )
         attrs.createdBy = this.get('createdBy');
-      if( this.get('labels.length') )
+      if( this.get('labels.length') > 0 )
         attrs.labels = 'in('+this.get('labels').map(function(label){ return label.get('id'); }).join(',')+')';
       return attrs;
     }
@@ -48,7 +49,7 @@
       return domainSettings.availableLangs;
     }.property(),
 
-    searchQ: SearchQ.create({ createdBy: currentUser._id, startsAt: moment().startOf('day').toISOString() }),
+    searchQ: SearchQ.create({ createdBy: (App.get('emberUser.isAdmin') ? null : currentUser._id), startsAt: moment().startOf('day').toISOString() }),
     
     actions: {
 

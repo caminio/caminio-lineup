@@ -6,10 +6,6 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
 
   'use strict';
 
-  var join          = require('path').join;
-  var fs            = require('fs');
-  var async         = require('async');
-
   //var SiteGen       = require('caminio-rocksol/generator')( caminio );
   var Carver        = require('carver');
 
