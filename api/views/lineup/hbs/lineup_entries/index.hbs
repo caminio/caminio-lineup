@@ -7,6 +7,19 @@
           <i class="fa fa-plus"></i>
           {{t 'entry.create'}}
         </button>
+        <div class="dropdown dropdown-hover as-btn">
+          <button class="btn transparent borderless icon-only"><i class="fa fa-bars"></i></button>
+          <ul class="dropdown-menu pull-right">
+            <li>
+                <a href="#"
+                  {{action 'export' content}}>
+                  {{t 'entries.export'}}
+                </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
       </div>
       <h1>{{t 'entries.title'}}</h1>
 

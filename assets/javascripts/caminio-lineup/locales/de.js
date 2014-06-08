@@ -12,6 +12,8 @@
     'nav.people': 'Personen',
     'nav.settings': 'Einstellungen',
 
+    'entries.export': 'Spielplan exportieren',
+
     'lineup_overview': 'Übersicht',
     'only_future': 'Nur Termine in der Zukunft',
 

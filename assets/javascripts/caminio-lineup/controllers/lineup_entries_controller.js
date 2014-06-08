@@ -57,6 +57,10 @@
         App.set('_curLang',lang);
       },
 
+      'export': function(){
+        location.href = '/caminio/lineup/'+currentDomain._id+'/export?dialect=dat'
+      },
+
       newItem: function(){
         this.transitionToRoute('lineup_entries.new');
       },

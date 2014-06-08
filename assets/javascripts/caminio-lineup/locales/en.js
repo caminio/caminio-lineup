@@ -13,6 +13,7 @@
     'nav.settings': 'Settings',
 
     'lineup_overview': 'Line up overview',
+    'entries.export': 'Export your lineup',
 
     'entries.title': 'Line up entries',
     'only_future': 'Only future events',

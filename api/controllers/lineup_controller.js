@@ -7,10 +7,15 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
   'use strict';
 
+  var carver = require('carver');
+  var XMLWriter = require('xml-writer');
+
+  var Domain = caminio.models.Domain;
+
   return {
 
     _before: {
-      '*': policies.ensureLogin
+      '*!(export)': policies.ensureLogin
     },
 
     /**
@@ -26,19 +31,52 @@ module.exports = function LineupController( caminio, policies, middleware ){
       function( req, res ){
         res.locals.models = caminio.models;
         res.locals.startWidth = req.param('start') || null;
-        var Carver = require('carver');
-        var compiler = Carver.init({
-          workdir: res.locals.currentDomain.getContentPath()+'/lineup/index',
-          locals: res.locals
+        try{
+        carver()
+          .set('cwd', res.locals.currentDomain.getContentPath()+'/lineup')
+          .registerEngine('jade', require('jade'))
+          .includeFileWriter()
+          .set('locals', res.locals)
+          .write()
+          .then( function(){
+            res.send(200); 
+          })
+          .catch(function(err){
+            caminio.logger.error('carver error: ', err);
+            if( err ){ res.json( 500, { error: err }); }
+            res.send(200);
         });
-
-        compiler.compile( null, function( err ){
-          if( err ){ res.json( 500, { error: err }); }
-          res.send(200);
-        });
+        }catch(e){ console.log('catch',e); }
       } 
+    ],
+
+    'export': [
+      getDomain,
+      dispatchExport
     ]
 
   };
+
+  function getDomain( req, res, next ){
+    res.set('Content-Type', 'text/xml');
+    Domain.findOne({ _id: req.param('id') }, function( err, domain ){
+      if( err ){ res.send(500,err); }
+      if( !domain ){ res.send(500,'domain not found'); }
+      req.domain = domain;
+      next();
+    });
+  }
+
+  function dispatchExport( req, res ){
+    var dialect = req.param('dialect') || 'ess';
+    if( dialect === 'dat' )
+      return datExporter( req, res );
+  }
+
+  function datExporter( req, res ){
+    var xw = new XMLWriter();
+    xw.startDocument().startElement('root').writeAttribute('foo', 'value').writeElement('tag', 'Some content');
+    res.send(xw.toString());
+  }
 
 };
