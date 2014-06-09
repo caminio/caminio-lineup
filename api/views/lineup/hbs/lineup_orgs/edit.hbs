@@ -31,6 +31,18 @@
           {{t 'save'}}
         </button>
 
+        <div class="dropdown dropdown-hover as-btn">
+          <button class="btn transparent borderless icon-only"><i class="fa fa-bars"></i></button>
+          <ul class="dropdown-menu pull-right">
+            <li>
+                <a href="#" class="highlight-danger"
+                  {{action 'remove' content}}>
+                  {{t 'delete'}}
+                </a>
+            </li>
+          </ul>
+        </div>
+
       </div>
 
       <h1>

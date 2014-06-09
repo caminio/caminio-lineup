@@ -205,10 +205,17 @@
   font-weight: 600;
   margin-left: 5px;
   color: #333;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 10px;
+  width: 170px;
 }
 
 .events-list .title time{
   color: #555;
+  float: left;
 }
 
 .jobs-list .cancel,

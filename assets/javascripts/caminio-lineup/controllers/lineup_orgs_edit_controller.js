@@ -59,6 +59,21 @@
         this.get('content').set('type', type);
       },
 
+      'remove': function( content ){
+        var self = this;
+        bootbox.confirm( Em.I18n.t('entry.really_delete', {name: content.get('curTranslation.title')}), function(result){
+          if( !result )
+            return;
+          content.deleteRecord();
+          content
+            .save()
+            .then(function(){
+              notify('info', Em.I18n.t('entry.deleted', { name: content.get('curTranslation.title') }));
+              self.transitionToRoute('lineup_orgs');
+            });
+        });
+      },
+
       'save': function(){
         var self = this;
         if( !this.get('curTranslation.title') ){

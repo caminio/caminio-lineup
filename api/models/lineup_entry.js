@@ -27,7 +27,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
      * @property labels
      * @type ObjectId
      */
-    labels: { type: [ObjectId], ref: 'Label', index: true, public: true },
+    labels: [{ type: ObjectId, ref: 'Label', index: true }],
 
     categories: { type: [String], public: true },
 
@@ -45,8 +45,8 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
     age: { type: Number, public: true },
 
-    ensembles: { type: [ObjectId], ref: 'LineupOrg', index: true, public: true },
-    organizers: { type: [ObjectId], ref: 'LineupOrg', index: true, public: true },
+    ensembles: [{ type: ObjectId, ref: 'LineupOrg', index: true }],
+    organizers: [{ type: ObjectId, ref: 'LineupOrg', index: true }],
 
     extRefId: { type: String, public: true, index: true },
     extRefSrc: { type: String, public: true, index: true },
@@ -69,7 +69,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   });
 
-  schema.publicAttributes = ['absoluteUrl', 'relPath'];
+  schema.publicAttributes = ['absoluteUrl', 'relPath', 'labels', 'ensembles', 'organizers'];
   schema.trash = true;
   schema.plugin( CaminioCarver.langSchemaExtension );
 

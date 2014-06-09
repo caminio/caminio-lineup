@@ -76,11 +76,10 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
     result
       .then( function( entries ){
-        console.log('we are ready');
         res.send( entries );
       })
       .catch( function(err){
-        console.log('error', err);
+        console.log('error', err, err.stack);
         caminio.logger.error(err);
         res.send(err);
       });
