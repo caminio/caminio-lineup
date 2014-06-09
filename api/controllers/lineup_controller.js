@@ -7,8 +7,8 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
   'use strict';
 
-  var carver = require('carver');
-  var XMLWriter = require('xml-writer');
+  var carver        = require('carver');
+  var xmlExporters  = require('../../lib/exporters/xml')( caminio );
 
   var Domain = caminio.models.Domain;
 
@@ -69,14 +69,21 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
   function dispatchExport( req, res ){
     var dialect = req.param('dialect') || 'ess';
+    var result;
+    
     if( dialect === 'dat' )
-      return datExporter( req, res );
-  }
+      result = xmlExporters.dat( req, res );
 
-  function datExporter( req, res ){
-    var xw = new XMLWriter();
-    xw.startDocument().startElement('root').writeAttribute('foo', 'value').writeElement('tag', 'Some content');
-    res.send(xw.toString());
+    result
+      .then( function( entries ){
+        console.log('we are ready');
+        res.send( entries );
+      })
+      .catch( function(err){
+        console.log('error', err);
+        caminio.logger.error(err);
+        res.send(err);
+      });
   }
 
 };
