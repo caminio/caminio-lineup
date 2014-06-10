@@ -71,7 +71,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
 
   schema.publicAttributes = ['absoluteUrl', 'relPath', 'labels', 'ensembles', 'organizers'];
   schema.trash = true;
-  schema.plugin( CaminioCarver.langSchemaExtension );
+  schema.plugin( CaminioCarver.langSchemaExtension, { fileSupport: true } );
 
   return schema;
 
