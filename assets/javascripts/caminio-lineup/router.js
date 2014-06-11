@@ -153,7 +153,7 @@
   App.LineupOrgsEditRoute = Ember.Route.extend({
 
     beforeModel: function(){
-      return this.store.find('lineup_org')
+      return this.store.find('lineup_org');
     },
 
     model: function( prefix, options ){

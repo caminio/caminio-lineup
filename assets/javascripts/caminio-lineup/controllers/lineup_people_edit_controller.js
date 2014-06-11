@@ -4,10 +4,6 @@
 
   App.LineupPeopleEditController = Ember.ObjectController.extend({
 
-    curTranslation: function(){
-      return this.get('translations').findBy('locale', App._curLang);
-    }.property('App._curLang'),
-
     youtubeVideoURL: function(){
       return '//www.youtube-nocookie.com/embed/'+this.get('videoId');
     }.property('videoId'),
@@ -57,6 +53,21 @@
 
       'setType': function( type ){
         this.get('content').set('type', type);
+      },
+
+      'remove': function( content ){
+        var self = this;
+        bootbox.confirm( Em.I18n.t('entry.really_delete', {name: content.get('curTranslation.title')}), function(result){
+          if( !result )
+            return;
+          content.deleteRecord();
+          content
+            .save()
+            .then(function(){
+              notify('info', Em.I18n.t('entry.deleted', { name: content.get('curTranslation.title') }));
+              self.transitionToRoute('lineup_people');
+            });
+        });
       },
 
       'save': function(){

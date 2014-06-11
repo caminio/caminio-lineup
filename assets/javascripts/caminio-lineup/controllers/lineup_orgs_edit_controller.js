@@ -4,10 +4,6 @@
 
   App.LineupOrgsEditController = Ember.ObjectController.extend({
 
-    curTranslation: function(){
-      return this.get('translations').findBy('locale', App._curLang);
-    }.property('App._curLang'),
-
     youtubeVideoURL: function(){
       return '//www.youtube-nocookie.com/embed/'+this.get('videoId');
     }.property('videoId'),
