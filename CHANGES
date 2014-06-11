@@ -1,6 +1,9 @@
 1.0.4
   - deleting lineup_orgs deletes org from event (in entries)
   - design bug fixes
+  - deleting labels checks labeled items and unlabels them
+  - lineup org works
+  - lineup person works
 1.0.3
   - festival bugfix (did not open - might still happen with wrongly assigned entries)
   - job-person link bugfix 
