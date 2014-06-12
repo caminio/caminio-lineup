@@ -2,12 +2,14 @@
  * @class LineupEntriesController
  */
 
-module.exports = function LineupEntriesController( caminio, policies, middleware ){
+module.exports = function LineupEntriesController( caminio, policies ){
 
   'use strict';
 
-  //var SiteGen       = require('caminio-rocksol/generator')( caminio );
-  var Carver        = require('carver');
+  var carver            = require('carver');
+  var join              = require('path').join;
+  var caminioCarver     = require('caminio-carver')(caminio, undefined, 'webpages');
+  var markdownCompiler  = require('carver/plugins').markdownCompiler;
 
   var LineupEntry = caminio.models.LineupEntry;
 
@@ -23,8 +25,7 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
     },
 
     _beforeResponse: {
-      //'update': compilePages
-      //'update': compileWithCarver
+      'update': compilePages
     },
 
     events: [
@@ -47,16 +48,26 @@ module.exports = function LineupEntriesController( caminio, policies, middleware
     });
   }
 
-  function compileWithCarver( req, res, next ){
-
-    res.locals.models = caminio.models;
-    var Carver      = require('carver'); 
-    var compiler    = Carver.init({ 
-                          workdir: res.locals.currentDomain.getContentPath()+'/lineup/entry',
-                          locals: res.locals });
-
-    compiler.compile( res.locals.doc, next );
-
+  function compilePages( req, res, next ){
+    carver()
+      .set('cwd', join(res.locals.currentDomain.getContentPath(),'lineup'))
+      .set('template', 'show')
+      .set('snippetKeyword', 'pebble')
+      .includeAll()
+      .registerEngine('jade', require('jade'))
+      .registerHook('before.render',caminioCarver.setupLocals(res))
+      .registerHook('before.render', markdownCompiler)
+      .set('doc', req.lineup_entry)
+      .set('caminio', caminio)
+      .set('debug', process.env.NODE_ENV === 'development' )
+      .write()
+      .then( function(){
+        next();
+      })
+      .catch( function(err){
+        console.log('carver caught', err.stack);
+        next(err);
+      });
   }
 
   // function compilePages( req, res, next ){
