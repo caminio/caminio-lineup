@@ -9,6 +9,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var carver            = require('carver');
   var join              = require('path').join;
   var caminioCarver     = require('caminio-carver')(caminio, undefined, 'webpages');
+  var snippetParser     = require('carver/plugins').snippetParser;
   var markdownCompiler  = require('carver/plugins').markdownCompiler;
 
   var LineupEntry = caminio.models.LineupEntry;
@@ -57,6 +58,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
       .registerEngine('jade', require('jade'))
       .registerHook('before.render',caminioCarver.setupLocals(res))
       .registerHook('before.render', markdownCompiler)
+      .registerHook('after.render', snippetParser )
       .set('doc', req.lineup_entry)
       .set('caminio', caminio)
       .set('debug', process.env.NODE_ENV === 'development' )
