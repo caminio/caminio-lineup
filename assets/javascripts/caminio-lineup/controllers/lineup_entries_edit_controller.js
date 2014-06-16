@@ -1,6 +1,8 @@
 ( function(){
   
   'use strict';
+
+  /* global domainSettings */
   
   App.LineupEntriesEditController = Ember.ObjectController.extend({
 
@@ -9,8 +11,11 @@
     availableEnsembles: Em.A(),
     availableLabels: Em.A(),
     availableCategories: Em.A( domainSettings.lineupAvailableCategories || [] ),
+    aside2Available: !Em.isEmpty( domainSettings.aside2 ),
+    aside3Available: !Em.isEmpty( domainSettings.aside3 ),
 
     editSettings: false,
+    domainSettings: domainSettings,
 
     youtubeVideoURL: function(){
       return '//www.youtube-nocookie.com/embed/'+this.get('videoId');

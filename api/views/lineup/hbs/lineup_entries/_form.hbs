@@ -206,6 +206,33 @@
     
   </div>
 
+  {{#if aside2Available}}
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{domainSettings.aside2}}</label>
+    <div class="col-md-10 inline-editor">
+      {{view App.CodeMirrorView
+            valueBinding='curTranslation.aside2'
+            class='aside'}}
+    </div>
+    
+  </div>
+  {{/if}}
+
+
+  {{#if aside3Available}}
+  <div class="form-group">
+
+    <label class="col-md-2 control-label">{{domainSettings.aside3}}</label>
+    <div class="col-md-10 inline-editor">
+      {{view App.CodeMirrorView
+            valueBinding='curTranslation.aside3'
+            class='aside'}}
+    </div>
+    
+  </div>
+  {{/if}}
+
   <input type="submit" class="hide">
 
   {{/if}}

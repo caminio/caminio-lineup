@@ -67,7 +67,12 @@
       if( this.get('lastname') && this.get('lastname').length > 0 )
         name += this.get('lastname');
       return name;
-    }.property('firstname', 'lastname')
+    }.property('firstname', 'lastname'),
+
+    curTranslation: function(){
+      return this.get('translations').findBy('locale', App._curLang);
+    }.property('translations.@each', 'App._curLang')
+
 
   });
 
