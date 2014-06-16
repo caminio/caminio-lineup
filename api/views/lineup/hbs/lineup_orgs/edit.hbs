@@ -78,6 +78,12 @@
         {{partial 'lineup_orgs/accessibility'}}
       </div>
 
+      {{#if App.emberUser.isTrusted}}
+      <div class="box fill-box margin-top">
+        {{partial 'lineup_entries/labels'}}
+      </div>
+      {{/if}}
+
     </div>
 
   </div>

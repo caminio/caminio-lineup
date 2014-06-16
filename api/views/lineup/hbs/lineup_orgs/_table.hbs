@@ -45,6 +45,13 @@
             <i {{bind-attr class=":fa content.isEnsemble:fa-group content.isVenue:fa-home pull-left"}}></i>
           </span> &nbsp;
           {{curTranslation.title}}
+          {{#if App.emberUser.isTrusted}}
+          {{#each content.labels}}
+            <span class="label" 
+                  {{bind-attr style='styleAttrs'}}
+                  {{bind-attr title='name'}}>{{name}}</span>
+          {{/each}}
+          {{/if}}
         </td>
         <td {{action 'selectTableItem'}}>{{content.city}}</td>
         <td {{action 'selectTableItem'}}>{{smartDate content.updatedAt}}</td>

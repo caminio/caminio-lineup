@@ -20,6 +20,8 @@ module.exports = function LineupOrganization( caminio, mongoose ){
     type: { type: String, public: true, index: true },
   
     mediafiles: { type: [ MediafileSchema ], public: true },
+
+    labels: { type: [ObjectId], public: true },
     
     tags: { type: [String], public: true },
 

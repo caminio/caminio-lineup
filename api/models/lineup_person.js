@@ -21,6 +21,7 @@ module.exports = function LineupPerson( caminio, mongoose ){
     mediafiles: { type: [ MediafileSchema ], public: true },
 
     tags: { type: [String], public: true },
+    labels: { type: [ObjectId], public: true },
 
     firstname: { type: String, public: true },
     midname: { type: String, public: true },

@@ -9,6 +9,7 @@
     start: null,
     end: null,
     createdBy: null,
+    labels: Em.A(),
     toJSON: function(){
       var attrs = {};
       if( this.get('title') )
@@ -57,6 +58,24 @@
         } else {
           $('.adv-search').slideUp();
           $('.search-group').slideDown(); 
+        }
+      },
+
+      toggleLabelOrLabelContent: function( label ){
+        if( App.get('_selTableItems.length') ){
+          App.get('_selTableItems').forEach(function(item){
+            if( item.get('labels').findBy('id', label.get('id') ) )
+              item.get('labels').removeObject(label);
+            else
+              item.get('labels').pushObject(label);
+            item.save();
+          });
+        } else {
+          if( this.get('searchQ.labels').findBy('id', label.get('id') ) )
+            this.get('searchQ.labels').removeObject(label);
+          else
+            this.get('searchQ.labels').pushObject(label);
+          this.send('search');
         }
       }
 

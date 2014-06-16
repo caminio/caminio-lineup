@@ -8,6 +8,7 @@
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
 
     tags: DS.attr('array'),
+    labels: DS.hasMany( 'label', { async: false, embedded: 'keys' } ),
 
     firstname: DS.attr('string'),
     lastname: DS.attr('string'),

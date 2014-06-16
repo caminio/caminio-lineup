@@ -18,6 +18,12 @@
 
     <div class="col-sidebar" id="search-entries">
       {{partial 'lineup_orgs/search'}}
+      {{#if App.emberUser.isTrusted}}
+      <div class="box fill-box margin-top">
+        {{partial 'lineup/labels'}}
+      </div>
+      {{/if}}
+
     </div>
 
     <div class="col-table" id="entries-table">

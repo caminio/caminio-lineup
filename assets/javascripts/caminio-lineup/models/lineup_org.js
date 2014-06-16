@@ -12,6 +12,8 @@
       return this.get('translations').findBy('locale', App._curLang);
     }.property('translations.@each'),
 
+    labels: DS.hasMany( 'label', { async: false, embedded: 'keys' } ),
+
     street: DS.attr('string'),
     zip: DS.attr('string'),
     city: DS.attr('string'),

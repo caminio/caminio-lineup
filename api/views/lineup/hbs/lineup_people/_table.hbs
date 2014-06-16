@@ -42,6 +42,13 @@
             <i {{bind-attr class=":fa content.isPublished:fa-globe:fa-lock"}}></i>
           </div>
           {{content.name}}
+          {{#if App.emberUser.isTrusted}}
+          {{#each content.labels}}
+            <span class="label" 
+                  {{bind-attr style='styleAttrs'}}
+                  {{bind-attr title='name'}}>{{name}}</span>
+          {{/each}}
+          {{/if}}
         </td>
         <td {{action 'selectTableItem'}}>{{content.city}}</td>
         <td {{action 'selectTableItem'}}>{{smartDate content.updatedAt}}</td>
