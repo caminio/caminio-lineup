@@ -6,7 +6,7 @@
   "dependencies": {
     "caminio": "~1.2.0",
     "caminio-media": "~1.0.1",
-    "carver": "~0.0.4",
+    "carver": "~0.1.1",
     "caminio-carver": "~0.0.1",
     "grunt": "~0.4.2",
     "async": "^0.8.0",
