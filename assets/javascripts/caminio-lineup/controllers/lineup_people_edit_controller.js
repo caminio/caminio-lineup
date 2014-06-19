@@ -30,6 +30,17 @@
         return this.set('videoProvider', 'youtube');
       },
 
+      toggleLabel: function( label ){
+        var found = this.get('content.labels').find( function(_label){
+          if( label.get('id') === _label.get('id') )
+            return true;
+        });
+        if( found )
+          this.get('content.labels').removeObject(label);
+        else
+          this.get('content.labels').pushObject(label);
+      },
+
       'changeLang': function( lang ){
         var tr = this.get('content.translations').find( function( tr ){
           return tr.get('locale') === lang;
