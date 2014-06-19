@@ -8,9 +8,11 @@ module.exports = function LineupEntriesController( caminio, policies ){
 
   var carver            = require('carver');
   var join              = require('path').join;
+  var fs                = require('fs');
   var caminioCarver     = require('caminio-carver')(caminio, undefined, 'webpages');
   var snippetParser     = require('carver/plugins').snippetParser;
   var markdownCompiler  = require('carver/plugins').markdownCompiler;
+  var _                 = require('lodash');
 
   var LineupEntry = caminio.models.LineupEntry;
 
@@ -50,9 +52,15 @@ module.exports = function LineupEntriesController( caminio, policies ){
   }
 
   function compilePages( req, res, next ){
+    var lineupDir = join(res.locals.currentDomain.getContentPath(),'lineup');
+    if( !fs.existsSync( lineupDir ) ){ 
+      caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
+      return next();
+    }
     carver()
-      .set('cwd', join(res.locals.currentDomain.getContentPath(),'lineup'))
+      .set('cwd', lineupDir)
       .set('template', 'show')
+      .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
       .set('snippetKeyword', 'pebble')
       .includeAll()
       .registerEngine('jade', require('jade'))
