@@ -43,6 +43,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
     var q = LineupEntry.find({ camDomain: res.locals.currentDomain });
     if( req.param('bookable') )
       q.where({ 'lineup_events.quota': { $gte: 0 } });
+    q.populate('lineup_events.lineup_org lineup_jobs.lineup_person');
     q.where({ 'lineup_events.bookable': true })
     .exec(function(err, entries){
       if( err ){ return res.json(500, { error: 'internal error', details: err }); }
