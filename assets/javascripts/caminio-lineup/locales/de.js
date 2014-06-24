@@ -46,6 +46,8 @@
     'entry.book_url': 'Reservierungslink',
     'entry.note': 'Notiz',
 
+    'entry.function': 'Funktion',
+
     'entry.marketing_adv': 'Marketing / Erweitert',
     'entry.orig_project_url': 'Projekt URL (extern)',
     'entry.orig_project_url_desc': 'z.B..: http://example.com/path/to/project',
@@ -140,6 +142,9 @@
     'person.saved': 'Person {{name}} wurde gespeichert',
     'person.firstname': 'Vorname',
     'person.lastname': 'Nachname',
+
+    'person.function': 'Funktion',
+
 
     'person.select_or_create': 'Person auswählen oder neuen Namen eintragen',
     'person.nothing_found_create_new': 'Keine Ergebnisse. [ENTER] legt diesen Namen an',

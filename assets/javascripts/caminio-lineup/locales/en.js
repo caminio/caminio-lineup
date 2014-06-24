@@ -45,6 +45,8 @@
     'entry.book_url': 'Booking link',
     'entry.note': 'Note',
 
+    'entry.function': 'Function',
+
     'entry.marketing_adv': 'Marketing / Advanced',
     'entry.orig_project_url': 'Original project URL',
     'entry.orig_project_url_desc': 'e.g.: http://example.com/path/to/project',
@@ -139,6 +141,8 @@
     'person.saved': 'Person {{name}} has been saved',
     'person.firstname': 'Firstname',
     'person.lastname': 'Lastname',
+
+    'person.function': 'Function',
 
     'person.select_or_create': 'Select or create person',
     'person.nothing_found_create_new': 'No person matched your search. Enter to create',
