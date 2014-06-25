@@ -65,7 +65,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
       .set('snippetKeyword', 'pebble')
       .includeAll()
       .registerEngine('jade', require('jade'))
-      .registerHook('before.render',caminioCarver.setupLocals(res))
+      .registerHook('before.render',caminioCarver.setupLocals(req,res))
       .registerHook('before.render', markdownCompiler)
       .registerHook('after.render', snippetParser )
       .set('doc', req.lineup_entry)
