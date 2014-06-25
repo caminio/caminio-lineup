@@ -63,6 +63,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
       .set('template', 'show')
       .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
       .set('snippetKeyword', 'pebble')
+      .set('publishingStatusKey', 'status')
       .includeAll()
       .registerEngine('jade', require('jade'))
       .registerHook('before.render',caminioCarver.setupLocals(req,res))
