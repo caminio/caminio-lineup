@@ -129,6 +129,12 @@
       },
 
       addEvent: function(){
+        var content = this.get('content');
+        this.get('model.lineup_events').forEach(function(ev){
+          if( ev.get('isNew') )
+            content.get('lineup_events').removeObject(ev);
+          ev.set('editMode',false);
+        });
         var lastEvent = this.get('model.lineup_events.lastObject');
         var lineupOrg;
         var festival;
@@ -146,6 +152,7 @@
         if( festival )
           evnt.set('festival', festival);
         this.get('lineup_events').pushObject(evnt);
+        evnt.set('lineup_entry', this.get('model'));
         evnt.set('editMode',true);
         if( this.get('curEvent') )
           this.get('curEvent').set('editMode',false);
