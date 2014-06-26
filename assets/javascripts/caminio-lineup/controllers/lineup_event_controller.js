@@ -82,6 +82,7 @@
         }
         $('.lineup-event.editing:visible .select2-container').removeClass('error');
         var self = this;
+        this.get('parentController.content.lineup_events').sortBy('starts');
         this.get('parentController.content')
           .save()
           .then(function(){
