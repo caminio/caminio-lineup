@@ -24,7 +24,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
     },
 
     _before: {
-      'update': [ checkLocaleExistsAndDismiss, sortEvents, repairEmberLabels ]
+      'update': [ checkLocaleExistsAndDismiss, checkFestival, sortEvents, repairEmberLabels ]
     },
 
     _beforeResponse: {
@@ -161,6 +161,16 @@ module.exports = function LineupEntriesController( caminio, policies ){
       if( repairedLabels.length > 0 )
         req.body.lineup_entry.labels = repairedLabels;
     }
+    next();
+  }
+
+  function checkFestival( req, res, next ){
+    req.body.lineup_entry.lineup_events.forEach(function(evnt){
+      if( !evnt.festival )
+        evnt.festival = null;
+      if( !evnt.lineup_org )
+        return res.json(422, { error: { venue: 'missing venue'}});
+    });
     next();
   }
 

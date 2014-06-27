@@ -68,6 +68,8 @@
 
       'toggleFestival': function(){
         this.set('editFestival', !this.get('editFestival'));
+        if( this.get('content.festival') && !this.get('editFestival') )
+          this.get('content').set('festival',null);
       },
 
       toggleSpecial: function( key ){
@@ -98,6 +100,11 @@
       },
 
       toggleEditMode: function(){
+        var content = this.get('content');
+        this.get('parentController.lineup_events').forEach(function(ev){
+          if( ev.id !== content.id )
+            ev.set('editMode',false);
+        });
         if( this.get('content.isNew') ){
           this.get('parentController.lineup_events').removeObject( this.get('content') );
           return this.get('content').deleteRecord();
