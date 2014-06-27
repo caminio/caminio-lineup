@@ -14,6 +14,9 @@
     lastname: DS.attr('string'),
     midname: DS.attr('string'),
 
+    email: DS.attr('string'),
+    phone: DS.attr('string'),
+
     street: DS.attr('string'),
     zip: DS.attr('string'),
     city: DS.attr('string'),

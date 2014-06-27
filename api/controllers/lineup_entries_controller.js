@@ -24,7 +24,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
     },
 
     _before: {
-      'update': [ checkLocaleExistsAndDismiss, repairEmberLabels ]
+      'update': [ checkLocaleExistsAndDismiss, sortEvents, repairEmberLabels ]
     },
 
     _beforeResponse: {
@@ -50,6 +50,18 @@ module.exports = function LineupEntriesController( caminio, policies ){
       req.lineup_events = entries;
       next();
     });
+  }
+
+  function sortEvents( req, res, next ){
+    var unsorted = req.body.lineup_entry.lineup_events;
+    req.body.lineup_entry.lineup_events = unsorted.sort( function( a, b ){
+      if( a.starts < b.starts )
+        return -1;
+      if( a.starts > b.starts )
+        return 1;
+      return 0;
+    });
+    next();
   }
 
   function compilePages( req, res, next ){

@@ -26,6 +26,8 @@ module.exports = function LineupPerson( caminio, mongoose ){
     firstname: { type: String, public: true },
     midname: { type: String, public: true },
     lastname: { type: String, public: true },
+    email: { type: String, public: true },
+    phone: { type: String, public: true },
     
     street: { type: String, public: true },
     zip: { type: String, public: true },
