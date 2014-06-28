@@ -15,6 +15,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var _                 = require('lodash');
 
   var LineupEntry = caminio.models.LineupEntry;
+  var Label       = caminio.models.Label;
 
   return {
 
@@ -35,6 +36,13 @@ module.exports = function LineupEntriesController( caminio, policies ){
       collectEvents,
       function( req, res ){
         res.json( req.lineup_events );
+      }],
+
+    filter: [
+      collectLabelsForFilter,
+      collectByFilter,
+      function( req, res ){
+        res.json( req.lineup_entries );
       }]
 
   };
@@ -48,6 +56,32 @@ module.exports = function LineupEntriesController( caminio, policies ){
     .exec(function(err, entries){
       if( err ){ return res.json(500, { error: 'internal error', details: err }); }
       req.lineup_events = entries;
+      next();
+    });
+  }
+
+  function collectLabelsForFilter( req, res, next ){
+    if( !req.param('label') )
+      return next();
+    var ciName = new RegExp(req.param('label'),'i');
+    Label
+      .find()
+      .where({ camDomain: req.param('camDomain') || res.locals.currentDomain })
+      .where({ name: ciName })
+      .exec(function(err,labels){
+        if( err ){ caminio.logger.error(err); return res.send(500,{ error: err }); }
+        req.labels = labels;
+        next();
+      });
+  }
+
+  function collectByFilter( req, res, next ){
+    var q = LineupEntry.find({ camDomain: req.param('camDomain') || res.locals.currentDomain });
+    if( req.labels )
+      q.where({ labels: { $in: req.labels.map(function(label){ return label._id; }) }});
+    q.exec(function(err,entries){
+      if( err ){ caminio.logger.error(err); return res.send(500,{ error: err }); }
+      req.lineup_entries = entries;
       next();
     });
   }
