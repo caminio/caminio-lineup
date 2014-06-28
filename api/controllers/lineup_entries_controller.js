@@ -94,47 +94,6 @@ module.exports = function LineupEntriesController( caminio, policies ){
       });
   }
 
-  // function compilePages( req, res, next ){
-  //   var settingsFile = join( res.locals.currentDomain.contentPath, 'projects', '.settings' );
-  //   var types = {'LineupEntry': { layout: { name: 'projects' } }};
-  //
-  //   if( fs.existsSync( settingsFile+'.js' ) ){
-  //     var settingsContent = require( settingsFile );
-  //     if( settingsContent.compileDeps )
-  //       types = settingsContent.compileDeps;
-  //   }
-  //
-  //   async.eachSeries( Object.keys(types), function( type, nextType ){
-  //
-  //     var gen = new SiteGen( res.locals.currentDomain.getContentPath(), types[type].namespace );
-  //
-  //     var q = caminio.models[type].find();
-  //     if( types[type].conditions && typeof(types[type].conditions) === 'object' ){
-  //       var conditions = {};
-  //       for( var key in types[type].conditions )
-  //         conditions[key] = ( types[type].conditions._id && types[type].conditions._id === 'PARAM_ID' ) ?
-  //                             req.param('id') :
-  //                             types[type].conditions[key];
-  //       q.where(conditions);
-  //     }
-  //     
-  //     q.exec( function( err, docs ){
-  //       async.eachSeries( docs, function( doc, compileNext ){
-  //
-  //         gen.compileObject( 
-  //             doc,
-  //             { locals: res.locals,
-  //               layout: types[type].layout,
-  //               isPublished: (req.doc.status === 'published') },
-  //             compileNext );
-  //
-  //       }, nextType );
-  //     });
-  //   }, next );
-  //
-  // }
-  //
-  
   function checkLocaleExistsAndDismiss( req, res, next ){
 
     var havingTranslations = [];

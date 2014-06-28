@@ -7,8 +7,16 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
   'use strict';
 
-  var carver        = require('carver');
-  var xmlExporters  = require('../../lib/exporters/xml')( caminio );
+  var join              = require('path').join;
+  var fs                = require('fs');
+  var _                 = require('lodash');
+  var async             = require('async');
+  var carver            = require('carver');
+  var caminioCarver     = require('caminio-carver')(caminio, undefined, 'webpages');
+  var snippetParser     = require('carver/plugins').snippetParser;
+  var markdownCompiler  = require('carver/plugins').markdownCompiler;
+
+  var LineupEntry = caminio.models.LineupEntry;
 
   var Domain = caminio.models.Domain;
 
@@ -28,25 +36,40 @@ module.exports = function LineupController( caminio, policies, middleware ){
     ],
 
     'compileAll':[
+      getPublicLineupEntries,
       function( req, res ){
-        res.locals.models = caminio.models;
-        res.locals.startWidth = req.param('start') || null;
-        try{
-        carver()
-          .set('cwd', res.locals.currentDomain.getContentPath()+'/lineup')
+        var lineupDir = join(res.locals.currentDomain.getContentPath(),'lineup');
+        if( !fs.existsSync( lineupDir ) ){ 
+          caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
+          return next();
+        }
+        var compiler = carver()
+          .set('cwd', lineupDir)
+          .set('template', 'show')
+          .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
+          .set('snippetKeyword', 'pebble')
+          .set('publishingStatusKey', 'status')
+          .includeAll()
           .registerEngine('jade', require('jade'))
-          .includeFileWriter()
-          .set('locals', res.locals)
-          .write()
-          .then( function(){
-            res.send(200); 
-          })
-          .catch(function(err){
-            caminio.logger.error('carver error: ', err);
-            if( err ){ res.json( 500, { error: err }); }
-            res.send(200);
+          .registerHook('before.render',caminioCarver.setupLocals(req,res))
+          .registerHook('before.render', markdownCompiler)
+          .registerHook('after.render', snippetParser )
+          .set('caminio', caminio)
+          .set('debug', process.env.NODE_ENV === 'development' );
+        async.eachSeries( req.lineupEntries, function(lineupEntry, nextEntry){
+          compiler
+            .set('doc', lineupEntry)
+            .write()
+            .then( function(){
+              nextEntry();
+            })
+            .catch( function(err){
+              console.log('carver caught', err.stack);
+              if( err ){ return res.send(500,"ERROR:"+require('util').inspect(err)); }
+            });
+        }, function(){
+          res.send(200, req.lineupEntries.length+' compiled successfully.')
         });
-        }catch(e){ console.log('catch',e); }
       } 
     ],
 
@@ -56,6 +79,17 @@ module.exports = function LineupController( caminio, policies, middleware ){
     ]
 
   };
+
+  function getPublicLineupEntries( req, res, next ){
+    LineupEntry
+      .find()
+      .where({ camDomain: res.locals.currentDomain })
+      .exec(function(err,entries){
+        if( err ){ return res.send(500,"ERROR:"+require('util').inspect(err)); }
+        req.lineupEntries = entries;
+        next();
+      });
+  }
 
   function getDomain( req, res, next ){
     res.set('Content-Type', 'text/xml');
