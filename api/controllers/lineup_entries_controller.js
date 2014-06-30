@@ -13,15 +13,18 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var snippetParser     = require('carver/plugins').snippetParser;
   var markdownCompiler  = require('carver/plugins').markdownCompiler;
   var _                 = require('lodash');
+  var async             = require('async');
+  var moment            = require('moment');
 
   var LineupEntry = caminio.models.LineupEntry;
   var Label       = caminio.models.Label;
+  var Mediafile   = caminio.models.Mediafile;
 
   return {
 
     _policies: {
       'events': policies.ensureLoginOrApiOrToken,
-      '*!(events)': policies.ensureLogin,
+      '*!(events,show,filter)': policies.ensureLogin,
     },
 
     _before: {
@@ -41,6 +44,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
     filter: [
       collectLabelsForFilter,
       collectByFilter,
+      collectMediafiles,
       function( req, res ){
         res.json( req.lineup_entries );
       }]
@@ -75,13 +79,41 @@ module.exports = function LineupEntriesController( caminio, policies ){
       });
   }
 
+  function collectMediafiles( req, res, next ){
+    if( !req.lineup_entres )
+      next();
+    async.eachSeries( req.lineup_entries, function( entry, nextEntry ){
+      Mediafile
+        .find({ parent: entry._id, camDomain: req.param('camDomain') || res.locals.currentDomain })
+        .exec( function( err, mediafiles ){
+          if( err ){ caminio.logger.error(err); return res.send(500,{ error: err }); }
+          entry.mediafiles = mediafiles;
+          nextEntry();
+        }, next);
+    });
+  }
+
   function collectByFilter( req, res, next ){
-    var q = LineupEntry.find({ camDomain: req.param('camDomain') || res.locals.currentDomain });
+    var q = LineupEntry.find({ camDomain: req.param('camDomain') || res.locals.currentDomain, status: 'published' });
     if( req.labels )
       q.where({ labels: { $in: req.labels.map(function(label){ return label._id; }) }});
+    if( !_.isEmpty(req.param('ends')) )
+      q.where({ lineup_events: { $elemMatch: { starts: { $lt: moment(req.param('ends')).toDate() } } } });
+    if( !_.isEmpty(req.param('location')) )
+      q.where({ 'lineup_events.lineup_org': req.param('location') });
     q.exec(function(err,entries){
       if( err ){ caminio.logger.error(err); return res.send(500,{ error: err }); }
-      req.lineup_entries = entries;
+      var returnEntries = [];
+      entries.forEach(function(entry){
+        var isPast = false;
+        if( !_.isEmpty( req.param('ends') ) )
+          isPast = _.find( entry.lineup_events, function(evnt){
+            return evnt.starts > moment(req.param('ends')).toDate();
+          });
+        if( !isPast )
+          returnEntries.push( entry );
+      });
+      req.lineup_entries = returnEntries;
       next();
     });
   }
@@ -123,7 +155,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
         next();
       })
       .catch( function(err){
-        console.log('carver caught', err.stack);
+        caminio.logger.error('carver caught', err.stack);
         next(err);
       });
   }

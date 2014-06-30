@@ -37,15 +37,17 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
     'compileAll':[
       getPublicLineupEntries,
+      getFirstLast,
       function( req, res ){
         var lineupDir = join(res.locals.currentDomain.getContentPath(),'lineup');
         if( !fs.existsSync( lineupDir ) ){ 
           caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
           return next();
         }
+        var locals = _.pick( res.locals, ['currentDomain','currentUser','firstMonth','lastMonth','curLang', 'env']);
         var compiler = carver()
           .set('cwd', lineupDir)
-          .set('template', 'show')
+          .set('template', 'spielplan')
           .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
           .set('snippetKeyword', 'pebble')
           .set('publishingStatusKey', 'status')
@@ -55,21 +57,18 @@ module.exports = function LineupController( caminio, policies, middleware ){
           .registerHook('before.render', markdownCompiler)
           .registerHook('after.render', snippetParser )
           .set('caminio', caminio)
-          .set('debug', process.env.NODE_ENV === 'development' );
-        async.eachSeries( req.lineupEntries, function(lineupEntry, nextEntry){
-          compiler
-            .set('doc', lineupEntry)
-            .write()
-            .then( function(){
-              nextEntry();
-            })
-            .catch( function(err){
-              console.log('carver caught', err.stack);
-              if( err ){ return res.send(500,"ERROR:"+require('util').inspect(err)); }
-            });
-        }, function(){
-          res.send(200, req.lineupEntries.length+' compiled successfully.')
-        });
+          .set('locals', locals)
+          .set('debug', process.env.NODE_ENV === 'development' )
+          .set('destinations', [ 'file://'+join( res.locals.currentDomain.getContentPath(), 'public', 'spielplan')])
+          .set('dependencies', [{ template: 'stuecke', destinations: [ 'file://'+join(res.locals.currentDomain.getContentPath(), 'public', 'stuecke')]}])
+          .write()
+          .then( function(){
+            res.send(200, req.lineupEntries.length+' compiled successfully.');
+          })
+          .catch( function(err){
+            console.log('carver caught', err.stack);
+            if( err ){ return res.send(500,"ERROR:"+require('util').inspect(err)); }
+          });
       } 
     ],
 
@@ -117,6 +116,16 @@ module.exports = function LineupController( caminio, policies, middleware ){
         caminio.logger.error(err);
         res.send(err);
       });
+  }
+
+  function getFirstLast( req, res, next ){
+    LineupEntry.findOne({ camDomain: res.locals.currentDomain, status: 'published', lineup_events: { $not: { $size: 0}}}).sort({ 'lineup_events.starts': -1 }).exec(function(err, entry){
+      res.locals.lastMonth = _.last(_.sortBy( entry.lineup_events, 'starts')).starts;
+      LineupEntry.findOne({ camDomain: res.locals.currentDomain, status: 'published', lineup_events: { $not: { $size: 0}}}).sort({ 'lineup_events.starts': 1 }).exec(function(err, entry){
+        res.locals.firstMonth = _.first(_.sortBy( entry.lineup_events, 'starts')).starts;
+        next();
+      });
+    });
   }
 
 };
