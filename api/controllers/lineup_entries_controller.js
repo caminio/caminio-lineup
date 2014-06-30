@@ -25,6 +25,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
     _policies: {
       'events': policies.ensureLoginOrApiOrToken,
       '*!(events,show,filter)': policies.ensureLogin,
+      'show': policies.enableCrossOrigin
     },
 
     _before: {
