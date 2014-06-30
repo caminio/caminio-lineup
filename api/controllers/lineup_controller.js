@@ -44,10 +44,10 @@ module.exports = function LineupController( caminio, policies, middleware ){
           caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
           return next();
         }
-        var locals = _.pick( res.locals, ['currentDomain','currentUser','firstMonth','lastMonth','curLang', 'env']);
+        var locals = _.pick( res.locals, ['currentDomain','currentUser','firstMonth','lastMonth','curLang','firstEvent','lastEvent','env']);
         var compiler = carver()
           .set('cwd', lineupDir)
-          .set('template', 'spielplan')
+          // .set('template', 'spielplan')
           .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
           .set('snippetKeyword', 'pebble')
           .set('publishingStatusKey', 'status')
@@ -59,8 +59,8 @@ module.exports = function LineupController( caminio, policies, middleware ){
           .set('caminio', caminio)
           .set('locals', locals)
           .set('debug', process.env.NODE_ENV === 'development' )
-          .set('destinations', [ 'file://'+join( res.locals.currentDomain.getContentPath(), 'public', 'spielplan')])
-          .set('dependencies', [{ template: 'stuecke', destinations: [ 'file://'+join(res.locals.currentDomain.getContentPath(), 'public', 'stuecke')]}])
+          // .set('destinations', [ 'file://'+join( res.locals.currentDomain.getContentPath(), 'public', 'spielplan')])
+          // .set('dependencies', [{ template: 'stuecke', destinations: [ 'file://'+join(res.locals.currentDomain.getContentPath(), 'public', 'stuecke')]}])
           .write()
           .then( function(){
             res.send(200, req.lineupEntries.length+' compiled successfully.');
@@ -120,9 +120,9 @@ module.exports = function LineupController( caminio, policies, middleware ){
 
   function getFirstLast( req, res, next ){
     LineupEntry.findOne({ camDomain: res.locals.currentDomain, status: 'published', lineup_events: { $not: { $size: 0}}}).sort({ 'lineup_events.starts': -1 }).exec(function(err, entry){
-      res.locals.lastMonth = _.last(_.sortBy( entry.lineup_events, 'starts')).starts;
+      res.locals.lastEvent = res.locals.lastMonth = _.last(_.sortBy( entry.lineup_events, 'starts')).starts;
       LineupEntry.findOne({ camDomain: res.locals.currentDomain, status: 'published', lineup_events: { $not: { $size: 0}}}).sort({ 'lineup_events.starts': 1 }).exec(function(err, entry){
-        res.locals.firstMonth = _.first(_.sortBy( entry.lineup_events, 'starts')).starts;
+        res.locals.firstEvent = res.locals.firstMonth = _.first(_.sortBy( entry.lineup_events, 'starts')).starts;
         next();
       });
     });

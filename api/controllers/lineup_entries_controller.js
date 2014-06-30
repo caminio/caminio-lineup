@@ -33,7 +33,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
     },
 
     _beforeResponse: {
-      'update': compilePages
+      'update': [ compilePages, cleanupAttrs ]
     },
 
     events: [
@@ -197,6 +197,12 @@ module.exports = function LineupEntriesController( caminio, policies ){
       if( !evnt.lineup_org )
         return res.json(422, { error: { venue: 'missing venue'}});
     });
+    next();
+  }
+
+  function cleanupAttrs( req, res, next ){
+    if( req.lineup_entry.ensembles && typeof( _.first(req.lineup_entry.ensembles) ) === 'object' )
+      req.lineup_entry.ensembles = req.lineup_entry.ensembles.map(function(ensemble){ return ensemble._id; });
     next();
   }
 
