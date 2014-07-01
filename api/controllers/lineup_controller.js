@@ -42,7 +42,7 @@ module.exports = function LineupController( caminio, policies, middleware ){
         var lineupDir = join(res.locals.currentDomain.getContentPath(),'lineup');
         if( !fs.existsSync( lineupDir ) ){ 
           caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
-          return next();
+          return res.send(500,'skipping. lineupdir '+ lineupDir +' does not exist');
         }
         var locals = _.pick( res.locals, ['currentDomain','currentUser','firstMonth','lastMonth','curLang','firstEvent','lastEvent','env']);
         var compiler = carver()
