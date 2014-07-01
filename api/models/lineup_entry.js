@@ -3,10 +3,12 @@
  * @class LineupEntry
  *
  */
- 
+
 module.exports = function LineupEntry( caminio, mongoose ){
 
   'use strict';
+
+  var _                   = require('lodash');
 
   var ObjectId            = mongoose.Schema.Types.ObjectId;
 
@@ -72,6 +74,15 @@ module.exports = function LineupEntry( caminio, mongoose ){
   schema.publicAttributes = ['absoluteUrl', 'relPath', 'labels', 'ensembles', 'organizers'];
   schema.trash = true;
   schema.plugin( CaminioCarver.langSchemaExtension, { fileSupport: true } );
+
+  schema.virtual('authors').get(function(){
+    return _.filter(this.lineup_jobs, function(job){ return job.title.match(/author|autor|text|playwright/i); });
+  });
+
+  schema.virtual('directors').get(function(){
+    return _.filter(this.lineup_jobs, function(job){ return job.title.match(/director|directing|regie|inszenierung/i); });
+  });
+
 
   return schema;
 
