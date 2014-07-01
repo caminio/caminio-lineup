@@ -76,10 +76,14 @@ module.exports = function LineupEntry( caminio, mongoose ){
   schema.plugin( CaminioCarver.langSchemaExtension, { fileSupport: true } );
 
   schema.virtual('authors').get(function(){
+    if( _.isEmpty(this.lineup_jobs) )
+      return [];
     return _.filter(this.lineup_jobs, function(job){ return job.title.match(/author|autor|text|playwright/i); });
   });
 
   schema.virtual('directors').get(function(){
+    if( _.isEmpty(this.lineup_jobs) )
+      return [];
     return _.filter(this.lineup_jobs, function(job){ return job.title.match(/director|directing|regie|inszenierung/i); });
   });
 
