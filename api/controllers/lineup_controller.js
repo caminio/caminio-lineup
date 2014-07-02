@@ -10,7 +10,7 @@ module.exports = function LineupController( caminio, policies, middleware ){
   var join              = require('path').join;
   var fs                = require('fs');
   var _                 = require('lodash');
-  var async             = require('async');
+  var RSVP              = require('rsvp');
   var carver            = require('carver');
   var caminioCarver     = require('caminio-carver')(caminio, undefined, 'webpages');
   var snippetParser     = require('carver/plugins').snippetParser;
@@ -36,7 +36,6 @@ module.exports = function LineupController( caminio, policies, middleware ){
     ],
 
     'compileAll':[
-      getPublicLineupEntries,
       getFirstLast,
       function( req, res ){
         var lineupDir = join(res.locals.currentDomain.getContentPath(),'lineup');
@@ -66,10 +65,19 @@ module.exports = function LineupController( caminio, policies, middleware ){
             res.send(200, req.lineupEntries.length+' compiled successfully.');
           })
           .catch( function(err){
-            console.log('carver caught', err.stack);
-            if( err ){ return res.send(500,"ERROR:"+require('util').inspect(err)); }
+            caminio.logger.error('carver caught', err.stack);
+            if( err ){ return res.send(500,'ERROR:'+require('util').inspect(err)); }
           });
       } 
+    ],
+
+    'compileAllEntries':[
+      getPublicLineupEntries,
+      getFirstLast,
+      compilePages,
+      function(req,res){
+        res.send(200,req.lineupEntries.length+' entries successfully processed');
+      }
     ],
 
     'export': [
@@ -126,6 +134,44 @@ module.exports = function LineupController( caminio, policies, middleware ){
         next();
       });
     });
+  }
+
+  function compilePages( req, res, next ){
+ 
+    var prom = new RSVP.Promise(function(resolve){ resolve(); });
+    req.lineupEntries.forEach(function(entry){
+      prom = prom.then( function(){ return processEntry(entry); });
+    });
+
+    prom.then(function(){
+      next();
+    });
+
+    function processEntry(entry){
+      var lineupDir = join(res.locals.currentDomain.getContentPath(),'lineup');
+      if( !fs.existsSync( lineupDir ) ){ 
+        caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
+        return next();
+      }
+      return carver()
+        .set('cwd', lineupDir)
+        .set('locals',_.pick( res.locals, ['currentDomain','currentUser','firstMonth','lastMonth','curLang','firstEvent','lastEvent','env']))
+        .set('skipDependencies',true)
+        .set('template', 'show')
+        .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
+        .set('snippetKeyword', 'pebble')
+        .set('publishingStatusKey', 'status')
+        .includeAll()
+        .registerEngine('jade', require('jade'))
+        .registerHook('before.render',caminioCarver.setupLocals(req,res))
+        .registerHook('before.render', markdownCompiler)
+        .registerHook('after.render', snippetParser )
+        .set('doc', entry)
+        .set('caminio', caminio)
+        .set('debug', process.env.NODE_ENV === 'development' )
+        .write();
+    }
+
   }
 
 };
