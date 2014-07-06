@@ -7,6 +7,7 @@ module.exports.routes = {
   '/caminio/lineup/compile_all_entries': 'LineupController#compileAllEntries',
   '/caminio/lineup_entries/events': 'LineupEntriesController#events',
   '/caminio/lineup_entries/filter': 'LineupEntriesController#filter',
+  '/caminio/lineup_events/:id': 'LineupEventsController#show',
   'autorest /caminio/lineup_people': 'LineupPerson',
   'autorest /caminio/lineup_orgs': 'LineupOrg',
   'autorest /caminio/lineup_entries': 'LineupEntry'
