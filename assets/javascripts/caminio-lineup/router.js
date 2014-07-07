@@ -1,5 +1,7 @@
 ( function( App ){
 
+  /* global domainSettings */
+
   'use strict';
 
   App.Router.map( function(){
@@ -52,7 +54,7 @@
    */
   App.LineupEntriesNewRoute = Ember.Route.extend({
 
-    model: function( prefix, options ){
+    model: function( ){
       var defaultCategories = domainSettings.lineupDefaultCategories || [];
       return this.store.createRecord('lineup_entry', { categories: defaultCategories });
     },
@@ -69,8 +71,8 @@
    */
   App.LineupEntriesEditRoute = Ember.Route.extend({
 
-    model: function( prefix, options ){
-      return this.store.find('lineup_entry', options.params.id);
+    model: function( params ){
+      return this.store.find('lineup_entry', params.id);
     },
 
     setupController: function( controller, model ){
@@ -136,7 +138,7 @@
    */
   App.LineupOrgsNewRoute = Ember.Route.extend({
 
-    model: function( prefix, options ){
+    model: function(){
       return this.store.createRecord('lineup_org');
     },
 
@@ -156,8 +158,8 @@
       return this.store.find('lineup_org');
     },
 
-    model: function( prefix, options ){
-      return this.store.find('lineup_org', options.params.id);
+    model: function( params ){
+      return this.store.find('lineup_org', params.id);
     },
 
     setupController: function( controller, model ){
@@ -234,8 +236,8 @@
       return this.store.find('lineup_person')
     },
 
-    model: function( prefix, options ){
-      return this.store.find('lineup_person', options.params.id);
+    model: function( params){
+      return this.store.find('lineup_person', params.id);
     },
 
     setupController: function( controller, model ){
