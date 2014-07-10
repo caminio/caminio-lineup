@@ -37,8 +37,11 @@
           {{/if}}
         </button>
 
-        <button {{bind-attr class='isDirty:primary curTranslation.isDirty:primary :btn :icon-text'}}
+        <button {{bind-attr class='isDirty:primary curTranslation.isDirty:primary :btn :icon-text isSaving:disabled'}}
                 {{action 'save'}}>
+          {{#if content.isSaving}}
+          <i class="fa fa-refresh fa-spin"></i>
+          {{/if}}
           {{t 'save'}}
         </button>
 
@@ -71,7 +74,9 @@
 
   </header>
 
-  <div class="row span-row">
+  <div class="row span-row form-wrap">
+
+    <div {{bind-attr class=":form-loading isSaving::hide"}}></div>
 
     <div class="col-md-8">
       <div>
