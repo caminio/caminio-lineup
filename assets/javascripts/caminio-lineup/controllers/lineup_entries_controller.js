@@ -10,8 +10,9 @@
     createdBy: null,
     startsAt: null,
     onlyMine: function(ns, value){
-      if( typeof(value) !== 'undefined' )
+      if( typeof(value) !== 'undefined' ){
         this.set('createdBy', value ? currentUser._id : null);
+      }
       return typeof(this.get('createdBy')) === 'string';
     }.property('createdBy'),
     onlyFuture: function(ns, value){
@@ -48,7 +49,7 @@
       return domainSettings.availableLangs;
     }.property(),
 
-    searchQ: SearchQ.create({ createdBy: (App.get('emberUser.isAdmin') ? null : currentUser._id), startsAt: moment().startOf('day').toISOString() }),
+    searchQ: SearchQ.create({ createdBy: (App.get('emberUser.isTrusted') ? null : currentUser._id), startsAt: moment().startOf('day').toISOString() }),
     
     actions: {
 
