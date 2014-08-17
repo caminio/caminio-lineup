@@ -16,9 +16,17 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
 
     _beforeResponse: {
       'destroy': checkDependencies
+    },
+
+    _beforeRender: {
+      '*': compilePage
     }
 
   };
+
+  function compilePage( req, res, next ){
+    next();
+  }
 
   function checkDependencies( req, res, next ){
     LineupEntry.find({ 'lineup_jobs.lineup_person': req.lineup_person._id })
