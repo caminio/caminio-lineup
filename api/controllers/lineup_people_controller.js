@@ -7,6 +7,13 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
 
   var LineupEntry = caminio.models.LineupEntry;
   var async       = require('async');
+  var join              = require('path').join;
+  var fs                = require('fs');
+  var carver            = require('carver');
+  var _                 = require('lodash');
+  var caminioCarver     = require('caminio-carver')(caminio, undefined, 'webpages');
+  var snippetParser     = require('carver/plugins').snippetParser;
+  var markdownCompiler  = require('carver/plugins').markdownCompiler;
 
   return {
 
@@ -15,17 +22,60 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
     },
 
     _beforeResponse: {
-      'destroy': checkDependencies
+      'destroy': checkDependencies,
+      'update': [ getWebpage, caminioCarver.after.save, compilePage ]
     },
 
-    _beforeRender: {
-      '*': compilePage
-    }
+    // _beforeRender: {
+    //   '*': test
+    // }
 
   };
 
+  function getWebpage( req, res, next ){
+    caminio.models.Webpage.findOne({ filename: "team" })
+    .exec( function( err, page ){
+      req.webpage = page;
+      next();
+    });
+  }
+
   function compilePage( req, res, next ){
-    next();
+
+    var lineupDir = join(res.locals.currentDomain.getContentPath(),'webpages');
+    if( !fs.existsSync( lineupDir ) ){ 
+      caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
+      return next();
+    }
+
+    caminio.models.Webpage.findOne({ filename: "team" })
+    .exec( function( err, page ){
+
+      console.log( page, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
+
+      carver()
+      .set('cwd', join(res.locals.currentDomain.getContentPath(),'webpages'))
+      .set('snippetKeyword', 'pebble')
+      .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
+      .set('publishingStatusKey', 'status')
+      .includeAll()
+      .registerEngine('jade', require('jade'))
+      .registerHook('before.render',caminioCarver.setupLocals(req,res))
+      .registerHook('after.write', caminioCarver.docDependencies)
+      .registerHook('before.render', markdownCompiler)
+      .registerHook('after.render', snippetParser )
+      .set('doc', page)
+      .set('caminio', caminio)
+      .set('debug', process.env.NODE_ENV === 'development' )
+      .write()
+      .then( function(){
+        next();
+      })
+      .catch( function(err){
+        console.log('carver caught', err.stack);
+        next(err);
+      });
+    });
   }
 
   function checkDependencies( req, res, next ){

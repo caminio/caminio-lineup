@@ -56,19 +56,26 @@ module.exports = function LineupPerson( caminio, mongoose ){
 
   });
 
+  schema.pre('save', function ( next ) {
+    this.filename = this.name;
+    console.log( this.name, this.firstname, this.filename );
+    next();
+  })
+
   schema.virtual('name')
     .get(function(){
       var str = '';
       if( this.firstname )
         str += this.firstname;
-      if( str.lastname ){
+      if( this.lastname ){
         if( str.length > 0 )
           str += ' ';
         str += this.lastname;
       }
+      return str;
     });
 
-  schema.plugin( CaminioCarver.langSchemaExtension, { fileSupport: false });
+  schema.plugin( CaminioCarver.langSchemaExtension, { fileSupport: true });
   schema.publicAttributes = [ 'name' ];
   
   return schema;
