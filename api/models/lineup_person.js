@@ -56,12 +56,6 @@ module.exports = function LineupPerson( caminio, mongoose ){
 
   });
 
-  schema.pre('save', function ( next ) {
-    this.filename = this.name;
-    console.log( this.name, this.firstname, this.filename );
-    next();
-  })
-
   schema.virtual('name')
     .get(function(){
       var str = '';
