@@ -37,10 +37,10 @@
       },
 
       toggleEditMode: function(){
-        if( !this.get('content.id') ){
-          this.get('parentController.lineup_jobs').removeObject( this.get('content') );
-          return this.get('content').deleteRecord();
-        }
+        // if( this.get('content.isNew') ){
+        //   this.get('parentController.lineup_jobs').removeObject( this.get('content') );
+        //   return this.get('content').deleteRecord();
+        // }
         this.get('content').set('editMode', (this.get('content.editMode') ? !this.get('content.editMode') : true));
       }
 
