@@ -18,11 +18,7 @@
 
   <ul class="jobs-list" id="lineup-jobs">
     {{#each lineup_jobs itemController='lineup_job'}}
-      {{#unless isAuthor}}
-        {{#unless isDirector}}
-          {{partial 'lineup_jobs/item'}}
-        {{/unless}}
-      {{/unless}}
+    {{partial 'lineup_jobs/item'}}
     {{else}}
       <li class="job">
         <div class="job-name">{{t 'jobs.no_yet'}}</div>
