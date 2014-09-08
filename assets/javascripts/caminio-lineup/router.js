@@ -31,10 +31,11 @@
   App.LineupEntriesRoute = Ember.Route.extend({
     
     model: function(){
-      var opts = { 'lineup_events.starts': 'gteDate('+moment().startOf('day').toISOString()+')' };
-      if( !App.get('emberUser.isTrusted') )
-        opts.createdBy = App.get('emberUser.id');
-      return this.store.find('lineup_entry', opts);
+      // var opts = { 'lineup_events.starts': 'gteDate('+moment().startOf('day').toISOString()+')' };
+      // if( !App.get('emberUser.isTrusted') )
+      //   opts.createdBy = App.get('emberUser.id');
+      // return this.store.find('lineup_entry', opts);
+      return this.store.find('lineup_entry');
     },
 
     setupController: function(controller, model){
