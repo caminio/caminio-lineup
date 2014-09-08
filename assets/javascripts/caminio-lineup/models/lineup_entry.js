@@ -26,7 +26,7 @@
     age: DS.attr('number'),
 
     lineup_events: DS.hasMany('lineup_event', { embedded: 'always', inverse: 'lineup_entry' }),
-    ensembles: DS.hasMany('lineup_org', { embedded: 'keys' }),
+    // ensembles: DS.hasMany('lineup_org', { embedded: 'keys' }), // DANGER: DaT!!!
     organizers: DS.hasMany('lineup_org'),
     venues: function(){
       var venues = [];
