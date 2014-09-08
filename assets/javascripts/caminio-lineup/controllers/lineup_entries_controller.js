@@ -49,7 +49,8 @@
       return domainSettings.availableLangs;
     }.property(),
 
-    searchQ: SearchQ.create({ createdBy: (App.get('emberUser.isTrusted') ? null : currentUser._id), startsAt: moment().startOf('day').toISOString() }),
+    searchQ: SearchQ.create(),
+    // searchQ: SearchQ.create({ createdBy: (App.get('emberUser.isTrusted') ? null : currentUser._id), startsAt: moment().startOf('day').toISOString() }),
     
     actions: {
 
