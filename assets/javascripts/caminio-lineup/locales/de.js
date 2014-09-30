@@ -136,6 +136,7 @@
     'org.bus': 'Bus',
 
     'people.title': 'Personen',
+    'people.position': 'Position',
     'person.title': 'Name der Person',
     'person.create': 'Person erstellen',
     'person.name': 'Name',

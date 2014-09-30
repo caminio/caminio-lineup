@@ -7,6 +7,7 @@
     status: DS.attr('string', { defaultValue: 'published'}),
     translations: DS.hasMany( 'translation', { embedded: 'always' } ),
 
+    position: DS.attr('string'),
     tags: DS.attr('array'),
     labels: DS.hasMany( 'label', { async: false, embedded: 'keys' } ),
 
