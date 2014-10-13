@@ -48,33 +48,33 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
       return next();
     }
 
-    caminio.models.Webpage.findOne({ filename: "team" })
+    caminio.models.Webpage.findOne({ filename: "team", camDomain: res.locals.currentDomain })
     .exec( function( err, page ){
-
-      console.log( page, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' );
-
-      carver()
-      .set('cwd', join(res.locals.currentDomain.getContentPath(),'webpages'))
-      .set('snippetKeyword', 'pebble')
-      .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
-      .set('publishingStatusKey', 'status')
-      .includeAll()
-      .registerEngine('jade', require('jade'))
-      .registerHook('before.render',caminioCarver.setupLocals(req,res))
-      .registerHook('after.write', caminioCarver.docDependencies)
-      .registerHook('before.render', markdownCompiler)
-      .registerHook('after.render', snippetParser )
-      .set('doc', page)
-      .set('caminio', caminio)
-      .set('debug', process.env.NODE_ENV === 'development' )
-      .write()
-      .then( function(){
+      if( page ){
+        carver()
+        .set('cwd', join(res.locals.currentDomain.getContentPath(),'webpages'))
+        .set('snippetKeyword', 'pebble')
+        .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
+        .set('publishingStatusKey', 'status')
+        .includeAll()
+        .registerEngine('jade', require('jade'))
+        .registerHook('before.render',caminioCarver.setupLocals(req,res))
+        .registerHook('after.write', caminioCarver.docDependencies)
+        .registerHook('before.render', markdownCompiler)
+        .registerHook('after.render', snippetParser )
+        .set('doc', page)
+        .set('caminio', caminio)
+        .set('debug', process.env.NODE_ENV === 'development' )
+        .write()
+        .then( function(){
+          next();
+        })
+        .catch( function(err){
+          console.log('carver caught', err.stack);
+          next(err);
+        });
+      } else
         next();
-      })
-      .catch( function(err){
-        console.log('carver caught', err.stack);
-        next(err);
-      });
     });
   }
 

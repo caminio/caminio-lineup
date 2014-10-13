@@ -19,6 +19,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var LineupEntry = caminio.models.LineupEntry;
   var Label       = caminio.models.Label;
   var Mediafile   = caminio.models.Mediafile;
+  var Webpage     = caminio.models.Webpage;
 
   return {
 
@@ -33,7 +34,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
     },
 
     _beforeResponse: {
-      'update': [ compilePages, cleanupAttrs ]
+      'update': [ compilePages, cleanupAttrs, compileKukuk ]
     },
 
     events: [
@@ -51,6 +52,42 @@ module.exports = function LineupEntriesController( caminio, policies ){
       }]
 
   };
+
+  function compileKukuk( req, res, next ){
+    Webpage.findOne({ })
+    .where({ camDomain: req.param('camDomain') || res.locals.currentDomain })
+    .where({ filename: 'kukuk' })
+    .exec(function( err, webpage ){
+      if( webpage ){
+        carver()
+          .set('cwd', join(res.locals.currentDomain.getContentPath(),'webpages'))
+          .set('template', 'kukuk')
+          .set('snippetKeyword', 'pebble')
+          .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
+          .set('publishingStatusKey', 'status')
+          .includeAll()
+          .registerEngine('jade', require('jade'))
+          .registerHook('before.render',caminioCarver.setupLocals(req,res))
+          .registerHook('after.write', caminioCarver.docDependencies)
+          .registerHook('before.render', markdownCompiler)
+          .registerHook('after.render', snippetParser )
+          .set('doc', webpage )
+          .set('caminio', caminio)
+          .set('debug', process.env.NODE_ENV === 'development' )
+          .write()
+          .then( function(){
+            next();
+          })
+          .catch( function(err){
+            console.log('carver caught', err.stack);
+            next(err);
+          });
+
+      } else{
+        next();
+      }
+    });
+  }
 
   function collectEvents( req, res, next ){
     var q = LineupEntry.find({ camDomain: res.locals.currentDomain });
