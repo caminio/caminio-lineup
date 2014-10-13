@@ -78,7 +78,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
   schema.virtual('authors').get(function(){
     if( _.isEmpty(this.lineup_jobs) )
       return [];
-    return _.filter(this.lineup_jobs, function(job){ return (job.title && job.title.match(/author|autor|text|playwright/i)); });
+    return _.filter(this.lineup_jobs, function(job){ return (job.title && job.title.match(/author|autor|text|autorenschaft|playwright/i)); });
   });
 
   schema.virtual('directors').get(function(){
@@ -87,6 +87,11 @@ module.exports = function LineupEntry( caminio, mongoose ){
     return _.filter(this.lineup_jobs, function(job){ return (job.title && job.title.match(/director|directing|regie|inszenierung/i)); });
   });
 
+  schema.virtual('others').get(function(){
+    if( _.isEmpty(this.lineup_jobs) )
+      return [];
+    return _.filter(this.lineup_jobs, function(job){ return (job.title && !job.title.match(/author|autor|text|playwright|autorenschaft|director|directing|regie|inszenierung/i)); });
+  });
 
   return schema;
 

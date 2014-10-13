@@ -215,7 +215,9 @@
       },
 
       addEnsemble: function( value, $obj ){
+        console.log('adding ensemble', value);
         var ensemble = this.store.getById('lineup_org', value);
+        console.log(ensemble, this.get('content.ensembles'));
         this.get('content.ensembles').pushObject(ensemble);
         this.get('content').send('becomeDirty');
         $obj.select2('val','');
