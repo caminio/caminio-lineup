@@ -5,7 +5,7 @@
   App.LineupEntriesTableView = Ember.View.extend({
 
     didInsertElement: function(){
-      $(this.$('table.caminio thead .sortable-asc')[3]).click();
+      $(this.$('table.caminio thead .sortable-asc')[3]).click().click();
     },
 
     removeLoader: function() {

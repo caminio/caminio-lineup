@@ -7,9 +7,10 @@
     actions: {
       createPerson: function( name, $obj ){
         var self = this;
+        console.o
         var person = this.get('parentController').store.createRecord('lineup_person', { 
-                                                                        firstname: name.split(/\s+/)[0], 
-                                                                        lastname: name.split(/\s+/)[1] });
+                                                                        firstname: name.split(' ').slice(0,-1).join(' '), 
+                                                                        lastname: name.split(' ').slice(-1).join('') });
 
         person
           .save()
