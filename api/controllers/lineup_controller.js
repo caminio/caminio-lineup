@@ -15,6 +15,7 @@ module.exports = function LineupController( caminio, policies, middleware ){
   var caminioCarver     = require('caminio-carver')(caminio, undefined, 'webpages');
   var snippetParser     = require('carver/plugins').snippetParser;
   var markdownCompiler  = require('carver/plugins').markdownCompiler;
+  var async             = require('async');
 
   var LineupEntry = caminio.models.LineupEntry;
 
@@ -34,6 +35,46 @@ module.exports = function LineupController( caminio, policies, middleware ){
         res.caminio.render();
       }
     ],
+
+    compileAllEntries: [
+      getPublicLineupEntries,
+      function( req, res ){
+        var lineupDir = join(res.locals.currentDomain.getContentPath(),'lineup');
+        if( !fs.existsSync( lineupDir ) ){ 
+          caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
+          return res.send('lineupdir does not exist');
+        }
+        async.eachSeries( req.lineupEntries, function(entry,next){
+          if( !entry || !entry.lineup_events || entry.lineup_events.length < 1 )
+            return next();
+          carver()
+          .set('cwd', lineupDir)
+          .set('template', 'show')
+          .set('langExtension', _.size(res.locals.domainSettings.availableLangs) > 0 )
+          .set('snippetKeyword', 'pebble')
+          .set('publishingStatusKey', 'status')
+          .includeAll()
+          .registerEngine('jade', require('jade'))
+          .registerHook('before.render',caminioCarver.setupLocals(req,res))
+          .registerHook('before.render', markdownCompiler)
+          .registerHook('after.render', snippetParser )
+          .set('doc', entry)
+          .set('caminio', caminio)
+          .set('debug', process.env.NODE_ENV === 'development' )
+          .write()
+          .then( function(){
+            next();
+          })
+          .catch( function(err){
+            caminio.logger.error('carver caught', err.stack);
+            next(err);
+          });
+        
+        }, function(){
+          res.send(arguments);
+        });
+    
+    }],
 
     'compileAll':[
       getFirstLast,
@@ -69,15 +110,6 @@ module.exports = function LineupController( caminio, policies, middleware ){
             if( err ){ return res.send(500,'ERROR:'+require('util').inspect(err)); }
           });
       } 
-    ],
-
-    'compileAllEntries':[
-      getPublicLineupEntries,
-      getFirstLast,
-      compilePages,
-      function(req,res){
-        res.send(200,req.lineupEntries.length+' entries successfully processed');
-      }
     ],
 
     'export': [

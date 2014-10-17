@@ -243,5 +243,4 @@ module.exports = function LineupEntriesController( caminio, policies ){
     next();
   }
 
-
 };
