@@ -33,29 +33,35 @@ collections.forEach( function(name){
 // clone lineup_entries in collection named entries
 var old_entries = db.lineup_entries.find()
 old_entries.forEach( function(e){
-  var entry = prepareEntry(e);
-  entry.lineup_events.forEach( prepareEvents );
-  newDb.lineup_entries.update({ _id: entry._id }, entry, { upsert: true });
+  if( "533996f4c987a9ee5f91b244" === e.camDomain.str  ){
+    var entry = prepareEntry(e);
+    entry.lineup_events.forEach( prepareEvents );
+    newDb.lineup_entries.update({ _id: entry._id }, entry, { upsert: true });
+  }
 });
 
 printjson( newDb.lineup_entries.find().length() + " lineup_entries updated / inserted" );
 
 // clone lineup_persons in collection named persons
 db.lineup_people.find().forEach( function(p){
-  newDb.lineup_persons.insert({ _id: p._id }, p, { upsert: true });
+  if( "533996f4c987a9ee5f91b244" === p.camDomain.str  ){
+    newDb.lineup_persons.insert({ _id: p._id }, p, { upsert: true });
+  }
 });
 
 printjson( newDb.lineup_persons.find().length() + " lineup_persons updated / inserted" );
 
 db.lineup_orgs.find().forEach( function(o){
   // decide if its an ensemble or a venue
-  if( o.type === "ensemble"){
-    var ensemble = prepareEnsemble(o);
-    newDb.lineup_ensembles.update({ _id: ensemble._id }, ensemble, { upsert: true });
-  }
-  else{
-    var venue = prepareVenue(o);
-    newDb.lineup_venues.update({ _id: venue._id }, venue, { upsert: true });
+  if( "533996f4c987a9ee5f91b244" === o.camDomain.str  ){
+    if( o.type === "ensemble"){
+      var ensemble = prepareEnsemble(o);
+      newDb.lineup_ensembles.update({ _id: ensemble._id }, ensemble, { upsert: true });
+    }
+    else{
+      var venue = prepareVenue(o);
+      newDb.lineup_venues.update({ _id: venue._id }, venue, { upsert: true });
+    }
   }
 });
 
