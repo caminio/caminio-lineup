@@ -98,9 +98,6 @@ function makeTranslation( hash, locale, content ){
 function prepareEvents(e){
   var evt = e;
   evt.lineup_venue = evt.lineup_org;
-  if( evt.prices )
-    printjson( evt.prices )
-
   delete evt.camDomain;
   delete evt.lineup_org;
   delete evt.festival;
