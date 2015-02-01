@@ -8,7 +8,7 @@
 conn = new Mongo();
 
 var sourceDbName = "camin_io";
-var targetDbName = "caminio_lineup";
+var targetDbName = "caminio";
 
 // connect with camin_io database
 db = conn.getDB(sourceDbName);
