@@ -70,15 +70,19 @@ printjson( newDb.lineup_venues.find().length() + " lineup_venues updated / inser
 
 function prepareEntry(e){
   var entry = e;
+  e.access_rules = accessRules();
   entry.translations.forEach(function(t){
     makeTranslation( entry.title, t.locale, t.title )
     makeTranslation( entry.subtitle, t.locale, t.subtitle )
     makeTranslation( entry.description, t.locale, t.content )
     if ( entry.quotes === undefined )
       entry.quotes = [];
-    var quote = {}
-    makeTranslation( quote.title, t.locale, t.aside2 )
+    var quote = {
+      title: {},
+      description: {}
+    }
     makeTranslation( quote.description, t.locale, t.aside )
+    makeTranslation( quote.title, t.locale, t.aside2 )
     entry.quotes.push( quote );
   });
   delete entry.camDomain;
@@ -106,7 +110,8 @@ function prepareEvents(e){
 }
 
 function prepareEnsemble(e){
-  var ensemble = e;
+  var ensemble = e;  
+  e.access_rules = accessRules();
   ensemble.lineup_persons = ensemble.members;
   delete ensemble.camDomain;
   delete ensemble.members;
@@ -119,8 +124,23 @@ function prepareEnsemble(e){
 
 function prepareVenue(v){
   var venue = v;
+  v.access_rules = accessRules();
   delete venue.camDomain;
   delete venue.members;
   delete venue.type;
   return venue;
 }
+
+function accessRules(){
+  return [
+    {
+      "_id" : ObjectId("5461e7d27461731976020000"),
+      "can_write" : true,
+      "can_share" : true,
+      "can_delete" : true,
+      "organizational_unit_id" : ObjectId("54221a4d7461734f36000000"),
+      "user_id" : ObjectId("54221a4d7461734f36010000")
+    }
+  ];
+}
+
