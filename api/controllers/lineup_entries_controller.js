@@ -76,9 +76,37 @@ module.exports = function LineupEntriesController( caminio, policies ){
     next();
   }
 
-  function updateLineupEvent( event, next ){
+  function updateLineupEvent( evt, next ){
+    console.log("GOING TO PUT: ", evt )
+    superagent.agent()
+    .put( server + "/" + evt.updateID )
+    .send({ 'lineup_person': cur_person, 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
+    .end( function(err,res){
+      if( res )
+        caminio.logger.debug('JUST UPDATED: ', res.text);
+      next();
+    });
     next();
   }
+
+
+  function prepareEvents(e){
+    var evt = e;
+    evt.lineup_venue_id = evt.lineup_org;
+    return evt;
+  }
+
+
+  function prepareEntry(e){
+    var entry = e;
+    // TODO TRANSLATION
+    entry.jobs = entry.lineup_jobs
+
+    entry.created_at = entry.createdAt;
+    entry.updated_at = entry.updatedAt;
+    return entry;
+  }
+
 
   function compileKukuk( req, res, next ){
     Webpage.findOne({ })
