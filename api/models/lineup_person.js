@@ -17,6 +17,8 @@ module.exports = function LineupPerson( caminio, mongoose ){
 
   var schema = new mongoose.Schema({
 
+    updateID: { type: String, public: true },
+    
     type: { type: String, public: true, index: true },
     mediafiles: { type: [ MediafileSchema ], public: true },
 

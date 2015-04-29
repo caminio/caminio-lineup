@@ -24,6 +24,7 @@
     members: DS.hasMany('lineup_person'),
 
     origUrl: DS.attr('string'),
+    updateID: DS.attr('string'),
 
     extRefId: DS.attr('string'),
     extRefSrc: DS.attr('string'),

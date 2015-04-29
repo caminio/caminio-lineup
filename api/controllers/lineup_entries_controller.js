@@ -21,6 +21,13 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var Mediafile   = caminio.models.Mediafile;
   var Webpage     = caminio.models.Webpage;
 
+  var superagent = require('superagent');
+
+  var targetOrganizationId = "552b97136461761e43010000";
+  var targetUserId = "552b97136461761e43000000";
+  var api_key = '63a359af8a18aaa633d49294fc05c440';
+
+
   return {
 
     _policies: {
@@ -30,7 +37,9 @@ module.exports = function LineupEntriesController( caminio, policies ){
     },
 
     _before: {
-      'update': [ checkLocaleExistsAndDismiss, checkFestival, sortEvents, repairEmberLabels ]
+      'create': createLineupEntry,
+      'update': [ checkLocaleExistsAndDismiss, checkFestival, sortEvents, repairEmberLabels, updateLineupEntry ],
+      'destroy': destroyLineupEntry
     },
 
     _beforeResponse: {
@@ -52,6 +61,24 @@ module.exports = function LineupEntriesController( caminio, policies ){
       }]
 
   };
+  
+  function createLineupEntry( req, res, next ){
+    next();
+  }
+
+  function updateLineupEntry( req, res, next ){
+    console.log( req.body, ">>> WE DO THAT <<<" )
+    entry = req.body.lineup_entry;
+    async.each( entry.lineup_events, updateLineupEvent, next );
+  }
+
+  function destroyLineupEntry( req, res, next ){
+    next();
+  }
+
+  function updateLineupEvent( event, next ){
+    next();
+  }
 
   function compileKukuk( req, res, next ){
     Webpage.findOne({ })

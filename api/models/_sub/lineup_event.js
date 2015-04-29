@@ -12,6 +12,8 @@ module.exports = function LineupEvent( caminio, mongoose ){
 
   var schema = new mongoose.Schema({
 
+    updateID: { type: String, public: true },
+
     starts: { type: Date, public: true },
     lineup_org: { type: ObjectId, ref: 'LineupOrg', public: true },
     shop_orders: { type: [ObjectId], ref: 'ShopOrder' },

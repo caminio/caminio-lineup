@@ -20,7 +20,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
   var LineupJobSchema     = require( __dirname+'/_sub/lineup_job' )( caminio, mongoose );
 
   var schema = new mongoose.Schema({
-
+    
     //type: { type: String, public: true, index: true },
 
     notifyCreatorOnChange: { type: Boolean, public: true, default: true },

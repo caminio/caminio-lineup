@@ -15,10 +15,23 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
   var snippetParser     = require('carver/plugins').snippetParser;
   var markdownCompiler  = require('carver/plugins').markdownCompiler;
 
+  var LineupPeople   = caminio.models.LineupPerson;
+
+  var superagent = require('superagent');
+
+  var targetOrganizationId = "552b97136461761e43010000";
+  var targetUserId = "552b97136461761e43000000";
+  var api_key = '63a359af8a18aaa633d49294fc05c440';
+
+  var server = "localhost:5000/api/v1/lineup_persons"
+
   return {
 
     _before: {
-      '*': policies.ensureLogin
+      '*': policies.ensureLogin,
+      'update': updateLineupPerson,
+      'create': createLineupPerson,
+      'destroy': destroyLineupPerson
     },
 
     _beforeResponse: {
@@ -31,6 +44,49 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
     // }
 
   };
+
+  function createLineupPerson( req, res, next ){
+    var person = req.body.lineup_person;
+    superagent.agent()
+    .post( server + "/" )
+    .send({ 'lineup_person': person, 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
+    .end( function(err,res){
+      req.body.lineup_person.updateID = JSON.parse( res.text).lineup_person.id;
+      caminio.logger.debug('JUST CREATED: ', req.body.lineup_person );
+      next();
+    });
+  }
+
+  function updateLineupPerson( req, res, next ){
+    LineupPeople.find({ '_id': req.params.id }).exec( function( err, persons){
+      var cur_person = persons[0];
+      superagent.agent()
+      .put( server + "/" + cur_person.updateID )
+      .send({ 'lineup_person': cur_person, 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
+      .end( function(err,res){
+        if( res )
+          caminio.logger.debug('JUST UPDATED: ', res.text);
+        next();
+      });
+    });  
+  }
+
+  function destroyLineupPerson( req, res, next ){
+    LineupPeople.find({ '_id': req.params.id }).exec( function( err, persons){
+      var cur_person = persons[0];
+      superagent.agent()
+      .del( server + "/" + cur_person.updateID )
+      .send({ 'api_key': api_key })
+      .end( function(err,res){
+        if( res )
+          caminio.logger.debug('JUST DESTROYED: ', res.text);
+        next();
+      });
+    });
+  }
+
+
+
 
   function getWebpage( req, res, next ){
     caminio.models.Webpage.findOne({ filename: "team" })
