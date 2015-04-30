@@ -22,6 +22,7 @@ module.exports = function LineupEntry( caminio, mongoose ){
   var schema = new mongoose.Schema({
     
     //type: { type: String, public: true, index: true },
+    updateID: { type: String, public: true },
 
     notifyCreatorOnChange: { type: Boolean, public: true, default: true },
 

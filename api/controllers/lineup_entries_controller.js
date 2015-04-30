@@ -27,6 +27,8 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var targetUserId = "552b97136461761e43000000";
   var api_key = '63a359af8a18aaa633d49294fc05c440';
 
+  var entry_server = "localhost:5000/api/v1/lineup_entries"
+  var event_server = "localhost:5000/api/v1/lineup_events"
 
   return {
 
@@ -63,43 +65,114 @@ module.exports = function LineupEntriesController( caminio, policies ){
   };
   
   function createLineupEntry( req, res, next ){
-    next();
+    var entry = req.body.lineup_entry;    
+    superagent.agent()
+    .post( entry_server + "/" )
+    .send({ 'lineup_entry': prepareEntry(entry, req.locale.split('-')[0]), 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
+    .end( function(err,res){
+      var entryUpdateID = JSON.parse( res.text).lineup_entry.id;
+      req.body.lineup_entry.updateID =  entryUpdateID;
+      caminio.logger.debug('JUST CREATED: ', req.body.lineup_entry );
+      next();
+    });
   }
 
   function updateLineupEntry( req, res, next ){
-    console.log( req.body, ">>> WE DO THAT <<<" )
-    entry = req.body.lineup_entry;
-    async.each( entry.lineup_events, updateLineupEvent, next );
+    LineupEntry.find({ '_id': req.params.id }).exec( function( err, entries){
+
+      var entryUpdateID = entries[0].updateID || req.params.id;
+      var entry = req.body.lineup_entry; 
+      async.each( entry.lineup_events, updateLineupEvent, updateEntry );
+
+      function updateEntry(){
+        superagent.agent()
+        .put( entry_server + "/" + entryUpdateID )
+        .send({ 'lineup_entry': prepareEntry(entry, req.locale.split('-')[0]), 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
+        .end( function(err,res){
+          if( res )
+            caminio.logger.debug('JUST UPDATED: ', res.text);
+          next();
+        });
+      }
+
+      function updateLineupEvent( evt, nextEvt ){
+        // var updateID = _.find( entries[0].lineup_events, { '_id': evt._id }, 'updateID' );
+        var updateID = false;
+        entries[0].lineup_events.forEach( function( curEvt ){
+          if( evt._id == curEvt._id )
+            updateID = curEvt.updateID;
+        });
+        if( updateID ){
+          superagent.agent()
+          .put( event_server + "/" + updateID )
+          .send({ 
+            'lineup_event': prepareEvent(evt), 
+            'api_key': api_key, 
+            'locale': req.locale.split('-')[0],
+            'lineup_entry_id': entryUpdateID  
+          })
+          .end( function(err,res){
+            if( res )
+              caminio.logger.debug('JUST UPDATED: ', res.text);
+            nextEvt();
+          });
+        }
+        else{
+          superagent.agent()
+          .post( event_server + "/" )
+          .send({ 
+            'lineup_event': prepareEvent(evt), 
+            'api_key': api_key, 
+            'locale': req.locale.split('-')[0],
+            'lineup_entry_id': entryUpdateID    
+          })
+          .end( function(err, res){
+            evt.updateID = JSON.parse( res.text ).lineup_event.id;
+            if( res )
+              caminio.logger.debug('JUST UPDATED: ', evt );
+            nextEvt();
+          });
+        }
+      }
+
+    });
+
   }
 
   function destroyLineupEntry( req, res, next ){
-    next();
-  }
-
-  function updateLineupEvent( evt, next ){
-    console.log("GOING TO PUT: ", evt )
-    superagent.agent()
-    .put( server + "/" + evt.updateID )
-    .send({ 'lineup_person': cur_person, 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
-    .end( function(err,res){
-      if( res )
-        caminio.logger.debug('JUST UPDATED: ', res.text);
-      next();
+    LineupEntry.find({ '_id': req.params.id }).exec( function( err, entries){
+      var entry = entries[0];
+      superagent.agent()
+      .del( entry_server + "/" + entry.updateID )
+      .send({ 'api_key': api_key })
+      .end( function(err,res){
+        if( res )
+          caminio.logger.debug('JUST DESTROYED: ', res.text);
+        next();
+      });
     });
-    next();
   }
 
 
-  function prepareEvents(e){
+  function prepareEvent(e){
     var evt = e;
     evt.lineup_venue_id = evt.lineup_org;
     return evt;
   }
 
 
-  function prepareEntry(e){
+  function prepareEntry(e, locale){
+    var first = true;
     var entry = e;
-    // TODO TRANSLATION
+
+    entry.translations.forEach( function(t){
+      if( t.locale === locale && first ){
+        entry.title = t.title;
+        entry.subtitle = t.subtitle;
+        entry.description = t.content;
+        first = false;
+      }
+    });
     entry.jobs = entry.lineup_jobs
 
     entry.created_at = entry.createdAt;
