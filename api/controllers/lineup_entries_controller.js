@@ -25,7 +25,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
 
   var targetOrganizationId = "552b97136461761e43010000";
   var targetUserId = "552b97136461761e43000000";
-  var api_key = '63a359af8a18aaa633d49294fc05c440';
+  var api_key = '98af93326c4fef65cde9f57cf5d56f7f';
 
   var entry_server = "localhost:5000/api/v1/lineup_entries"
   var event_server = "localhost:5000/api/v1/lineup_events"
