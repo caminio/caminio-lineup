@@ -23,7 +23,7 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
   var targetUserId = "552b97136461761e43000000";
   var api_key = '98af93326c4fef65cde9f57cf5d56f7f';
 
-  var server = "www.ticketeer.at/api/v1/lineup_persons"
+  var server = "www.ticketeer.at/api/v1/lineup_persons";
 
   return {
 

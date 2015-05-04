@@ -27,8 +27,8 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var targetUserId = "552b97136461761e43000000";
   var api_key = '98af93326c4fef65cde9f57cf5d56f7f';
 
-  var entry_server = "www.ticketeer.at/api/v1/lineup_entries"
-  var event_server = "www.ticketeer.at/api/v1/lineup_events"
+  var entry_server = "www.ticketeer.at/api/v1/lineup_entries";
+  var event_server = "www.ticketeer.at/api/v1/lineup_events";
 
   return {
 
@@ -173,7 +173,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
         first = false;
       }
     });
-    entry.jobs = entry.lineup_jobs
+    entry.jobs = entry.lineup_jobs;
 
     entry.created_at = entry.createdAt;
     entry.updated_at = entry.updatedAt;
