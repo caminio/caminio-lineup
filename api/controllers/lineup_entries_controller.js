@@ -27,8 +27,8 @@ module.exports = function LineupEntriesController( caminio, policies ){
   var targetUserId = "552b97136461761e43000000";
   var api_key = '98af93326c4fef65cde9f57cf5d56f7f';
 
-  var entry_server = "localhost:5000/api/v1/lineup_entries"
-  var event_server = "localhost:5000/api/v1/lineup_events"
+  var entry_server = "www.ticketeer.at/api/v1/lineup_entries"
+  var event_server = "www.ticketeer.at/api/v1/lineup_events"
 
   return {
 
