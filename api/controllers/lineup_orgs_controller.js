@@ -15,7 +15,7 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
   var targetUserId = "552b97136461761e43000000";
   var api_key = '98af93326c4fef65cde9f57cf5d56f7f';
 
-  var server = "localhost:5000/api/v1/lineup_venues"
+  var server = "www.ticketeer.at/api/v1/lineup_venues"
 
   return {
 
