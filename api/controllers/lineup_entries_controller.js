@@ -307,7 +307,6 @@ module.exports = function LineupEntriesController( caminio, policies ){
       caminio.logger.debug('skipping carver, as', lineupDir, 'does not exist');
       return next();
     }
-    console.log('BEFORE CARVER')
     carver()
       .set('cwd', lineupDir)
       .set('template', 'show')
