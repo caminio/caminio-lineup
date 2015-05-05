@@ -41,12 +41,13 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
       superagent.agent()
       .post( server + "/" )
       .send({ 'lineup_venue': venue, 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
-      .end( function(err,res){
-        var res_venue = JSON.parse( res.text).lineup_venue;
-        if ( res_venue ){
-          req.body.lineup_org.updateID =  res_venue.id;
-          caminio.logger.debug('JUST CREATED: ', req.body.lineup_org );
-        }
+      .end( function(err,res){        
+        if ( res.statusCode < 300 ){
+          var res_venue = JSON.parse( res.text).lineup_venue;
+          if ( res_venue ){
+            req.body.lineup_org.updateID =  res_venue.id;
+            caminio.logger.debug('JUST CREATED: ', req.body.lineup_org );
+        } }
         next();
       });
     }  

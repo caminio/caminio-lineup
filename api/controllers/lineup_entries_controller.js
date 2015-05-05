@@ -70,12 +70,13 @@ module.exports = function LineupEntriesController( caminio, policies ){
     .post( entry_server + "/" )
     .send({ 'lineup_entry': prepareEntry(entry, req.locale.split('-')[0]), 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
     .end( function(err,res){
-      var res_entry = JSON.parse(  res.text  ).lineup_entry; 
-      if ( res_entry ) {
-        var entryUpdateID = res_entry.id;
-        req.body.lineup_entry.updateID =  entryUpdateID;
-        caminio.logger.debug('JUST CREATED: ', req.body.lineup_entry );
-      }
+      if ( res.statusCode < 300 ){
+        var res_entry = JSON.parse(  res.text  ).lineup_entry; 
+        if ( res_entry ) {
+          var entryUpdateID = res_entry.id;
+          req.body.lineup_entry.updateID =  entryUpdateID;
+          caminio.logger.debug('JUST CREATED: ', req.body.lineup_entry );
+      } }
       next();
     });
   }
