@@ -51,8 +51,11 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
     .post( server + "/" )
     .send({ 'lineup_person': person, 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
     .end( function(err,res){
-      req.body.lineup_person.updateID = JSON.parse( res.text).lineup_person.id;
-      caminio.logger.debug('JUST CREATED: ', req.body.lineup_person );
+      var res_person = JSON.parse( res.text).lineup_person;
+      if(res_person){
+        req.body.lineup_person.updateID = res_person.id;
+        caminio.logger.debug('JUST CREATED: ', req.body.lineup_person );
+      }
       next();
     });
   }

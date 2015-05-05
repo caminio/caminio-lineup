@@ -15,7 +15,7 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
   var targetUserId = "552b97136461761e43000000";
   var api_key = '98af93326c4fef65cde9f57cf5d56f7f';
 
-  var server = "www.ticketeer.at/api/v1/lineup_venues"
+  var server = "www.ticketeer.at/api/v1/lineup_venues";
 
   return {
 
@@ -42,8 +42,11 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
       .post( server + "/" )
       .send({ 'lineup_venue': venue, 'api_key': api_key, 'locale': req.locale.split('-')[0]  })
       .end( function(err,res){
-        req.body.lineup_org.updateID =  JSON.parse( res.text).lineup_venue.id;
-        caminio.logger.debug('JUST CREATED: ', req.body.lineup_org );
+        var res_venue = JSON.parse( res.text).lineup_venue;
+        if ( res_venue ){
+          req.body.lineup_org.updateID =  res_venue.id;
+          caminio.logger.debug('JUST CREATED: ', req.body.lineup_org );
+        }
         next();
       });
     }  
@@ -112,7 +115,7 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
     var first = true;
 
     venue.seats = -1;
-    venue._type = "LineupVenue"
+    venue._type = "LineupVenue";
     venue.translations.forEach( function(t){
       if( t.locale === locale && first ){
         venue.title = t.title;
