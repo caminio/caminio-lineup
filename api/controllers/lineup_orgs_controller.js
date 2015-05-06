@@ -35,6 +35,8 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
 
 
   function createLineupVenue( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     var org = req.body.lineup_org;
     if( org.type === 'venue' ){
       var venue = prepareVenue( org, req.locale.split('-')[0] );
@@ -54,6 +56,8 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
   }
 
   function updateLineupVenue( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     LineupOrg.find({ '_id': req.params.id }).exec( function( err, orgs){
       var cur_org = orgs[0];
       var org = req.body.lineup_org;
@@ -72,6 +76,8 @@ module.exports = function LineupOrgsController( caminio, policies, middleware ){
   }
 
   function destroyLineupVenue( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     LineupOrg.find({ '_id': req.params.id }).exec( function( err, orgs){
       var org = orgs[0];
       if( org && org.type === 'venue' ){

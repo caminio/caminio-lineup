@@ -29,6 +29,7 @@ module.exports = function LineupEntriesController( caminio, policies ){
 
   var entry_server = "www.ticketeer.at/api/v1/lineup_entries";
   var event_server = "www.ticketeer.at/api/v1/lineup_events";
+  var sourceCamDomain = "533996f4c987a9ee5f91b244";
 
   return {
 
@@ -65,6 +66,8 @@ module.exports = function LineupEntriesController( caminio, policies ){
   };
   
   function createLineupEntry( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     var entry = req.body.lineup_entry;    
     superagent.agent()
     .post( entry_server + "/" )
@@ -82,6 +85,8 @@ module.exports = function LineupEntriesController( caminio, policies ){
   }
 
   function updateLineupEntry( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     LineupEntry.find({ '_id': req.params.id }).exec( function( err, entries){
 
       var entryUpdateID = entries[0].updateID || req.params.id;
@@ -131,9 +136,12 @@ module.exports = function LineupEntriesController( caminio, policies ){
             'lineup_entry_id': entryUpdateID    
           })
           .end( function(err, res){
-            evt.updateID = JSON.parse( res.text ).lineup_event.id;
-            if( res )
-              caminio.logger.debug('JUST UPDATED: ', evt );
+            if ( res.statusCode < 300 ){
+              var res_event = JSON.parse(  res.text  ).lineup_event; 
+              if ( res_event ) {
+                  evt.updateID = res_event.lineup_event.id;
+                  caminio.logger.debug('JUST UPDATED: ', evt );
+            }  }
             nextEvt();
           });
         }
@@ -144,6 +152,8 @@ module.exports = function LineupEntriesController( caminio, policies ){
   }
 
   function destroyLineupEntry( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     LineupEntry.find({ '_id': req.params.id }).exec( function( err, entries){
       var entry = entries[0];
       superagent.agent()

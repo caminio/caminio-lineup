@@ -46,6 +46,8 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
   };
 
   function createLineupPerson( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     var person = req.body.lineup_person;
     superagent.agent()
     .post( server + "/" )
@@ -62,6 +64,8 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
   }
 
   function updateLineupPerson( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     LineupPeople.find({ '_id': req.params.id }).exec( function( err, persons){
       var cur_person = persons[0];
       superagent.agent()
@@ -76,6 +80,8 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
   }
 
   function destroyLineupPerson( req, res, next ){
+    if( req.session.camDomainId != sourceCamDomain )
+      return next();
     LineupPeople.find({ '_id': req.params.id }).exec( function( err, persons){
       var cur_person = persons[0];
       superagent.agent()
