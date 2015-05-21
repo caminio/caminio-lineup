@@ -24,6 +24,7 @@ module.exports = function LineupPeopleController( caminio, policies, middleware 
   var api_key = '98af93326c4fef65cde9f57cf5d56f7f';
 
   var server = "www.ticketeer.at/api/v1/lineup_persons";
+  var sourceCamDomain = "533996f4c987a9ee5f91b244";
 
   return {
 
