@@ -40,8 +40,8 @@ module.exports = function LineupEntriesController( caminio, policies ){
     },
 
     _before: {
-      'create': createLineupEntry,
-      'update': [ checkLocaleExistsAndDismiss, checkFestival, sortEvents, repairEmberLabels, updateLineupEntry ],
+      // 'create': createLineupEntry,
+      'update': [ checkLocaleExistsAndDismiss, checkFestival, sortEvents, repairEmberLabels ],//, updateLineupEntry ],
       'destroy': destroyLineupEntry
     },
 
